@@ -37,8 +37,9 @@ class Channel(Protocol):
 
 
 class Engine:
-    def __init__(self, store: Store, channels: dict[str, Channel], ats: Adapter | None = None, notifier: Adapter | None = None,
-                 extractor: Any = None) -> None:
+    def __init__(
+        self, store: Store, channels: dict[str, Channel], ats: Adapter | None = None, notifier: Adapter | None = None, extractor: Any = None
+    ) -> None:
         self.store = store
         self.channels = channels
         self.ats = ats
@@ -60,10 +61,11 @@ class Engine:
             Store.lock(c, channel, phone)
             if Store.seen(c, msg.id):
                 return {"status": "duplicate"}
-            conv = Store.get_conversation(c, channel, phone) or Conversation(id=str(uuid.uuid4()), phone=phone)
+            conv = Store.get_conversation(c, channel, phone) or Conversation(id=str(uuid.uuid4()), phone=phone, last_inbound_at=msg.at.isoformat())
             was = conv.stage
             Store.save_conversation(c, channel, conv)
-            body, red = redact(msg.text or "", conv.lang)
+            # a tapped reply button is stored as "[button_id]", so the chat history shows the choice
+            body, red = redact(msg.text or (f"[{msg.button_id}]" if msg.button_id else ""), conv.lang)
             Store.add_message(c, conv.id, "in", msg.kind, body, msg.at, channel_id=msg.id, redacted=red)
             res = agent.handle(conv, msg)
             if was == "deleted" and conv.stage != "deleted":
@@ -80,9 +82,19 @@ class Engine:
                         p = handover_payload(conv, j["job_id"], j["verdict"], agent.summary(conv))
                         Store.enqueue(c, conv.id, "ats", p, f"handover:{conv.id}:{j['job_id']}:{conv.handed_over_at}", msg.at)
                 if e["type"] in NOTIFY and self.notifier is not None:
-                    Store.enqueue(c, None if e["type"] == "deleted" else conv.id, "webhook",
-                                  {"event": e["type"], "conversation_id": conv.id if e["type"] != "deleted" else None, "at": msg.at.isoformat(),
-                                   "job_id": conv.job_id}, f"event:{msg.id}:{e['type']}", msg.at)
+                    Store.enqueue(
+                        c,
+                        None if e["type"] == "deleted" else conv.id,
+                        "webhook",
+                        {
+                            "event": e["type"],
+                            "conversation_id": conv.id if e["type"] != "deleted" else None,
+                            "at": msg.at.isoformat(),
+                            "job_id": conv.job_id,
+                        },
+                        f"event:{msg.id}:{e['type']}",
+                        msg.at,
+                    )
             for i, out in enumerate(res.outgoing):
                 Store.enqueue(c, conv.id, "message", {"channel": channel, "to": phone, "out": asdict(out)}, f"reply:{msg.id}:{i}", msg.at)
         return {"status": "processed", "conversation_id": conv.id, "stage": conv.stage, "replies": len(res.outgoing)}
@@ -96,8 +108,11 @@ class Engine:
         prices = self.st["whatsapp"]["prices_usd"]
         with self.store.conn() as c:
             cost = prices.get(s.category or "", 0.0) if s.billable else 0.0
-            c.execute("""UPDATE messages SET status = %s, category = COALESCE(%s, category), cost_usd = CASE WHEN %s THEN %s ELSE cost_usd END
-                         WHERE direction = 'out' AND channel_id = %s""", (s.status, s.category, s.billable is not None, cost, s.message_id))
+            c.execute(
+                """UPDATE messages SET status = %s, category = COALESCE(%s, category), cost_usd = CASE WHEN %s THEN %s ELSE cost_usd END
+                         WHERE direction = 'out' AND channel_id = %s""",
+                (s.status, s.category, s.billable is not None, cost, s.message_id),
+            )
             if s.status == "failed":
                 row = c.execute("SELECT conversation_id FROM messages WHERE direction = 'out' AND channel_id = %s", (s.message_id,)).fetchone()
                 if row:
@@ -111,7 +126,9 @@ class Engine:
             rows = c.execute(
                 """UPDATE outbox SET attempts = attempts + 1, next_attempt_at = %s
                    WHERE id IN (SELECT id FROM outbox WHERE status = 'pending' AND next_attempt_at <= %s ORDER BY id LIMIT %s FOR UPDATE SKIP LOCKED)
-                   RETURNING *""", (now + LEASE, now, limit)).fetchall()
+                   RETURNING *""",
+                (now + LEASE, now, limit),
+            ).fetchall()
         for row in sorted(rows, key=lambda r: r["id"]):
             try:
                 outcome, ext = self._send(row, now)
@@ -130,8 +147,10 @@ class Engine:
                         stats["failed" if status == "failed" else "expired"] += 1
                 continue
             with self.store.conn() as c:
-                c.execute("UPDATE outbox SET status = %s, sent_at = %s, external_id = %s WHERE id = %s",
-                          ("sent" if outcome == "sent" else "expired", now, ext, row["id"]))
+                c.execute(
+                    "UPDATE outbox SET status = %s, sent_at = %s, external_id = %s WHERE id = %s",
+                    ("sent" if outcome == "sent" else "expired", now, ext, row["id"]),
+                )
             stats["sent" if outcome == "sent" else "expired"] += 1
         return stats
 
@@ -178,9 +197,11 @@ class Engine:
         agent = self.agent()
         queued = 0
         with self.store.conn() as c:
-            rows = c.execute("""SELECT channel, phone FROM conversations
+            rows = c.execute(
+                """SELECT channel, phone FROM conversations
                                 WHERE stage IN ('collecting', 'confirming', 'fixing', 'handover_details') AND updated_at < %s""",
-                             (now - timedelta(hours=min(self.st["followups"]["schedule_hours"]) - 1),)).fetchall()
+                (now - timedelta(hours=min(self.st["followups"]["schedule_hours"]) - 1),),
+            ).fetchall()
         for r in rows:
             with self.store.conn() as c, c.transaction():
                 Store.lock(c, r["channel"], r["phone"])

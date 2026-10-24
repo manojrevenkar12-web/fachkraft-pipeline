@@ -97,11 +97,16 @@ def parse_webhook(doc: dict[str, Any]) -> WebhookBatch:
             for s in value.get("statuses", []):
                 pricing = s.get("pricing") or {}
                 errors = s.get("errors") or [{}]
-                out.statuses.append(Status(
-                    message_id=s.get("id", ""), status=s.get("status", ""), at=datetime.fromtimestamp(int(s.get("timestamp", "0")), UTC),
-                    category=pricing.get("category"), billable=pricing.get("billable"),
-                    error_code=errors[0].get("code") if s.get("status") == "failed" else None,
-                ))
+                out.statuses.append(
+                    Status(
+                        message_id=s.get("id", ""),
+                        status=s.get("status", ""),
+                        at=datetime.fromtimestamp(int(s.get("timestamp", "0")), UTC),
+                        category=pricing.get("category"),
+                        billable=pricing.get("billable"),
+                        error_code=errors[0].get("code") if s.get("status") == "failed" else None,
+                    )
+                )
     return out
 
 
@@ -110,26 +115,43 @@ def payload(to: str, out: Outgoing) -> dict[str, Any]:
     base: dict[str, Any] = {"messaging_product": "whatsapp", "recipient_type": "individual", "to": to}
     if out.kind == "template":
         t = out.template or {}
-        return {**base, "type": "template", "template": {
-            "name": t["name"], "language": {"code": t.get("language", "de")},
-            "components": [{"type": "body", "parameters": [{"type": "text", "text": str(p)} for p in t.get("params", [])]}],
-        }}
+        return {
+            **base,
+            "type": "template",
+            "template": {
+                "name": t["name"],
+                "language": {"code": t.get("language", "de")},
+                "components": [{"type": "body", "parameters": [{"type": "text", "text": str(p)} for p in t.get("params", [])]}],
+            },
+        }
     if out.kind == "buttons":
         if len(out.buttons) > MAX_BUTTONS:
             raise ValueError("WhatsApp allows at most 3 reply buttons")
         for _, title in out.buttons:
             if len(title) > MAX_BUTTON_TITLE:
                 raise ValueError(f"button title longer than {MAX_BUTTON_TITLE} characters: {title!r}")
-        return {**base, "type": "interactive", "interactive": {
-            "type": "button", "body": {"text": out.body[:1024]},
-            "action": {"buttons": [{"type": "reply", "reply": {"id": i, "title": t}} for i, t in out.buttons]},
-        }}
+        return {
+            **base,
+            "type": "interactive",
+            "interactive": {
+                "type": "button",
+                "body": {"text": out.body[:1024]},
+                "action": {"buttons": [{"type": "reply", "reply": {"id": i, "title": t}} for i, t in out.buttons]},
+            },
+        }
     return {**base, "type": "text", "text": {"body": out.body[:4096], "preview_url": False}}
 
 
 class CloudApiClient:
-    def __init__(self, phone_number_id: str, token: str, graph_version: str = "v21.0", base_url: str = "https://graph.facebook.com",
-                 timeout: float = 10.0, transport: httpx.BaseTransport | None = None) -> None:
+    def __init__(
+        self,
+        phone_number_id: str,
+        token: str,
+        graph_version: str = "v21.0",
+        base_url: str = "https://graph.facebook.com",
+        timeout: float = 10.0,
+        transport: httpx.BaseTransport | None = None,
+    ) -> None:
         self.url = f"{base_url}/{graph_version}/{phone_number_id}/messages"
         self.client = httpx.Client(timeout=timeout, transport=transport, headers={"Authorization": f"Bearer {token}"})
 

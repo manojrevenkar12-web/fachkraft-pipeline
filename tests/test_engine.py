@@ -32,8 +32,14 @@ class Flaky(SandboxClient):
 
 
 def msg(i, text="", button="", at=None, kind=None):
-    return Inbound(id=f"wamid.{i}", at=at or T0 + timedelta(minutes=i), kind=kind or ("button" if button else "text"), text=text,
-                   button_id=button, profile_name="Ana Popescu")
+    return Inbound(
+        id=f"wamid.{i}",
+        at=at or T0 + timedelta(minutes=i),
+        kind=kind or ("button" if button else "text"),
+        text=text,
+        button_id=button,
+        profile_name="Ana Popescu",
+    )
 
 
 def run(engine, texts, phone=PHONE, start=0):
@@ -82,11 +88,22 @@ def test_full_flow_hands_over_through_the_ats_webhook(store):
 
     ats = WebhookAdapter("https://ats.example/hook", "s3cret", transport=httpx.MockTransport(handler))
     e = Engine(store, {"whatsapp": SandboxClient()}, ats)
-    run(e, ["J-LKW-LEJ: LKW-Fahrer mit CE und Code 95, wohne in 04315 Leipzig", "@consent_yes", "ab 1.12.",
-            "früh und spät, keine Nacht", "8 Jahre", "@confirm_yes", "ana@mail.example"])
+    run(
+        e,
+        [
+            "J-LKW-LEJ: LKW-Fahrer mit CE und Code 95, wohne in 04315 Leipzig",
+            "@consent_yes",
+            "ab 1.12.",
+            "früh und spät, keine Nacht",
+            "8 Jahre",
+            "@confirm_yes",
+            "ana@mail.example",
+        ],
+    )
     e.deliver(T0 + timedelta(hours=1))
     assert len(got) == 1
     import json
+
     body = json.loads(got[0].content)["data"]
     assert body["job_id"] == "J-LKW-LEJ" and body["verdict"] == "fit" and body["email"] == "ana@mail.example"
     assert body["profile"]["licences"]["evidence"] and "Code 95" in body["summary"]

@@ -25,7 +25,9 @@ Conn = psycopg.Connection[dict[str, Any]]
 class Store:
     def __init__(self, dsn: str, pool_size: int = 8) -> None:
         self.dsn = dsn
-        self.pool: ConnectionPool[Conn] = ConnectionPool(dsn, min_size=1, max_size=pool_size, kwargs={"row_factory": dict_row}, open=True)
+        self.pool: ConnectionPool[Conn] = ConnectionPool(
+            dsn, min_size=1, max_size=pool_size, kwargs={"row_factory": dict_row}, open=True, check=ConnectionPool.check_connection
+        )  # survive a database restart or failover
 
     def close(self) -> None:
         self.pool.close()
@@ -71,11 +73,22 @@ class Store:
                ON CONFLICT (channel, phone) DO UPDATE SET lang = EXCLUDED.lang, stage = EXCLUDED.stage, job_id = EXCLUDED.job_id,
                  state = EXCLUDED.state, updated_at = EXCLUDED.updated_at, last_inbound_at = EXCLUDED.last_inbound_at, consent_at = EXCLUDED.consent_at,
                  handed_over_at = EXCLUDED.handed_over_at, pool_until = EXCLUDED.pool_until""",
-            {"id": conv.id, "channel": channel, "phone": conv.phone, "lang": conv.lang, "stage": conv.stage, "job_id": conv.job_id,
-             "state": Jsonb(conv.to_dict()), "li": conv.last_inbound_at, "ca": conv.consent_at, "ho": conv.handed_over_at, "pu": conv.pool_until,
-             # activity time comes from the messages, not the database clock, so retention and
-             # reminders follow the conversation (and tests can run in simulated time)
-             "ua": max(filter(None, [conv.last_inbound_at, conv.last_outbound_at]), default=None)},
+            {
+                "id": conv.id,
+                "channel": channel,
+                "phone": conv.phone,
+                "lang": conv.lang,
+                "stage": conv.stage,
+                "job_id": conv.job_id,
+                "state": Jsonb(conv.to_dict()),
+                "li": conv.last_inbound_at,
+                "ca": conv.consent_at,
+                "ho": conv.handed_over_at,
+                "pu": conv.pool_until,
+                # activity time comes from the messages, not the database clock, so retention and
+                # reminders follow the conversation (and tests can run in simulated time)
+                "ua": max(filter(None, [conv.last_inbound_at, conv.last_outbound_at]), default=None),
+            },
         )
 
     @staticmethod
@@ -83,8 +96,18 @@ class Store:
         return c.execute("SELECT * FROM conversations WHERE id = %s", (cid,)).fetchone()
 
     @staticmethod
-    def add_message(c: Conn, cid: str, direction: str, kind: str, body: str, at: datetime, channel_id: str | None = None,
-                    purpose: str | None = None, status: str | None = None, redacted: bool = False) -> int | None:
+    def add_message(
+        c: Conn,
+        cid: str,
+        direction: str,
+        kind: str,
+        body: str,
+        at: datetime,
+        channel_id: str | None = None,
+        purpose: str | None = None,
+        status: str | None = None,
+        redacted: bool = False,
+    ) -> int | None:
         r = c.execute(
             """INSERT INTO messages (conversation_id, direction, channel_id, kind, body, purpose, status, at, redacted)
                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING RETURNING id""",
@@ -120,8 +143,10 @@ class Store:
 
     @staticmethod
     def suppress(c: Conn, phone_hash: str, reason: str, at: datetime) -> None:
-        c.execute("INSERT INTO suppression (phone_hash, reason, at) VALUES (%s, %s, %s) ON CONFLICT (phone_hash) DO UPDATE SET at = EXCLUDED.at",
-                  (phone_hash, reason, at))
+        c.execute(
+            "INSERT INTO suppression (phone_hash, reason, at) VALUES (%s, %s, %s) ON CONFLICT (phone_hash) DO UPDATE SET at = EXCLUDED.at",
+            (phone_hash, reason, at),
+        )
 
     @staticmethod
     def unsuppress(c: Conn, phone_hash: str) -> None:
@@ -135,11 +160,14 @@ class Store:
 
     def jobs(self, only_open: bool = False) -> list[jobs_mod.Job]:
         with self.conn() as c:
-            rows = c.execute("SELECT data FROM jobs" + (" WHERE open" if only_open else "") + " ORDER BY id").fetchall()
+            sql = "SELECT data FROM jobs WHERE open ORDER BY id" if only_open else "SELECT data FROM jobs ORDER BY id"
+            rows = c.execute(sql).fetchall()
         return [jobs_mod.parse(r["data"]) for r in rows]
 
     def upsert_job(self, job: jobs_mod.Job) -> None:
         with self.conn() as c:
-            c.execute("""INSERT INTO jobs (id, data, open) VALUES (%s, %s, %s)
+            c.execute(
+                """INSERT INTO jobs (id, data, open) VALUES (%s, %s, %s)
                          ON CONFLICT (id) DO UPDATE SET data = EXCLUDED.data, open = EXCLUDED.open, updated_at = now()""",
-                      (job.id, Jsonb(json.loads(json.dumps(job.to_dict(), default=str))), job.open))
+                (job.id, Jsonb(json.loads(json.dumps(job.to_dict(), default=str))), job.open),
+            )

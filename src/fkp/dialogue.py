@@ -25,16 +25,39 @@ from __future__ import annotations
 import re
 from dataclasses import asdict, dataclass, field
 from datetime import date, datetime, timedelta
-from typing import Any
+from typing import Any, ClassVar
 
 from . import calendar, config, lang, matching
 from .extract import Reading, RuleExtractor
 from .jobs import Job
 
-STAGES = ("new", "awaiting_consent", "declined", "collecting", "confirming", "fixing", "handover_details",
-          "pool_question", "handed_over", "pooled", "human", "deleted", "closed")
-QUESTION_ORDER = ("occupation", "location", "qualification", "recognition", "licences", "start_date", "shifts",
-                  "german_level", "experience_years", "employment")
+STAGES = (
+    "new",
+    "awaiting_consent",
+    "declined",
+    "collecting",
+    "confirming",
+    "fixing",
+    "handover_details",
+    "pool_question",
+    "handed_over",
+    "pooled",
+    "human",
+    "deleted",
+    "closed",
+)
+QUESTION_ORDER = (
+    "occupation",
+    "location",
+    "qualification",
+    "recognition",
+    "licences",
+    "start_date",
+    "shifts",
+    "german_level",
+    "experience_years",
+    "employment",
+)
 DRIVING = {"berufskraftfahrer", "busfahrer", "lagerlogistik"}
 _JOB_REF = re.compile(r"\b(J-[A-Z0-9]+(?:-[A-Z0-9]+)*)\b")
 _ONLY = ["nur", "only", "tylko", "doar", "sadece", "только", "тільки", "فقط"]
@@ -175,11 +198,19 @@ class Agent:
         name = f" {conv.wa_name.split()[0]}" if conv.wa_name.strip() else ""
         job = self.jobs.get(conv.job_id or "")
         job_part = self._t(conv, "job_part", job=job.title) if job else ""
-        body = self._t(conv, "intro", name=name, company=self.company, job_part=job_part,
-                       retention_months=self.st["retention"]["rejected_months"], privacy_url=self.st["privacy_url"])
+        body = self._t(
+            conv,
+            "intro",
+            name=name,
+            company=self.company,
+            job_part=job_part,
+            retention_months=self.st["retention"]["rejected_months"],
+            privacy_url=self.st["privacy_url"],
+        )
         conv.stage = "awaiting_consent"
-        self._say(conv, res, msg.at, "buttons", body, "intro",
-                  [("consent_yes", self._t(conv, "consent_yes")), ("consent_no", self._t(conv, "consent_no"))])
+        self._say(
+            conv, res, msg.at, "buttons", body, "intro", [("consent_yes", self._t(conv, "consent_yes")), ("consent_no", self._t(conv, "consent_no"))]
+        )
 
     def _on_awaiting_consent(self, conv: Conversation, msg: Inbound, reading: Reading, res: Result) -> None:
         if msg.button_id == "consent_yes" or ("yes" in reading.intents and "no" not in reading.intents):
@@ -203,8 +234,15 @@ class Agent:
             self._say(conv, res, msg.at, "text", self._t(conv, "consent_declined"), "declined")
             return
         # anything else: ask again, with the buttons; nothing is read before a yes
-        self._say(conv, res, msg.at, "buttons", self._t(conv, "not_understood", question=self._t(conv, "consent_question")), "consent_again",
-                  [("consent_yes", self._t(conv, "consent_yes")), ("consent_no", self._t(conv, "consent_no"))])
+        self._say(
+            conv,
+            res,
+            msg.at,
+            "buttons",
+            self._t(conv, "not_understood", question=self._t(conv, "consent_question")),
+            "consent_again",
+            [("consent_yes", self._t(conv, "consent_yes")), ("consent_no", self._t(conv, "consent_no"))],
+        )
 
     def _on_collecting(self, conv: Conversation, msg: Inbound, reading: Reading, res: Result) -> None:
         asked = conv.asked
@@ -288,7 +326,9 @@ class Agent:
                     value = {**old.value, **value}
             if old is not None and old.value == value:
                 continue
-            conv.profile[f.field] = FieldValue(value, f.evidence(text), message_id, getattr(self.extractor, "name", "rules"), f.confidence, at.isoformat())
+            conv.profile[f.field] = FieldValue(
+                value, f.evidence(text), message_id, getattr(self.extractor, "name", "rules"), f.confidence, at.isoformat()
+            )
             changed += 1
         return changed
 
@@ -330,8 +370,15 @@ class Agent:
     def _confirm(self, conv: Conversation, at: datetime, res: Result) -> None:
         conv.stage = "confirming"
         conv.asked = None
-        self._say(conv, res, at, "buttons", self._t(conv, "confirm", summary=self.summary(conv)), "confirm",
-                  [("confirm_yes", self._t(conv, "confirm_yes")), ("confirm_fix", self._t(conv, "confirm_fix"))])
+        self._say(
+            conv,
+            res,
+            at,
+            "buttons",
+            self._t(conv, "confirm", summary=self.summary(conv)),
+            "confirm",
+            [("confirm_yes", self._t(conv, "confirm_yes")), ("confirm_fix", self._t(conv, "confirm_fix"))],
+        )
 
     def _finalize(self, conv: Conversation, at: datetime, res: Result) -> None:
         jobs = list(self.jobs.values())
@@ -380,12 +427,22 @@ class Agent:
             for m in conv.matches:
                 if m["job_id"] in near:
                     gaps += [self._gap_label(conv, c) for c in m["checks"] if c["status"] in ("fixable", "fail", "unknown")]
-            self._say(conv, res, at, "text", self._t(conv, "near_miss", jobs=titles, gaps="; ".join(dict.fromkeys(gaps)), deadline=deadline), "near_miss")
+            self._say(
+                conv, res, at, "text", self._t(conv, "near_miss", jobs=titles, gaps="; ".join(dict.fromkeys(gaps)), deadline=deadline), "near_miss"
+            )
         else:
             self._say(conv, res, at, "text", self._t(conv, "matched", jobs=titles, deadline=deadline), "matched")
 
-    _CHECK_FIELD = {"recognition": "recognition", "licences": "licences", "start": "start_date", "german": "german_level",
-                    "commute": "location", "shifts": "shifts", "occupation": "occupation", "employment": "employment"}
+    _CHECK_FIELD: ClassVar[dict[str, str]] = {
+        "recognition": "recognition",
+        "licences": "licences",
+        "start": "start_date",
+        "german": "german_level",
+        "commute": "location",
+        "shifts": "shifts",
+        "occupation": "occupation",
+        "employment": "employment",
+    }
 
     def _gap_label(self, conv: Conversation, check: dict[str, Any]) -> str:
         """A gap in the candidate's language: the field's label, plus the missing licences."""
@@ -399,8 +456,15 @@ class Agent:
 
     def _pool_question(self, conv: Conversation, at: datetime, res: Result) -> None:
         conv.stage = "pool_question"
-        self._say(conv, res, at, "buttons", self._t(conv, "no_match", retention_months=self.st["retention"]["talent_pool_months"]), "pool_question",
-                  [("pool_yes", self._t(conv, "pool_yes")), ("pool_no", self._t(conv, "pool_no"))])
+        self._say(
+            conv,
+            res,
+            at,
+            "buttons",
+            self._t(conv, "no_match", retention_months=self.st["retention"]["talent_pool_months"]),
+            "pool_question",
+            [("pool_yes", self._t(conv, "pool_yes")), ("pool_no", self._t(conv, "pool_no"))],
+        )
 
     def _delete(self, conv: Conversation, res: Result, reason: str, at: datetime) -> Result:
         """Erase the profile and history (GDPR Art. 17); keep only that this number said stop."""
@@ -439,8 +503,12 @@ class Agent:
         tpl = self.st["whatsapp"]["templates"]["reminder"]
         params = {"company": self.company, "missing": missing}
         body = self._t(conv, "reminder", **params)
-        return Outgoing("template", body, f"reminder:{conv.reminders_sent}",
-                        template={"name": tpl["name"], "category": tpl["category"], "language": conv.lang, "params": [params[p] for p in tpl["params"]]})
+        return Outgoing(
+            "template",
+            body,
+            f"reminder:{conv.reminders_sent}",
+            template={"name": tpl["name"], "category": tpl["category"], "language": conv.lang, "params": [params[p] for p in tpl["params"]]},
+        )
 
     def _missing_labels(self, conv: Conversation) -> str:
         labels = (self.msgs.get(conv.lang) or self.msgs["de"])["labels"]
@@ -498,8 +566,9 @@ class Agent:
             lines.append(f"• {L.get(f, f)}: {s}")
         return "\n".join(lines)
 
-    def _say(self, conv: Conversation, res: Result, at: datetime, kind: str, body: str, purpose: str,
-             buttons: list[tuple[str, str]] | None = None) -> None:
+    def _say(
+        self, conv: Conversation, res: Result, at: datetime, kind: str, body: str, purpose: str, buttons: list[tuple[str, str]] | None = None
+    ) -> None:
         conv.last_outbound_at = at.isoformat()
         res.outgoing.append(Outgoing(kind, body, purpose, buttons or []))
 

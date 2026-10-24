@@ -32,8 +32,12 @@ def test_validation_rejects_invented_quotes_and_values():
 
 def test_hybrid_fills_only_gaps_and_survives_model_errors():
     text = "Ich mache seit 6 Jahren Elektroinstallationen auf Baustellen in München"
-    stub = Stub([{"field": "occupation", "value": ["elektroniker"], "quote": "Elektroinstallationen"},
-                 {"field": "experience_years", "value": 99, "quote": "6 Jahren"}])
+    stub = Stub(
+        [
+            {"field": "occupation", "value": ["elektroniker"], "quote": "Elektroinstallationen"},
+            {"field": "experience_years", "value": 99, "quote": "6 Jahren"},
+        ]
+    )
     h = HybridExtractor(ClaudeExtractor(client=stub))
     r = h.read(text, "de", TODAY)
     v = {f.field: f.value for f in r.facts}

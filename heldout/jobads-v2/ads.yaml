@@ -1,0 +1,616 @@
+ads:
+  - id: ad-001
+    title: "Pflegefachkraft (m/w/d) für unser Seniorenzentrum in Bielefeld-Brackwede"
+    text: "Das Haus Lindenhof Brackwede betreut 84 Bewohnerinnen und Bewohner in vier Wohnbereichen. Sie übernehmen die Behandlungspflege, planen die Pflege und arbeiten eng mit Hausarztpraxen und Therapeut*innen zusammen. Wir zahlen nach Haustarif mit Jahressonderzahlung, 30 Urlaubstage und einen festen Dienstplan, der vier Wochen im Voraus steht. Voraussetzung ist eine abgeschlossene Ausbildung als Pflegefachkraft sowie der Nachweis über den Masernschutz nach § 20 IfSG. Bewerbungen gern per E-Mail an karriere@lindenhof-brackwede.example."
+    german_level: {min: "B2", justification: "Pflegedokumentation, Übergaben und Gespräche mit Bewohner*innen, Angehörigen und Ärztinnen und Ärzten erfolgen auf Deutsch."}
+    expect: []
+
+  - id: ad-002
+    title: "Koch (m/w/d) in Vollzeit – Bistro Kornblume, Köln-Ehrenfeld"
+    text: "Unsere Küche ist klein, ehrlich und saisonal: mittags Tagesgerichte, abends eine kurze Karte. Für unser junges Team suchen wir ab sofort Verstärkung am Herd. Sie bereiten die Mise en place vor, kochen à la minute und achten auf Hygiene und Warenrotation. Kein Teildienst, Montag und Dienstag sind Ruhetage. Eine Belehrung nach § 43 IfSG bringen Sie mit oder holen sie mit unserer Hilfe nach."
+    german_level: {min: "B1", justification: ""}
+    expect: [age, german-without-reason]
+
+  - id: ad-003
+    title: "Warehouse Associate (all genders) – Day Shift, Erfurt"
+    text: "Nordhafen Parts Distribution ships spare parts for agricultural machinery to dealers across Europe. You pick and pack orders with handheld scanners, load pallets and check incoming goods against delivery notes. Cartons weigh up to 20 kg and you are on your feet for most of the shift; lifting aids and safety shoes are provided. Shifts run 6:00–14:30, Monday to Friday, with a shift bonus. No previous warehouse experience needed – we train you on the job."
+    expect: []
+
+  - id: ad-004
+    title: "Elektriker für Gebäudeinstallation gesucht"
+    text: "Elektro Brandtner GmbH aus Regensburg installiert und wartet Elektroanlagen in Wohn- und Gewerbebauten. Sie verlegen Leitungen, setzen Verteilungen und nehmen Anlagen nach VDE in Betrieb. Wir bieten einen Firmenwagen für die Baustellenfahrten, pünktliche Bezahlung über Tarif und Weiterbildung bis zur Meisterprüfung. Eine abgeschlossene Ausbildung als Elektroniker*in für Energie- und Gebäudetechnik oder vergleichbar setzen wir voraus."
+    expect: [gender-title]
+
+  - id: ad-005
+    title: "Reinigungskraft (m/w/d) für Büroobjekte in Hannover-List"
+    text: "Glanzwerk Gebäudeservice reinigt Büros und Arztpraxen in der Region Hannover. Ihre Einsatzzeiten liegen werktags zwischen 17 und 21 Uhr, gern auch auf Minijob-Basis. Sie reinigen Arbeitsplätze, Sanitärräume und Küchen nach Leistungsverzeichnis. Da Sie direkten Kontakt zu unseren Auftraggebern haben, setzen wir Deutsch als Muttersprache voraus. Arbeitskleidung und Reinigungsmittel stellen wir."
+    expect: [origin-native-language]
+
+  - id: ad-006
+    title: "Berufskraftfahrer CE (m/w/d) im Fernverkehr – Wochenendheimfahrer"
+    text: "Spedition Kalvelage & Söhne fährt Stückgut und Komplettladungen zwischen Westfalen, Benelux und Norditalien. Sie sind von Montag bis Freitag unterwegs und am Wochenende zu Hause. Sie fahren moderne Sattelzüge mit Standklima, unsere Disposition plant die Touren so, dass Lenk- und Ruhezeiten eingehalten werden. Sie besitzen den Führerschein CE, eine gültige Fahrerkarte und die Schlüsselzahl 95; ADR ist willkommen, aber kein Muss."
+    expect: []
+
+  - id: ad-007
+    title: "Verkäuferin für unsere Bäckereifiliale in Fürth"
+    text: "Die Landbäckerei Wiesentaler hat elf Filialen rund um Nürnberg. Für unsere Filiale am Fürther Bahnhofsplatz suchen wir eine freundliche Verkäuferin, die morgens gern früh startet. Sie bedienen unsere Kundschaft, belegen Brötchen und halten die Theke sauber. Es gibt Personalrabatt, Zuschläge für Sonntagsarbeit und eine feste Monatsplanung."
+    expect: [gender-title, gender-only]
+
+  - id: ad-008
+    title: "Hotelfachfrau/-mann (m/w/d) für Rezeption und Etage"
+    text: "Das Landhotel Seewinkel am Chiemsee hat 46 Zimmer und ein kleines Restaurant. Sie arbeiten im Wechsel an der Rezeption, im Frühstücksservice und bei der Kontrolle der Zimmer. Wir bieten eine Fünf-Tage-Woche, ein bezahltes Mittagessen pro Schicht und auf Wunsch ein Zimmer im Personalhaus. Senden Sie uns bitte Ihren Lebenslauf und ein Foto an jobs@seewinkel-hotel.example."
+    expect: [photo]
+
+  - id: ad-009
+    title: "Line Cook (m/f/d) – Burger Kitchen, Berlin-Friedrichshain"
+    text: "Smash & Salt is a busy burger kitchen with 60 covers and a strong delivery business. You run the grill or fryer station, prep sauces and keep your section spotless during service. We pay above the Berlin average, share tips fairly between front and back of house and give you a free staff meal every shift. As our kitchen works closely with the front-of-house staff, we are looking for a native German speaker."
+    expect: [origin-native-language]
+
+  - id: ad-010
+    title: "Lagerhelfer (m/w/d) für Getränkegroßhandel in Kassel"
+    text: "Getränke Ruppert beliefert Gastronomie und Vereine in Nordhessen. Sie kommissionieren Bestellungen, beladen unsere Lkw und sortieren Leergut. Gesucht wird eine kräftig gebaute Person, die zupacken kann. Wir zahlen 15,50 € pro Stunde, Arbeitsbeginn ist um 6 Uhr, freitags ist um 13 Uhr Schluss."
+    expect: [physical]
+
+  - id: ad-011
+    title: "Kaufmann/-frau für Büromanagement (m/w/d) im Großhandel"
+    text: "Hessler Werkzeughandel verkauft Präzisionswerkzeuge an Industrie und Handwerk. Sie bearbeiten Aufträge im ERP, pflegen Stammdaten, schreiben Rechnungen und koordinieren Termine mit unserem Außendienst. Sie arbeiten in Gleitzeit, zwei Tage pro Woche können Sie im Homeoffice verbringen. Wir freuen uns über alle Bewerbungen, unabhängig von Alter, Geschlecht, Herkunft, Religion, Behinderung oder sexueller Identität. Ihre Unterlagen senden Sie bitte über www.hessler-werkzeug.example/karriere."
+    expect: []
+
+  - id: ad-012
+    title: "Altenpflegehelfer*in in Teilzeit – Familiendienst möglich"
+    text: "In der Tagespflege Sonnenhang in Ulm begleiten wir täglich bis zu 22 Gäste. Sie unterstützen bei der Körperpflege, bei Mahlzeiten und Aktivitäten und fahren gelegentlich im Fahrdienst mit. Unser Familiendienst von 8 bis 13 Uhr passt zu Kita- und Schulzeiten. Wir zahlen zusätzlich einen monatlichen Zuschuss zu Kita-Gebühren von bis zu 150 €. Eine Ausbildung in der Pflegehilfe ist von Vorteil, Quereinsteiger*innen arbeiten wir sorgfältig ein."
+    expect: []
+
+  - id: ad-013
+    title: "Maler und Lackierer (m/w/d) – Altbausanierung in Leipzig"
+    text: "Farbwerk Hoyer saniert Gründerzeitfassaden und Treppenhäuser im Leipziger Westen. Sie spachteln, tapezieren, lackieren und übernehmen auch Stuck- und Lasurarbeiten. Arbeit auf Gerüsten gehört dazu. Wenn Sie mögen, legen Sie Ihrer Bewerbung ein paar Fotos von Projekten bei, an denen Sie mitgearbeitet haben – das ist aber kein Muss. Bewerbungen an info@farbwerk-hoyer.example."
+    expect: []
+
+  - id: ad-014
+    title: "Kurierfahrer (m/w/d) für Expresssendungen im Raum Stuttgart"
+    text: "Blitzpost Süd liefert eilige Dokumente und Ersatzteile für Kanzleien und Werkstätten. Sie fahren einen unserer Transporter bis 3,5 t und planen Ihre Touren mit unserer App. Sie haben einen Führerschein der Klasse B, kennen sich im Großraum Stuttgart aus und sind höchstens 40 Jahre alt. Wir bieten Festanstellung statt Subunternehmerschaft und bezahlte Überstunden."
+    expect: [age]
+
+  - id: ad-015
+    title: "Servicekraft (m/w/d) für unser Weinrestaurant in Bernkastel-Kues"
+    text: "Das Weinhaus Moselblick bietet regionale Küche und über 200 Weine von der Mittelmosel. Sie begrüßen unsere Gäste, beraten zu Speisen und Weinen und kassieren am Tisch. Wir bieten geregelte Arbeitszeiten, ein faires Trinkgeldsystem und Weinschulungen bei unseren Partnerweingütern. Bitte nennen Sie in Ihrer Bewerbung neben Ihrer Erfahrung auch Ihren Familienstand."
+    expect: [family]
+
+  - id: ad-016
+    title: "Office Cleaner (m/f/d) – Evening Shifts, Frankfurt Westend"
+    text: "Brightline Facility Services cleans offices for law firms and consultancies in Frankfurt. You work Monday to Friday from 18:00 to 21:00, emptying bins, cleaning desks and kitchens and vacuuming. All cleaning equipment and uniforms are provided, and we pay 14.25 € per hour. Applications are only considered from EU citizens."
+    expect: [origin-nationality]
+
+  - id: ad-017
+    title: "Produktionsmitarbeiter:in im Dreischichtbetrieb"
+    text: "Bei Kessler Verpackungstechnik in Gütersloh fertigen wir Faltschachteln für Lebensmittel und Pharma. Sie bedienen Stanz- und Klebemaschinen, kontrollieren die Qualität und dokumentieren Ihre Schicht. Unser Schichtplan entsteht gemeinsam im Team: Wer an religiösen Feiertagen wie Ostern, dem Zuckerfest oder Jom Kippur frei haben möchte, trägt das frühzeitig ein, und wir planen entsprechend. Wir zahlen Schichtzulagen, einen Fahrtkostenzuschuss und eine Erfolgsbeteiligung."
+    expect: []
+
+  - id: ad-018
+    title: "Zimmermädchen in Vollzeit – Hotel am Stadtpark"
+    text: "Das Hotel am Stadtpark in Bamberg ist ein familiengeführtes Haus mit 70 Zimmern. Unser Zimmermädchen reinigt die Gästezimmer, bezieht Betten und füllt Minibars und Pflegeprodukte auf. Wir suchen eine zuverlässige Frau, die sorgfältig arbeitet. Die Arbeitszeit ist von 8 bis 15 Uhr, jedes zweite Wochenende ist frei."
+    expect: [gender-title, gender-only]
+
+  - id: ad-019
+    title: "Kfz-Mechatroniker (m/w/d) für freie Werkstatt"
+    text: "Autoservice Demirel in Duisburg repariert Fahrzeuge aller Marken, von der Inspektion bis zur Motorinstandsetzung. Sie führen Diagnosen durch, tauschen Verschleißteile und bereiten Fahrzeuge für die HU vor. Wir erwarten eine abgeschlossene Ausbildung und dass Sie keinerlei gesundheitliche Einschränkungen haben. Dafür gibt es moderne Hebebühnen, gutes Werkzeug und 13 Monatsgehälter."
+    expect: [pregnancy-health]
+
+  - id: ad-020
+    title: "Kaufmännische Sachbearbeitung (m/w/d) Einkauf – Elektrogroßhandel"
+    text: "Elektro Oberhauser ist ein Großhandel für Elektroinstallationsmaterial mit 40 Beschäftigten. Sie holen Angebote ein, bestellen bei Herstellern und überwachen Liefertermine. Als christlich geprägtes Unternehmen setzen wir die Mitgliedschaft in einer der christlichen Kirchen voraus. Wir bieten einen unbefristeten Vertrag, Gleitzeit und betriebliche Altersvorsorge."
+    expect: [religion]
+
+  - id: ad-021
+    title: "Köch*in für unsere Betriebskantine in Mannheim"
+    text: "Die Kantine der Rheinhafen-Gruppe Mannheim versorgt täglich rund 350 Beschäftigte. Sie kochen zwei Hauptgerichte und ein vegetarisches Angebot pro Tag und arbeiten nach HACCP. Arbeitszeit ist Montag bis Freitag von 6:30 bis 15 Uhr, keine Abende, keine Wochenenden. Vor Arbeitsbeginn benötigen Sie eine Erstbelehrung nach § 43 Infektionsschutzgesetz, die Kosten dafür übernehmen wir."
+    expect: []
+
+  - id: ad-022
+    title: "Forklift Driver (all genders) – Cold Storage Hub, Bremen"
+    text: "Polarstern Kühllogistik stores and ships frozen food for retail chains. You move pallets between the loading docks and the freezer aisles at –22 °C and load trucks according to the loading plan. Thermal workwear is provided, and every 90 minutes you take a warm-up break. A valid forklift licence (Staplerschein) is required; we offer a two-week paid induction and a cold-storage bonus."
+    expect: []
+
+  - id: ad-023
+    title: "Pflegehelfer (m/w/d) für unsere Wohngemeinschaft für Menschen mit Demenz"
+    text: "In der Demenz-WG Am Rosengarten in Kiel leben zehn Mieterinnen und Mieter mit ihrem eigenen Tagesrhythmus. Sie begleiten den Alltag, kochen gemeinsam mit den Bewohner*innen und unterstützen bei der Grundpflege. Wir arbeiten in festen Teams mit Dienstplänen, die sich nach Ihren Wünschen richten. Eine Pflegebasisqualifikation ist von Vorteil, wir bilden Sie aber auch selbst weiter."
+    german_level: {min: "B1", justification: ""}
+    expect: [german-without-reason]
+
+  - id: ad-024
+    title: "Gärtner (m/w/d) im Garten- und Landschaftsbau"
+    text: "GrünRaum Weber plant und baut Privatgärten im Raum Freiburg. Sie pflastern Wege, setzen Mauern, pflanzen und pflegen Anlagen über das ganze Jahr. Sie sind zwischen 25 und 45 Jahre alt und haben Freude an sichtbaren Ergebnissen. Wir bieten Ganzjahresbeschäftigung ohne Winterpause, Firmenfahrzeuge und eine Prämie für jedes abgeschlossene Projekt."
+    expect: [age]
+
+  - id: ad-025
+    title: "Fliesenleger (m/w/d) – Bad und Küche, Raum Augsburg"
+    text: "Fliesen Gruber ist ein Meisterbetrieb mit acht Fliesenleger*innen und zwei Meistern. Sie verlegen Fliesen und Naturstein, bauen bodengleiche Duschen und arbeiten Silikonfugen sauber nach. Die Arbeit findet viel im Knien statt, Fliesenpakete wiegen bis zu 25 kg; für das Material gibt es Treppensteiger und Transportkarren. Knieschoner, Werkzeug und Firmenwagen stellen wir."
+    expect: []
+
+  - id: ad-026
+    title: "Küchenhilfe in Teilzeit für Seniorenheim-Küche"
+    text: "Die Zentralküche der Stiftung Abendrot in Gera kocht täglich für drei Pflegeeinrichtungen. Sie helfen bei der Vorbereitung von Gemüse und Salaten, portionieren Speisen und reinigen Geräte. Arbeitszeit ist von 7 bis 12:30 Uhr, dazu jedes zweite Wochenende. Wir zahlen nach TVöD und bieten ein vergünstigtes Deutschlandticket. Eine Belehrung nach § 43 IfSG organisieren wir für Sie."
+    expect: [gender-title]
+
+  - id: ad-027
+    title: "Rezeptionist (m/w/d) im Frühdienst – Stadthotel Rheinblick"
+    text: "Das Stadthotel Rheinblick in Koblenz empfängt viele Geschäftsreisende und Radtouristen. Sie checken Gäste ein und aus, beantworten Anfragen per Telefon und Mail und erstellen Rechnungen in unserem Hotelprogramm. Der Frühdienst beginnt um 6 Uhr und endet um 14:30 Uhr. Bitte schicken Sie uns Ihren Lebenslauf mit aktuellem Lichtbild an rezeption@rheinblick-koblenz.example."
+    expect: [photo]
+
+  - id: ad-028
+    title: "Delivery Driver – Grocery Delivery, Munich"
+    text: "Gemüsekiste Isar delivers organic produce boxes to households across Munich in electric vans. You load your van at our hub in the morning and deliver around 60 boxes per tour. You'll join a young and energetic team that loves good food. A category B driving licence is required, and we pay 15 € per hour plus a delivery bonus."
+    expect: [gender-title, age]
+
+  - id: ad-029
+    title: "Sachbearbeiter*in Disposition – Baustofflogistik"
+    text: "Baustoffe Lammers beliefert Baustellen in Ostfriesland mit Kran- und Kipperfahrzeugen. Sie planen die täglichen Touren unserer 25 Fahrzeuge, nehmen Aufträge telefonisch entgegen und stimmen sich mit den Baustellen ab. Wir bieten eine 38-Stunden-Woche, ein Jobrad und eine gründliche Einarbeitung durch das bestehende Team. Berufseinsteiger*innen mit kaufmännischer Ausbildung sind willkommen."
+    german_level: {min: "C1", justification: "Sie telefonieren den ganzen Tag mit Polieren, Kund*innen und Fahrer*innen und klären kurzfristige Änderungen am Telefon."}
+    expect: []
+
+  - id: ad-030
+    title: "Montagehelfer (m/w/d) für Fenster und Türen"
+    text: "Fensterbau Lindqvist montiert Kunststoff- und Aluminiumfenster in Neubauten im Raum Hamburg. Sie unterstützen unsere Montageteams beim Ausbau alter Fenster, beim Einsetzen und Abdichten. Wir bieten einen Stundenlohn von 16 €, Werkzeug und Arbeitskleidung. Voraussetzung ist die deutsche Staatsangehörigkeit."
+    expect: [origin-nationality]
+
+  - id: ad-031
+    title: "Friseur*in in Voll- oder Teilzeit – Salon Haarwerk Mitte"
+    text: "Haarwerk Mitte ist ein Salon mit sechs Plätzen in Magdeburg. Sie schneiden, färben und beraten unsere Kundschaft und gestalten Ihren Terminkalender mit. Wir zahlen ein Fixgehalt plus Umsatzbeteiligung und übernehmen zwei Fortbildungen pro Jahr. Ob Sie gerade Ihre Gesellenprüfung abgelegt haben oder seit Jahrzehnten im Beruf sind – wir freuen uns auf Ihre Bewerbung."
+    expect: []
+
+  - id: ad-032
+    title: "Verkäufer (m/w/d) in der Gartenabteilung – Baumarkt Hornbeck"
+    text: "Der Baumarkt Hornbeck in Oldenburg hat eine große Garten- und Pflanzenabteilung. Sie beraten Kundinnen und Kunden zu Pflanzen, Erde und Bewässerung und pflegen die Ware. Wir arbeiten im Schichtbetrieb von 7 bis 20 Uhr, auch samstags. Bitte teilen Sie uns in Ihrer Bewerbung mit, ob Sie Kinder haben und wie alt diese sind."
+    expect: [family]
+
+  - id: ad-033
+    title: "Industriemechaniker (m/w/d) für die Instandhaltung"
+    text: "Walzwerk Hennings in Siegen stellt kaltgewalzte Bandstähle her. Sie warten und reparieren Walzgerüste, Hydraulik und Getriebe und arbeiten im Bereitschaftsdienst mit. Für die Arbeiten an unseren Anlagen sollten Sie mindestens 1,80 m groß sein. Wir zahlen nach IG-Metall-Tarif, mit Schichtzulagen und Urlaubsgeld."
+    expect: [physical]
+
+  - id: ad-034
+    title: "Housekeeping Attendant (m/f/d) – Boutique Hotel, Hamburg"
+    text: "Hotel Elbkante is a 38-room boutique hotel in Hamburg-Altona. You clean and prepare guest rooms, restock amenities and report anything that needs fixing to our maintenance team. Our housekeeping team of nine speaks five languages between them, and new colleagues are trained by a buddy for their first two weeks. Applications are welcome from everyone, whatever your age, background, religion or gender."
+    expect: []
+
+  - id: ad-035
+    title: "Hauswirtschafter:in für unsere Seniorenresidenz"
+    text: "Die Seniorenresidenz Am Alten Markt in Cottbus bietet betreutes Wohnen für 60 Mieter*innen. Sie organisieren die Wäscheversorgung, unterstützen in der Küche und planen gemeinsam mit den Bewohner*innen Feste und Ausflüge. Bitte bringen Sie den Masernschutznachweis mit, der für Einrichtungen wie unsere gesetzlich vorgeschrieben ist. Wir bieten unbefristete Verträge, 30 Tage Urlaub und Dienstplanung nach Wunsch."
+    expect: []
+
+  - id: ad-036
+    title: "Lkw-Fahrer (m/w/d) Nahverkehr – Baustoffhandel"
+    text: "Baustoffhandel Rieger in Passau beliefert Handwerksbetriebe und Privathaushalte. Sie fahren einen Dreiachser mit Ladekran und liefern Baustoffe direkt auf die Baustelle. Für diese Aufgabe suchen wir einen zuverlässigen Mann mit Führerschein C/CE. Abends sind Sie zu Hause, Überstunden werden bezahlt."
+    expect: [gender-only]
+
+  - id: ad-037
+    title: "Gebäudereiniger (m/w/d) für Glas- und Fassadenreinigung"
+    text: "Klarsicht Dienstleistungen reinigt Glasfassaden und Wintergärten in Düsseldorf und Umgebung. Sie arbeiten mit Teleskopstangen, Osmoseanlagen und auf Hubarbeitsbühnen. Weil Sie häufig mit unseren Auftraggebern sprechen, erwarten wir akzentfreies Deutsch. Ihre Bewerbung schicken Sie bitte inklusive Foto an personal@klarsicht-duesseldorf.example."
+    expect: [origin-native-language, photo]
+
+  - id: ad-038
+    title: "Bäcker (m/w/d) in der Backstube – Nachtschicht"
+    text: "Die Backstube Kranzler in Rostock backt jede Nacht für neun Filialen. Sie stellen Teige her, formen Brote und Brötchen und bedienen den Etagenofen. Die Schicht beginnt um 1 Uhr und endet gegen 9 Uhr; dafür gibt es steuerfreie Nachtzuschläge und eine Vier-Tage-Woche. Eine abgeschlossene Ausbildung als Bäcker*in oder mehrjährige Erfahrung in einer Backstube bringen Sie mit."
+    expect: []
+
+  - id: ad-039
+    title: "Kommissionierer (m/w/d) im Onlinehandel – Spätschicht"
+    text: "Bei Versandhaus Lorenzen in Neumünster packen wir täglich rund 8.000 Pakete mit Haushaltswaren. Sie kommissionieren mit dem Handscanner, verpacken Bestellungen und bereiten Retouren auf. Sie sind körperlich belastbar und arbeiten gern zügig. Die Spätschicht geht von 14 bis 22:30 Uhr, es gibt eine Spätschichtzulage von 15 %."
+    expect: [physical]
+
+  - id: ad-040
+    title: "Kitchen Porter (all genders) – Hotel Restaurant, Heidelberg"
+    text: "The restaurant at Hotel Neckarbogen serves breakfast and dinner for up to 120 guests. You keep the dishwashing area running, clean pots and equipment and help with simple prep like peeling vegetables. Shifts are 15:00–23:00, five days a week, with meals included. A food-hygiene instruction (Belehrung nach § 43 IfSG) is needed before your first day – we will book the appointment for you."
+    german_level: {min: "A2", justification: ""}
+    expect: [german-without-reason]
+
+  - id: ad-041
+    title: "Pflegefachkraft für die ambulante Intensivpflege"
+    text: "Intensivpflege Nordlicht versorgt beatmete Klient*innen in ihrer eigenen Wohnung im Raum Lübeck. Sie betreuen eine Person im festen Team, arbeiten in 12-Stunden-Diensten und haben dafür mehr freie Tage am Stück. Wir bieten eine Intensivpflegezulage, ein eigenes Dienstfahrrad und eine Fachweiterbildung Außerklinische Intensivpflege. Voraussetzung ist eine dreijährige Ausbildung in der Pflege und der gesetzlich vorgeschriebene Masernschutznachweis."
+    expect: [gender-title]
+
+  - id: ad-042
+    title: "Busfahrer (m/w/d) im Linienverkehr – Landkreis Vechta"
+    text: "Omnibus Thölken betreibt Regionalbuslinien im Landkreis Vechta. Sie fahren feste Linien nach Fahrplan, verkaufen Fahrscheine und helfen Fahrgästen mit Rollstuhl oder Kinderwagen beim Einstieg. Führerschein D mit Schlüsselzahl 95 ist Voraussetzung; wer nur Klasse B hat, kann bei uns den Busführerschein auf Firmenkosten machen. Geteilte Dienste gibt es nur auf Wunsch, und der Dienstplan steht zwei Monate im Voraus fest."
+    expect: []
+
+  - id: ad-043
+    title: "Bürokraft (m/w/d) in Teilzeit für unseren Sanitärgroßhandel"
+    text: "Sanitär Klewitz in Wuppertal ist ein Familienbetrieb mit 18 Beschäftigten. Sie nehmen Telefonate an, erfassen Lieferscheine und bereiten die Buchhaltung vor. Wir wünschen uns eine gut organisierte neue Kollegin, die unsere Chefin im Büro entlastet. Arbeitszeit ist vormittags von 8 bis 12 Uhr, Gehalt nach Vereinbarung."
+    expect: [gender-only]
+
+  - id: ad-044
+    title: "Schweißer (m/w/d) MAG/WIG – Stahlbau"
+    text: "Stahlbau Petersen in Husum fertigt Hallenkonstruktionen und Treppen. Sie schweißen Bauteile nach Zeichnung in unserer Werkstatt und gelegentlich auf Montage. Sie haben gültige Schweißerprüfungen nach DIN EN ISO 9606-1 und sind nicht älter als 50. Wir bieten Tariflohn, Montagezulagen und eine moderne Absauganlage in der Halle."
+    expect: [age]
+
+  - id: ad-045
+    title: "Spülkraft (m/w/d) für Gasthaus Zum Hirschen"
+    text: "Das Gasthaus Zum Hirschen in Ochsenfurt ist bekannt für fränkische Küche und Hochzeitsfeiern. Sie bedienen die Spülmaschine, reinigen Töpfe und Bleche und halten die Küche sauber. Gearbeitet wird vor allem abends und am Wochenende, auch als Minijob möglich. Für alle Tätigkeiten mit Lebensmitteln brauchen Sie die Belehrung nach § 43 IfSG – haben Sie sie noch nicht, gehen wir gemeinsam zum Gesundheitsamt."
+    expect: []
+
+  - id: ad-046
+    title: "Office Assistant (m/f/d) – Import/Export Trading Company, Hamburg"
+    text: "Hanseatic Spice Traders imports spices and dried fruit from Asia and Africa. You support our sales team with order entry, shipping documents and customer correspondence in English. We are looking for candidates up to 30 years of age who want to grow with us. Please send your CV including a photo to careers@hanseatic-spice.example."
+    expect: [photo, age]
+
+  - id: ad-047
+    title: "Fachverkäufer*in Fleischerei – Filiale Bad Tölz"
+    text: "Metzgerei Huber & Kandler verkauft Fleisch und Wurst aus eigener Herstellung in vier Filialen. Sie bedienen an der Theke, beraten zu Zuschnitten und bereiten den Mittagstisch vor. Eine Belehrung nach § 43 IfSG ist für die Arbeit an der Theke gesetzlich vorgeschrieben; die Kosten übernehmen wir. Wir bieten Personalrabatt, Weihnachtsgeld und Arbeitszeiten, die zum Familienleben passen."
+    expect: []
+
+  - id: ad-048
+    title: "Tischler (m/w/d) für Möbel- und Innenausbau"
+    text: "Holzwerkstatt Brüggemann in Münster baut Einbaumöbel, Küchen und Ladeneinrichtungen nach Maß. Sie fertigen an CNC und Formatkreissäge und montieren vor Ort. Idealerweise ist Deutsch Ihre Muttersprache, da Sie viel direkt mit Kundschaft und Architekturbüros abstimmen. Wir bieten eine 4,5-Tage-Woche und eine gut ausgestattete Werkstatt."
+    expect: [origin-native-language]
+
+  - id: ad-049
+    title: "Pflegehilfskraft (m/w/d) im ambulanten Dienst – Raum Gießen"
+    text: "Der Pflegedienst Lahntal versorgt rund 140 Klient*innen in Gießen und den umliegenden Dörfern. Sie unterstützen bei der Grundpflege, im Haushalt und bei kleinen Besorgungen und fahren mit unseren Dienstwagen. Bitte bestätigen Sie in Ihrer Bewerbung, dass derzeit keine Schwangerschaft besteht. Wir bieten Tourenplanung mit Pausen, eine Tankkarte und Teamtreffen einmal im Monat."
+    expect: [pregnancy-health]
+
+  - id: ad-050
+    title: "Hausmeister für Wohnanlagen in Chemnitz"
+    text: "Die Wohnungsgenossenschaft Erzgebirgsblick verwaltet 900 Wohnungen in Chemnitz. Sie übernehmen kleine Reparaturen, kontrollieren Heizungs- und Beleuchtungsanlagen und kümmern sich um Grünflächen und Winterdienst. Ein Führerschein Klasse B ist nötig, ein Dienstwagen steht zur Verfügung. Bitte bewerben Sie sich mit Lebenslauf und Bild bei hausverwaltung@erzgebirgsblick.example."
+    expect: [gender-title, photo]
+
+  - id: ad-051
+    title: "Reinigungskraft (w/m/d) für Arztpraxen – vormittags"
+    text: "Sauberwerk Kowalczyk reinigt Arzt- und Physiotherapiepraxen in Bochum. Unsere Vormittagstouren von 8 bis 12 Uhr sind bei Eltern beliebt, weil sie zu Kita- und Schulzeiten passen. Sie reinigen Behandlungsräume nach Hygieneplan und desinfizieren Flächen. In den Schulferien können Sie Ihre Stunden reduzieren, ohne den Vertrag zu ändern."
+    expect: []
+
+  - id: ad-052
+    title: "Production Operator (all genders) – Plastics Moulding, Lüdenscheid"
+    text: "Kunststofftechnik Brenner makes injection-moulded parts for the automotive industry. You operate moulding machines, remove and inspect parts and change tools together with our setters. We are looking for someone with a sturdy build who is physically strong. We pay shift premiums, offer a canteen and run a shuttle bus from the train station."
+    expect: [physical]
+
+  - id: ad-053
+    title: "Kassierer (m/w/d) für Getränkemarkt in Teilzeit"
+    text: "Getränkewelt Albers hat sechs Märkte in Ostwestfalen. Sie kassieren, nehmen Leergut an und beraten Kundinnen und Kunden zu Festbedarf und Kommissionsware. Die Arbeitszeiten liegen zwischen 8 und 20 Uhr, montags bis samstags im Wechsel. Wir bieten Mitarbeiterrabatt und einen Zuschuss zum Deutschlandticket."
+    german_level: {min: "B2", justification: ""}
+    expect: [german-without-reason]
+
+  - id: ad-054
+    title: "Fahrer*in im Tiefkühlverteilerverkehr – Führerschein C"
+    text: "Frostkurier Weißbach beliefert Restaurants und Kantinen in Sachsen mit Tiefkühlware. Sie fahren einen 12-Tonner mit Kühlaufbau, entladen mit Hubwagen und Ladebordwand und nehmen Leergut zurück. Sie besitzen den Führerschein C mit Schlüsselzahl 95 und eine Fahrerkarte. Die Touren starten um 5 Uhr, dafür sind Sie meist am frühen Nachmittag fertig."
+    expect: []
+
+  - id: ad-055
+    title: "Pflegefachkraft (m/w/d) Altenpflege – Wohnstift Hainbuche"
+    text: "Das Wohnstift Hainbuche in Würzburg ist eine Einrichtung eines evangelischen Trägers mit 110 Pflegeplätzen. Sie übernehmen Grund- und Behandlungspflege und leiten Pflegehilfskräfte an. Wir sind ein kirchlicher Träger, die Zugehörigkeit zu einer Kirche ist für diese Stelle aber keine Voraussetzung – bei uns arbeiten Menschen jeden Glaubens und ohne Konfession. Wir zahlen nach kirchlichem Tarif mit Kinderzulage und betrieblicher Zusatzversorgung."
+    expect: []
+
+  - id: ad-056
+    title: "Anlagenmechaniker SHK (m/w/d) im Kundendienst"
+    text: "Haustechnik Ostendorf aus Osnabrück betreut Heizungs- und Sanitäranlagen in Privathaushalten. Wir suchen einen erfahrenen Monteur, der selbstständig Wartungen und Reparaturen durchführt und die Kundschaft kompetent berät. Sie bekommen einen voll ausgestatteten Servicewagen, den Sie auch privat nutzen dürfen. Bereitschaftsdienst wird extra vergütet."
+    expect: [gender-only]
+
+  - id: ad-057
+    title: "Hotel Receptionist (m/f/d) – City Hotel, Cologne"
+    text: "Hotel Domgarten welcomes business travellers and tourists from all over the world. You handle check-in and check-out, answer guest questions, take reservations and prepare invoices. Our front-office team speaks German, English, Turkish, Spanish and Arabic, and any additional language is a plus. We offer a fixed shift plan, discounts at our partner hotels and paid language courses."
+    german_level: {min: "B2", justification: "Many of our guests and all of our suppliers and local authorities communicate with the front desk in German."}
+    expect: []
+
+  - id: ad-058
+    title: "Lagerist (m/w/d) für Ersatzteillager in Ingolstadt"
+    text: "Teilepool Danner lagert Ersatzteile für Landmaschinenhändler in ganz Süddeutschland. Sie nehmen Ware an, buchen sie im Lagerverwaltungssystem ein und bereiten den Versand vor. Ein Staplerschein ist von Vorteil. Bewerbungen von Personen aus Nicht-EU-Staaten können wir leider nicht berücksichtigen."
+    expect: [origin-nationality]
+
+  - id: ad-059
+    title: "Kfz-Mechatroniker:in für unser Nutzfahrzeug-Servicecenter"
+    text: "Truckservice Albrecht in Magdeburg wartet und repariert Lkw, Busse und Anhänger. Sie führen Inspektionen durch, prüfen Bremsanlagen und arbeiten mit modernen Diagnosesystemen. In unserer Werkstatt sind Frauen bisher in der Minderheit, deshalb freuen wir uns besonders über Bewerbungen von Frauen – und natürlich über alle anderen. Wir bieten Hebebühnen bis 20 t, Tarifbindung und Weiterbildung zur Hochvolt-Fachkraft."
+    expect: []
+
+  - id: ad-060
+    title: "Köchin für unser Café mit Mittagstisch"
+    text: "Das Café Lindgrün in Konstanz bietet Frühstück, Kuchen und einen wechselnden Mittagstisch. Sie als Köchin planen die Wochenkarte mit, kochen frisch und regional und bestellen Ware bei unseren Lieferbetrieben. Arbeitszeit ist von 9 bis 15 Uhr, sonntags ist geschlossen. Eine Belehrung nach § 43 IfSG ist Voraussetzung."
+    expect: [gender-title, gender-only]
+
+  - id: ad-061
+    title: "Elektroniker (m/w/d) für Betriebstechnik"
+    text: "Die Molkerei Grünlandhof in Kempten verarbeitet täglich 400.000 Liter Milch. Sie warten Steuerungen und Antriebe, beheben Störungen im Schichtbetrieb und arbeiten bei Modernisierungen mit. Wir bieten Werkswohnungen zu günstigen Mieten und stellen vorzugsweise verheiratete Bewerberinnen und Bewerber ein. Vergütung nach Haustarif mit Schichtzulagen."
+    expect: [family]
+
+  - id: ad-062
+    title: "Gabelstaplerfahrer (m/w/d) im Holzhandel"
+    text: "Holzhandel Ebbinghaus in Hagen lagert Schnittholz, Platten und Bauholz in drei Hallen. Sie be- und entladen Lkw mit Front- und Seitenstapler und stellen Aufträge zusammen. Kleinteile und Leisten tragen Sie auch von Hand, dabei sind Lasten bis 20 kg üblich. Ein gültiger Staplerschein ist Voraussetzung, für den Seitenstapler schulen wir Sie selbst."
+    expect: []
+
+  - id: ad-063
+    title: "Care Assistant (m/f/d) – Residential Care Home, Düsseldorf"
+    text: "Haus Rheinaue is a care home with 72 residents and a strong focus on dementia care. You help residents with personal care, meals and daily activities and document your work in our tablet system. In your application, please tell us about any disabilities or chronic illnesses. We offer permanent contracts, a monthly bonus and a paid qualification as a certified care assistant."
+    expect: [pregnancy-health]
+
+  - id: ad-064
+    title: "Verkaufsberater (m/w/d) für Gebrauchtwagen"
+    text: "Autohaus Steinbrink in Paderborn verkauft rund 600 Gebrauchtwagen im Jahr. Sie beraten Kundschaft, führen Probefahrten durch und bereiten Finanzierungsangebote vor. Gesucht wird eine junge, motivierte Persönlichkeit mit Verkaufstalent. Wir bieten ein Fixum plus Provision und einen Dienstwagen."
+    expect: [age]
+
+  - id: ad-065
+    title: "Zerspanungsmechaniker (m/w/d) CNC-Fräsen"
+    text: "Präzisionsteile Martens in Schweinfurt fertigt Bauteile für Medizintechnik und Maschinenbau. Sie richten CNC-Fräsmaschinen ein, programmieren an der Steuerung und prüfen Werkstücke im Messraum. Wir bieten eine 35-Stunden-Woche in Wechselschicht und fördern die Weiterbildung zur Technikerin oder zum Techniker. Schwerbehinderte Bewerberinnen und Bewerber werden bei gleicher Eignung bevorzugt berücksichtigt."
+    expect: []
+
+  - id: ad-066
+    title: "Umzugshelfer (m/w/d) auf Minijob-Basis"
+    text: "Umzüge Kaltenbach in Karlsruhe bringt Privathaushalte und Büros sicher von A nach B. Sie tragen Möbel und Kartons, bauen Schränke ab und auf und sichern die Ladung im Lkw. Wir suchen kräftige Männer, die auch mal samstags Zeit haben. Bezahlt wird pro Stunde, dazu kommt das Trinkgeld der Kundschaft."
+    expect: [gender-only, physical]
+
+  - id: ad-067
+    title: "Restaurantfachmann/-frau (m/w/d) – Gutshof-Restaurant"
+    text: "Das Restaurant im Gutshof Velten bei Potsdam hat 80 Plätze und eine Terrasse am See. Sie betreuen Gäste à la carte, beraten zu Weinen und organisieren Familienfeiern und Firmenevents mit. Wir bieten eine Vier-Tage-Woche mit 36 Stunden, eine Unterkunft auf Wunsch und Weinschulungen im Haus. Kenntnisse in Kassensystemen sind von Vorteil, aber kein Muss."
+    expect: []
+
+  - id: ad-068
+    title: "Van Driver for Parcel Routes in Leipzig"
+    text: "Paketflitzer Sachsen delivers parcels for online retailers in Leipzig and Halle. You drive a 3.5 t van on fixed routes, scan parcels and collect returns. German citizenship is required for this position. We offer a permanent contract, paid overtime and a new electric fleet."
+    expect: [gender-title, origin-nationality]
+
+  - id: ad-069
+    title: "Pflegeassistenz (m/w/d) im Krankenhaus – Station Innere Medizin"
+    text: "Die Klinik Am Wiesengrund in Schwäbisch Hall hat 230 Betten. Sie unterstützen das Pflegeteam bei Grundpflege, Mobilisation und Essensausgabe und begleiten Patient*innen zu Untersuchungen. Gesucht wird eine Person mit Deutsch als Muttersprache, die gern im Team arbeitet. Den Masernschutz nach § 20 IfSG weisen Sie bei Einstellung nach."
+    german_level: {min: "C2", justification: ""}
+    expect: [origin-native-language, german-without-reason]
+
+  - id: ad-070
+    title: "Bauhelfer (m/w/d) im Hochbau"
+    text: "Bauunternehmung Schaller in Trier baut Ein- und Mehrfamilienhäuser in Massivbauweise. Sie unterstützen unsere Maurerkolonnen, stellen Material bereit, schalen und betonieren mit. Die Arbeit findet draußen bei jedem Wetter statt, Sie tragen Steine und Säcke bis 25 kg und arbeiten auf Gerüsten. Wir stellen Arbeitskleidung, Sicherheitsschuhe und Winterausrüstung und zahlen Saison-Kurzarbeitergeld nach den Regeln der Bauwirtschaft."
+    expect: []
+
+  - id: ad-071
+    title: "Verkäufer*in im Modehaus – Damen- und Herrenabteilung"
+    text: "Modehaus Sternberg in Wiesbaden führt Marken für Business und Freizeit. Sie beraten Kundschaft, gestalten Warenpräsentationen und kassieren. Da Sie unsere Kollektion repräsentieren, wünschen wir uns eine schlanke Figur. Bitte senden Sie Ihre Bewerbung mit Ganzkörperfoto an mode@sternberg-wiesbaden.example."
+    expect: [photo, physical]
+
+  - id: ad-072
+    title: "Industriereiniger:in für Lebensmittelbetriebe – Nachtschicht"
+    text: "Hygieneservice Plaschke reinigt nachts Produktionsanlagen in Fleisch- und Molkereibetrieben im Münsterland. Sie arbeiten mit Schaum- und Hochdruckgeräten, bauen Maschinenteile zur Reinigung ab und dokumentieren nach Hygieneplan. Die Arbeit ist nass und laut; Schutzkleidung, Gehörschutz und Stiefel stellen wir. Nachtzuschläge von 25 % und ein fester Schichtplan sind selbstverständlich."
+    expect: []
+
+  - id: ad-073
+    title: "Junior Barista (all genders) – Specialty Coffee Bar, Dresden"
+    text: "Röstwerk Elbe roasts its own beans and runs two coffee bars in Dresden. As a junior barista you learn espresso extraction, milk texturing and filter brewing from our head barista. No previous experience is required – career changers and people new to hospitality are welcome. We offer paid training, a share of tips and free coffee on every shift."
+    expect: []
+
+  - id: ad-074
+    title: "Disponent (m/w/d) Nahverkehr – Spedition"
+    text: "Spedition Kleinhenz in Schweinfurt plant täglich 40 Touren im regionalen Stückgutverkehr. Sie disponieren Fahrzeuge, stimmen sich mit Fahrer*innen und Kundschaft ab und prüfen Frachtrechnungen. Wir sind ein christlich geführtes Familienunternehmen und erwarten von unseren Beschäftigten die Zugehörigkeit zur evangelischen oder katholischen Kirche. Wir bieten Homeoffice-Tage und eine betriebliche Krankenzusatzversicherung."
+    expect: [religion]
+
+  - id: ad-075
+    title: "Hauswirtschaftshilfe (m/w/d) für Gästehaus auf Föhr"
+    text: "Das Gästehaus Wattblick auf Föhr vermietet zwölf Ferienwohnungen. Sie reinigen die Wohnungen zwischen den Belegungen, waschen Wäsche und bereiten den Frühstücksraum vor. Wechseltage sind meist samstags. Wir setzen voraus, dass Sie keine kleinen Kinder zu betreuen haben oder deren Betreuung am Wochenende jederzeit gesichert ist."
+    expect: [family]
+
+  - id: ad-076
+    title: "Schreiner/in für Montage und Werkstatt"
+    text: "Schreinerei Vogtmann im Allgäu fertigt Treppen, Türen und Möbel aus heimischem Holz. Sie arbeiten in der Werkstatt an Maschinen und bauen vor Ort ein. Wir bieten eine faire Bezahlung, ein Firmenfahrzeug und flexible Arbeitszeiten im Sommer und Winter. Bewerben Sie sich gern formlos per Mail an werkstatt@vogtmann-holz.example."
+    expect: [gender-title]
+
+  - id: ad-077
+    title: "Küchenchef (m/w/d) für Landgasthof mit 120 Plätzen"
+    text: "Der Landgasthof Brunnenhof bei Fulda hat ein Restaurant, einen Biergarten und Festsäle für bis zu 200 Gäste. Sie führen ein Küchenteam von sechs Personen, kalkulieren Speisen und kaufen ein. Wir bieten eine leistungsgerechte Vergütung, geregelte Ruhetage und Gestaltungsspielraum bei der Karte. Bitte senden Sie uns Ihren Lebenslauf ohne Foto – uns interessiert, was Sie können."
+    german_level: {min: "B2", justification: "Sie leiten das Küchenteam an, führen die HACCP-Dokumentation und verhandeln mit regionalen Lieferbetrieben auf Deutsch."}
+    expect: []
+
+  - id: ad-078
+    title: "Electrician (m/f/d) – Industrial Installations, Mannheim"
+    text: "Rheinvolt Industrieservice installs and maintains electrical systems in chemical and food plants. You install cable trays, wire control cabinets and help with commissioning. Applicants should be no older than 45. We offer a company van, overtime pay and further training in PLC programming."
+    expect: [age]
+
+  - id: ad-079
+    title: "Pflegefachfrau/-mann (m/w/d) für die Kurzzeitpflege"
+    text: "Die Kurzzeitpflege Ammerseeblick in Dießen nimmt Gäste nach Krankenhausaufenthalten für bis zu vier Wochen auf. Sie planen die Pflege, koordinieren Entlassungen und arbeiten eng mit Hausarztpraxen und Physiotherapie zusammen. Die gesetzlich vorgeschriebenen Nachweise – Berufsurkunde und Masernschutz – bringen Sie mit. Wir bieten einen Wunschdienstplan, einen Zuschuss zum Deutschlandticket und eine Kita-Kooperation in der Nachbarschaft."
+    expect: []
+
+  - id: ad-080
+    title: "Fahrzeuglackierer (m/w/d) für Unfallinstandsetzung"
+    text: "Karosserie & Lack Wendler in Gelsenkirchen arbeitet für Versicherungen und Autohäuser. Sie bereiten Fahrzeugteile vor, mischen Farbtöne und lackieren in der Lackierkabine. Bewerberinnen und Bewerber sollten frei von Allergien, Asthma und Rückenleiden sein. Wir bieten moderne Atemschutztechnik, Tarifbindung und eine Prämie für fehlerfreie Aufträge."
+    expect: [pregnancy-health]
+
+  - id: ad-081
+    title: "Saisonarbeitskraft (m/w/d) für Obsthof am Bodensee"
+    text: "Obsthof Rebmann baut Äpfel, Birnen und Kirschen in Markdorf an. Von Juli bis Oktober pflücken Sie Obst, sortieren es in der Halle und helfen beim Verladen. Bewerberinnen und Bewerber aus Rumänien und Polen werden bevorzugt. Wir bieten eine Unterkunft auf dem Hof, Mindestlohn plus Pflückprämie und Verpflegung."
+    expect: [origin-nationality]
+
+  - id: ad-082
+    title: "Cleaning Supervisor (all genders) – Hospital Contracts, Essen"
+    text: "Reinhold Facility Care runs cleaning teams in three hospitals in the Ruhr area. You plan shifts for a team of 25, carry out quality checks and train new staff on hygiene plans. We value our multilingual teams and welcome applications regardless of nationality, age or religion. You get a company car for travelling between sites and a personal training budget."
+    german_level: {min: "B1", justification: "You instruct cleaning staff on hygiene plans and agree urgent tasks with ward staff, which happens in German."}
+    expect: []
+
+  - id: ad-083
+    title: "Reinigungskraft auf Minijob-Basis – Treppenhausreinigung"
+    text: "Hausservice Brinkmann reinigt Treppenhäuser in Mehrfamilienhäusern in Bremen-Vegesack. Sie wischen Treppen, putzen die Fenster im Treppenhaus und kümmern sich um die Mülltonnen. Die Stelle ist ideal für Hausfrauen, die sich vormittags etwas dazuverdienen möchten. Ihre Arbeitszeit können Sie innerhalb der Woche frei einteilen."
+    expect: [gender-title, gender-only]
+
+  - id: ad-084
+    title: "Maurer (m/w/d) – Einfamilienhausbau, Raum Kassel"
+    text: "Bau Lindemann ist ein Familienbetrieb mit 22 Beschäftigten, darunter Kolleginnen und Kollegen aus sechs Ländern. Sie mauern Wände, setzen Stürze und arbeiten mit Planstein und Kalksandstein. Bewerberinnen und Bewerber aus dem Ausland unterstützen wir bei Anerkennung und Visum; für die Einstellung brauchen Sie eine Arbeitserlaubnis für Deutschland, die wir gemeinsam beantragen. Wir zahlen nach Bautarif und stellen Werkzeug und Kleidung."
+    expect: []
+
+  - id: ad-085
+    title: "Kaufmann/-frau für Spedition und Logistikdienstleistung (m/w/d)"
+    text: "Seefracht Ahrendt in Bremerhaven organisiert Containerverkehre nach Skandinavien und ins Baltikum. Sie erstellen Angebote, buchen Schiffsraum und bereiten Zollpapiere vor. Wir setzen Deutschkenntnisse auf muttersprachlichem Niveau und gutes Englisch voraus. Wir bieten Gleitzeit, Homeoffice und ein Jobrad."
+    german_level: {min: "C2", justification: "Sie verhandeln Frachtraten mit deutschsprachiger Kundschaft und bearbeiten Zolldokumente."}
+    expect: [origin-native-language]
+
+  - id: ad-086
+    title: "Servicetechniker (m/w/d) für Kaffeevollautomaten"
+    text: "Kaffeetechnik Horvat wartet und repariert Kaffeemaschinen in Büros, Hotels und Bäckereien in Nürnberg und Umgebung. Sie fahren mit dem Servicewagen zu unserer Kundschaft, führen Entkalkungen durch und tauschen Brühgruppen. Ihre Bewerbung mit aktuellem Bewerbungsfoto senden Sie an service@horvat-kaffeetechnik.example. Es erwarten Sie ein unbefristeter Vertrag und eine Einarbeitung beim Hersteller."
+    german_level: {min: "B2", justification: ""}
+    expect: [photo, german-without-reason]
+
+  - id: ad-087
+    title: "Packer (m/f/d) – Mail-Order Pharmacy Warehouse, Halle"
+    text: "Saaleapotheke Versand ships over-the-counter medicines and skin care products to customers across Germany. You pick orders from shelves, pack them in temperature-safe boxes and label shipments. The work is done standing, and you lift parcels of up to 15 kg throughout the shift. We offer day shifts only, a permanent contract after six months and a 20 % staff discount."
+    expect: []
+
+  - id: ad-088
+    title: "Konditor*in für Café-Konditorei in Offenbach"
+    text: "Das Café Mandelblüte backt Torten, Baklava und Petits Fours für zwei Cafés und für Hochzeiten. Sie stellen Massen und Cremes her, dekorieren Torten und planen die Produktion mit. Während des Ramadans und an Weihnachten passen wir Schichten auf Wunsch an, damit alle ihre Feiertage begehen können. Eine Belehrung nach § 43 IfSG ist Pflicht und wird von uns bezahlt."
+    expect: []
+
+  - id: ad-089
+    title: "Lagermitarbeiter (m/w/d) im Reifenlager"
+    text: "Reifenzentrum Kuhlmann in Bielefeld lagert über 15.000 Radsätze für Autohäuser und Privatkundschaft. Sie lagern Reifen ein und aus, bereiten Lieferungen vor und unterstützen in der Saison die Werkstatt. Bewerben können sich alle unter 35 mit Führerschein Klasse B. Wir bieten einen sicheren Arbeitsplatz und Prämien in der Hochsaison."
+    expect: [age]
+
+  - id: ad-090
+    title: "Haushaltshilfe (m/w/d) für Privathaushalte – Vermittlung"
+    text: "Haushaltsservice Alpenrose vermittelt Haushaltshilfen an Privathaushalte im Raum Rosenheim. Sie putzen, bügeln und erledigen kleinere Einkäufe, meist zwei bis drei Stunden pro Einsatz. Voraussetzung für die Aufnahme in unseren Pool ist die römisch-katholische Konfession. Sie werden fest bei uns angestellt und bekommen die Fahrtzeit zwischen den Einsätzen bezahlt."
+    expect: [religion]
+
+  - id: ad-091
+    title: "Sous Chef (all genders) – Modern Bistro, Hamburg"
+    text: "Kombüse 54 is a 50-seat bistro serving a seasonal tasting menu in Hamburg-Ottensen. You run the pass when our head chef is off, train cooks and manage ordering. We want someone young and hungry who will grow with our kitchen. We close two days a week, pay a fair share of the service charge and give you a say in the menu."
+    expect: [age]
+
+  - id: ad-092
+    title: "Glaser (m/w/d) für Montage von Glasfassaden"
+    text: "Glasbau Tiedemann in Rendsburg montiert Fassaden, Glasgeländer und Duschabtrennungen. Sie messen auf, schneiden Glas zu und montieren auf der Baustelle. Arbeiten auf Leitern, Hubsteigern und Gerüsten gehören zum Alltag, schwere Scheiben bewegen wir mit Vakuumhebern. Wir bieten Montageprämien, ein festes Team und Unterstützung bis zur Meisterprüfung."
+    expect: []
+
+  - id: ad-093
+    title: "Fahrer (m/w/d) für Mittagsmenü-Lieferdienst"
+    text: "Menüdienst Kochlöffel liefert täglich warmes Mittagessen an Seniorinnen und Senioren in Halle (Saale). Sie fahren eine feste Tour von 10:30 bis 13:30 Uhr und bringen die Menüs bis an die Wohnungstür. Bitte geben Sie im Lebenslauf Ihren Familienstand und die Anzahl Ihrer Kinder an. Die Stelle eignet sich gut als Minijob, ein Dienstwagen wird gestellt."
+    expect: [family]
+
+  - id: ad-094
+    title: "Mitarbeiterin für unsere Wäscherei"
+    text: "Textilpflege Brandauer bearbeitet Wäsche für Hotels und Pflegeheime im Berchtesgadener Land. Wir suchen eine Mitarbeiterin, die Wäsche sortiert, Mangeln und Faltmaschinen bedient und Wäsche für die Auslieferung verpackt. Gearbeitet wird in der Frühschicht von 6 bis 14 Uhr. Wir zahlen über Mindestlohn und bieten einen Zuschuss für Fahrtkosten."
+    expect: [gender-title, gender-only]
+
+  - id: ad-095
+    title: "Night Receptionist (m/f/d) – Airport Hotel, Frankfurt"
+    text: "Skyway Inn Frankfurt Airport has 180 rooms and a 24-hour front desk. You check in late arrivals, handle the night audit and prepare breakfast lists for the morning team. Nights run from 22:00 to 06:30 with tax-free night premiums. Please include a recent photo with your application to jobs@skyway-inn.example."
+    expect: [photo]
+
+  - id: ad-096
+    title: "Produktionshelfer (m/w/d) in der Feinkostherstellung"
+    text: "Feinkost Ahlgrimm in Lüneburg stellt Salate, Dips und Antipasti für den Lebensmittelhandel her. Sie portionieren, verpacken und etikettieren Produkte und reinigen die Linie nach Schichtende. In der Produktion herrschen 4 bis 7 °C, warme Arbeitskleidung stellen wir. Vor dem ersten Arbeitstag ist eine Belehrung nach § 43 IfSG erforderlich; Quereinsteigerinnen und Quereinsteiger sind herzlich willkommen."
+    expect: []
+
+  - id: ad-097
+    title: "Heizungsbauer für Wärmepumpen-Montage"
+    text: "Energietechnik Riedl in Landshut baut Wärmepumpen und Solarthermie in Bestandsgebäude ein. Sie demontieren alte Kessel, montieren Inneneinheiten und verlegen Kupfer- und Verbundrohre. Sie sind körperlich fit und sportlich. Es gibt eine Wärmepumpen-Schulung beim Hersteller und einen Firmenwagen."
+    expect: [gender-title, physical]
+
+  - id: ad-098
+    title: "Assistenz der Geschäftsleitung (m/w/d) – Weinimport"
+    text: "Vinoteca Brandner importiert Weine aus Italien und Spanien und beliefert die Gastronomie in Süddeutschland. Sie organisieren Termine, bereiten Messen vor und unterstützen bei Einkaufsverhandlungen. Legen Sie Ihrer Bewerbung bitte eine Aufstellung Ihrer krankheitsbedingten Fehltage der letzten zwei Jahre bei. Wir bieten ein kleines Team, flexible Arbeitszeiten und Weinproben vor Ort."
+    expect: [pregnancy-health]
+
+  - id: ad-099
+    title: "Logistics Coordinator (all genders) – Trading Company, Düsseldorf"
+    text: "Nordwall Trading imports kitchen appliances from Asia and distributes them to German retailers. You coordinate inbound containers with freight forwarders, book warehouse slots and keep retailers informed about delivery dates. Our team of eleven is a mix of long-serving colleagues and recent hires from four countries. We offer hybrid work, 30 days of holiday and a learning budget."
+    german_level: {min: "C1", justification: "Most German retail customers and the customs authorities expect phone calls and written correspondence in German."}
+    expect: []
+
+  - id: ad-100
+    title: "Pflegehelfer:in im Nachtdienst – Teilzeit"
+    text: "Das Seniorenheim Am Kirschgarten in Halberstadt sucht Unterstützung für den Nachtdienst. Sie machen Rundgänge, helfen bei Lagerungen und Toilettengängen und sind Ansprechperson für Bewohner*innen, die nicht schlafen können. Wir bieten Nachtzuschläge, feste Nächte nach Absprache und Plätze in der betriebsnahen Kita für Kinder unserer Beschäftigten. Der Masernschutznachweis nach § 20 IfSG ist erforderlich."
+    expect: []
+
+  - id: ad-101
+    title: "Kellner (m/w/d) für Biergarten und Restaurant"
+    text: "Die Gaststätte Seeterrasse in Starnberg hat 150 Plätze im Biergarten und 60 im Restaurant. Sie servieren, kassieren mit dem mobilen Kassensystem und helfen beim Auf- und Abbau. Unsere Benefits: Trinkgeld, kostenloses Personalessen und regelmäßige Ausflüge für unser junges Team. Von April bis Oktober suchen wir Unterstützung in Voll- oder Teilzeit."
+    expect: [age]
+
+  - id: ad-102
+    title: "Kassierer*in für Tankstelle mit Shop – auch nachts"
+    text: "Die Tankstelle Kreuzhof an der B 27 in Tübingen ist rund um die Uhr geöffnet. Sie kassieren, bereiten Backwaren und Kaffee zu und füllen Regale auf. Wir arbeiten in drei Schichten, Nacht- und Sonntagszuschläge zahlen wir steuerfrei. Erfahrung im Einzelhandel ist hilfreich, Berufseinsteiger*innen werden eingearbeitet."
+    expect: []
+
+  - id: ad-103
+    title: "Machine Operator (m/f/d) – Metal Stamping, Pforzheim"
+    text: "Goldstadt Stanztechnik produces stamped metal parts for watches and electronics. You set up and run stamping presses, check parts with gauges and log quality data. We prefer candidates who come from Germany or Austria. We pay according to the metalworking collective agreement and offer a shift allowance."
+    expect: [origin-nationality]
+
+  - id: ad-104
+    title: "Anlagenführer (m/w/d) Getränkeabfüllung"
+    text: "Der Mineralbrunnen Hochwald in Bad Sobernheim füllt Mineralwasser und Schorlen in Glas- und PET-Flaschen ab. Sie fahren die Abfüllanlage, wechseln Formate und beheben kleinere Störungen. Getaufte Christinnen und Christen werden bei der Auswahl bevorzugt, da uns gemeinsame Werte wichtig sind. Wir bieten einen Haustarif mit Urlaubs- und Weihnachtsgeld."
+    expect: [religion]
+
+  - id: ad-105
+    title: "Bodenleger (m/w/d) für Parkett und Designbelag"
+    text: "Raumboden Fischer in Mainz verlegt Parkett, Vinyl und Teppich in Wohnungen und Büros. Sie schleifen Untergründe, spachteln und verlegen Beläge sauber und termingerecht. Sie sind maximal 40 Jahre alt und haben Erfahrung im Handwerk. Bewerbungen nehmen wir nur mit Lichtbild entgegen."
+    expect: [photo, age]
+
+  - id: ad-106
+    title: "Altenpflegerin für unseren ambulanten Pflegedienst"
+    text: "Der Pflegedienst Herzwerk in Recklinghausen betreut rund 90 Klient*innen zu Hause. Sie als examinierte Altenpflegerin übernehmen Behandlungspflege, Beratungsbesuche und die Anleitung von Hilfskräften. Wir bieten feste Touren, ein E-Auto auch zur privaten Nutzung und einen Zuschuss zur Kinderbetreuung. Der Masernschutznachweis ist gesetzlich vorgeschrieben."
+    expect: [gender-title, gender-only]
+
+  - id: ad-107
+    title: "Dishwasher (all genders) – Event Catering, Berlin"
+    text: "Tafelrunde Catering cooks for weddings, conferences and company parties in Berlin and Brandenburg. You run our mobile dishwashing station at events and the main machine in our central kitchen. Before your first shift you need the food-hygiene instruction under § 43 of the German Infection Protection Act; we book it and pay for it. We plan shifts two weeks ahead and pay a weekend bonus."
+    expect: []
+
+  - id: ad-108
+    title: "Hotelfachmann/-frau (m/w/d) mit Zimmer im Personalhaus"
+    text: "Das Berghotel Edelweißhütte in Garmisch-Partenkirchen hat 52 Zimmer und ein Panorama-Restaurant. Sie arbeiten an der Rezeption, im Service und in der Gästebetreuung. Da unsere Personalzimmer nur für eine Person ausgelegt sind, bevorzugen wir ledige Bewerberinnen und Bewerber. Kost und Logis sind günstig, der Skipass ist inklusive."
+    expect: [family]
+
+  - id: ad-109
+    title: "Fachkraft für Lagerlogistik (m/w/d) – Gefahrstofflager"
+    text: "Chemiehandel Burgdorf lagert und verschickt Lacke, Lösemittel und Reinigungschemikalien. Sie nehmen Gefahrgut an, lagern es nach Lagerklassen ein und bereiten Sendungen nach ADR vor. Wir bieten eine Gefahrstoffzulage, regelmäßige Schulungen und einen Arbeitsplatz in Tagschicht. Eine abgeschlossene Ausbildung in der Lagerlogistik oder mehrjährige Erfahrung im Gefahrstofflager setzen wir voraus."
+    german_level: {min: "A2", justification: "Sicherheitsunterweisungen, Gefahrstoffkennzeichnungen und Betriebsanweisungen müssen Sie auf Deutsch verstehen."}
+    expect: []
+
+  - id: ad-110
+    title: "Dachdecker gesucht – Steildach und Flachdach"
+    text: "Bedachungen Overbeck in Emden deckt und saniert Dächer im ganzen Landkreis Aurich. Sie decken Ziegel- und Schieferdächer, verlegen Abdichtungen und bauen Dachfenster ein. Wir bieten Tariflohn, eine Sommerprämie und Arbeit in der Halle im Winter. Eine Ausbildung im Dachdeckerhandwerk ist Voraussetzung, gearbeitet wird gesichert auf Gerüsten und Dächern."
+    expect: [gender-title]
+
+  - id: ad-111
+    title: "Store Assistant (m/f/d) – Organic Supermarket, Freiburg"
+    text: "Naturkost Dreisam is an organic supermarket with a deli counter and a large fruit and vegetable section. You stock shelves, work at the till and help customers find products. We expect native-level German, as most of our regular customers prefer to speak German. We offer a 20 % staff discount and a fixed weekly schedule."
+    expect: [origin-native-language]
+
+  - id: ad-112
+    title: "Industrieelektriker (m/w/d) für Instandhaltung in der Papierfabrik"
+    text: "Die Papierfabrik Blauental in Aschaffenburg produziert Spezialpapiere im Vollkontibetrieb. Sie warten Antriebe, Schaltanlagen und Sensorik und arbeiten an Modernisierungsprojekten mit. Bitte geben Sie im Anschreiben an, ob eine Schwerbehinderung vorliegt, da die Stelle dafür nicht geeignet ist. Wir zahlen nach Tarif und bieten eine Werkskantine."
+    expect: [pregnancy-health]
+
+  - id: ad-113
+    title: "Kundendiensttechniker:in für Ladesäulen – Raum Hannover"
+    text: "VoltPunkt ist ein junges Unternehmen, 2022 gegründet, das Ladesäulen für Supermärkte und Wohnanlagen installiert und betreut. Sie fahren zu Störungen, tauschen Module, prüfen Anlagen nach DGUV V3 und dokumentieren auf dem Tablet. In unserem Team arbeiten Kolleg*innen von der ersten Stelle nach der Ausbildung bis kurz vor der Rente zusammen, und alle teilen ihr Wissen. Eine abgeschlossene Elektroausbildung ist Voraussetzung, Hochvolt-Schulungen bezahlen wir."
+    expect: []
+
+  - id: ad-114
+    title: "Kassierer (m/w/d) für Supermarkt in Rostock-Lütten Klein"
+    text: "Frischemarkt Petersen ist ein inhabergeführter Supermarkt mit 30 Beschäftigten. Wir suchen eine nette Kassiererin, die auch beim Auffüllen der Regale mit anpackt. Sie arbeiten im Früh- oder Spätdienst, höchstens an jedem zweiten Samstag. Wir zahlen nach Einzelhandelstarif und bieten Personalrabatt."
+    german_level: {min: "B1", justification: ""}
+    expect: [gender-only, german-without-reason]
+
+  - id: ad-115
+    title: "Truck Driver (all genders) – Regional Distribution, Nuremberg"
+    text: "Frankenland Logistik delivers building materials and garden supplies to DIY stores in northern Bavaria. You drive a 40-tonne articulated lorry on regional routes and are home every evening. Requirements are a CE licence with code 95 and a digital tachograph card; we plan tours to respect driving and rest times. We welcome applicants of all ages and backgrounds, including drivers who are new to the job."
+    expect: []
+
+  - id: ad-116
+    title: "Raumpflege (m/w/d) für Bürogebäude – Teilzeit"
+    text: "Ilmtal Gebäudedienste: Unser Reinigungsteam im Technologiepark Ilmenau besteht aus elf Kolleginnen und Kollegen, die meisten sind seit vielen Jahren dabei. Sie reinigen Büros, Besprechungsräume und Teeküchen nach festem Plan. Die Arbeitszeit liegt montags bis freitags zwischen 15 und 19 Uhr. Wir zahlen nach Tarif des Gebäudereiniger-Handwerks und stellen Arbeitskleidung."
+    expect: []
+
+  - id: ad-117
+    title: "Mitarbeiter:in für unseren Wertstoffhof"
+    text: "Entsorgung Brüning in Celle betreibt einen Wertstoffhof für private und gewerbliche Anlieferungen. Sie weisen Anliefernde ein, kontrollieren Abfälle, bedienen die Waage und sortieren Fehlwürfe aus. Die Arbeit findet überwiegend im Freien statt; Container werden mit dem Radlader bewegt, Sie heben aber auch mal Elektrogeräte bis 20 kg. Sicherheitsschuhe, Wetterkleidung und Handschuhe stellen wir."
+    expect: []
+
+  - id: ad-118
+    title: "Care Worker – Home Care Service, Bremen"
+    text: "Pflegeteam Weserufer supports older people in their own homes across Bremen. You help clients with personal care, medication reminders and light housework, and you drive between visits in a company car. We offer fixed routes, a monthly fuel card and paid travel time. Proof of measles immunity is required by law for all care staff."
+    german_level: {min: "B2", justification: ""}
+    expect: [gender-title, german-without-reason]
+
+  - id: ad-119
+    title: "Konstruktionsmechaniker (m/w/d) für Montageeinsätze"
+    text: "Anlagenbau Thiessen montiert Silos und Förderanlagen in ganz Europa. Sie sind zwei bis drei Wochen am Stück auf Montage und arbeiten nach Zeichnung mit Schweiß- und Schraubverbindungen. Weil die Einsätze lang sind, bevorzugen wir Bewerberinnen und Bewerber ohne Kinder. Wir zahlen Auslöse, Reisezeit und eine Montagezulage."
+    expect: [family]
+
+  - id: ad-120
+    title: "Haustechniker*in für Tagungshotel am Wannsee"
+    text: "Das Tagungshotel Seeblick Wannsee hat 140 Zimmer und 18 Tagungsräume. Sie kümmern sich um Licht-, Ton- und Haustechnik, kleine Reparaturen und die Wartung gemeinsam mit externen Fachfirmen. Wir stellen Menschen ein, weil sie gut zu der Aufgabe passen – Geschlecht, Alter, Herkunft, Religion, Behinderung oder Familienstand spielen bei uns keine Rolle. Wir bieten eine Fünf-Tage-Woche, ein Personalrestaurant und vergünstigte Übernachtungen für Ihre Familie."
+    expect: []

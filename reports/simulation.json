@@ -1,0 +1,180 @@
+{
+  "kind": "simulation",
+  "seed": 7,
+  "assumptions": {
+    "revive": 0.3,
+    "consent": 0.96,
+    "notices_error": 0.8,
+    "pool_yes": 0.6,
+    "max_days": 9,
+    "patience": "uniform 0.90–0.99 per prompt",
+    "reply_delay": "80% minutes, 15% 1–6 h, 5% 10–18 h",
+    "languages": {
+      "de": 0.38,
+      "tr": 0.12,
+      "pl": 0.12,
+      "ro": 0.12,
+      "uk": 0.08,
+      "ru": 0.06,
+      "ar": 0.07,
+      "en": 0.05
+    },
+    "template_price_usd": 0.055
+  },
+  "assistant": {
+    "candidates": 600,
+    "completed": 478,
+    "completion_rate": 0.797,
+    "median_replies_when_completed": 9.0,
+    "median_minutes_to_done": 481.7,
+    "reminders_free_form": 134,
+    "reminders_template": 132,
+    "template_cost_usd": 7.26,
+    "outcomes": {
+      "no job now, joined the talent pool": 204,
+      "handed to a recruiter": 139,
+      "stopped answering": 130,
+      "no job now, data deleted": 110,
+      "declined consent": 17
+    },
+    "handed_over": 139,
+    "template_cost_per_handover_usd": 0.0522,
+    "read_back_corrections": 2
+  },
+  "form_bot": {
+    "candidates": 600,
+    "completed": 442,
+    "completion_rate": 0.737,
+    "median_replies_when_completed": 14.0,
+    "median_minutes_to_done": 1536.2,
+    "reminders_free_form": 370,
+    "reminders_template": 450,
+    "template_cost_usd": 24.75
+  },
+  "fields": {
+    "occupation": {
+      "right": 478,
+      "wrong": 0,
+      "not_asked_or_missing": 0,
+      "accuracy_when_present": 1.0
+    },
+    "location": {
+      "right": 478,
+      "wrong": 0,
+      "not_asked_or_missing": 0,
+      "accuracy_when_present": 1.0
+    },
+    "qualification": {
+      "right": 69,
+      "wrong": 0,
+      "not_asked_or_missing": 409,
+      "accuracy_when_present": 1.0
+    },
+    "licences": {
+      "right": 209,
+      "wrong": 0,
+      "not_asked_or_missing": 269,
+      "accuracy_when_present": 1.0
+    },
+    "start_date": {
+      "right": 478,
+      "wrong": 0,
+      "not_asked_or_missing": 0,
+      "accuracy_when_present": 1.0
+    },
+    "shifts": {
+      "right": 478,
+      "wrong": 0,
+      "not_asked_or_missing": 0,
+      "accuracy_when_present": 1.0
+    },
+    "german_level": {
+      "right": 432,
+      "wrong": 0,
+      "not_asked_or_missing": 46,
+      "accuracy_when_present": 1.0
+    },
+    "experience_years": {
+      "right": 478,
+      "wrong": 0,
+      "not_asked_or_missing": 0,
+      "accuracy_when_present": 1.0
+    },
+    "recognition": {
+      "right": 35,
+      "wrong": 0,
+      "not_asked_or_missing": 0,
+      "accuracy_when_present": 1.0
+    }
+  },
+  "field_accuracy_when_present": 1.0,
+  "language_detected_right": 0.998,
+  "matching": {
+    "candidates_with_a_deserved_job": 168,
+    "assistant": {
+      "forwarded": 139,
+      "deserved": 124,
+      "precision": 0.892,
+      "candidates_reached": 124,
+      "recall": 0.738,
+      "verdict_agrees_with_truth": 0.871
+    },
+    "keyword": {
+      "forwarded": 295,
+      "deserved": 168,
+      "precision": 0.569,
+      "candidates_reached": 168,
+      "recall": 1.0
+    }
+  },
+  "by_language": {
+    "de": {
+      "candidates": 213,
+      "completion_rate": 0.798,
+      "median_replies": 9.0,
+      "field_accuracy_when_present": 1.0
+    },
+    "tr": {
+      "candidates": 75,
+      "completion_rate": 0.853,
+      "median_replies": 8.0,
+      "field_accuracy_when_present": 1.0
+    },
+    "pl": {
+      "candidates": 75,
+      "completion_rate": 0.747,
+      "median_replies": 9.0,
+      "field_accuracy_when_present": 1.0
+    },
+    "ro": {
+      "candidates": 75,
+      "completion_rate": 0.827,
+      "median_replies": 9.0,
+      "field_accuracy_when_present": 1.0
+    },
+    "uk": {
+      "candidates": 42,
+      "completion_rate": 0.762,
+      "median_replies": 9.0,
+      "field_accuracy_when_present": 1.0
+    },
+    "ru": {
+      "candidates": 43,
+      "completion_rate": 0.791,
+      "median_replies": 8.5,
+      "field_accuracy_when_present": 1.0
+    },
+    "ar": {
+      "candidates": 40,
+      "completion_rate": 0.75,
+      "median_replies": 8.0,
+      "field_accuracy_when_present": 1.0
+    },
+    "en": {
+      "candidates": 37,
+      "completion_rate": 0.811,
+      "median_replies": 8.0,
+      "field_accuracy_when_present": 1.0
+    }
+  }
+}

@@ -76,9 +76,16 @@ def _public_conv(row: dict[str, Any]) -> dict[str, Any]:
     loc = (prof.get("location") or {}).get("value") or {}
     verdicts = [f.split(":") for f in st.get("flags", []) if f.startswith("job:")]
     return {
-        "id": row["id"], "channel": row["channel"], "stage": row["stage"], "lang": row["lang"], "job_id": row["job_id"],
-        "name": (prof.get("full_name") or {}).get("value") or st.get("wa_name") or "", "occupation": occ,
-        "place": loc.get("place"), "updated_at": row["updated_at"].isoformat(), "created_at": row["created_at"].isoformat(),
+        "id": row["id"],
+        "channel": row["channel"],
+        "stage": row["stage"],
+        "lang": row["lang"],
+        "job_id": row["job_id"],
+        "name": (prof.get("full_name") or {}).get("value") or st.get("wa_name") or "",
+        "occupation": occ,
+        "place": loc.get("place"),
+        "updated_at": row["updated_at"].isoformat(),
+        "created_at": row["created_at"].isoformat(),
         "matches": [{"job_id": j, "verdict": v} for _, j, v in verdicts],
         "fields": len(prof),
     }
@@ -102,15 +109,16 @@ def create_app(store: Store, engine: Engine, clock: Callable[[], datetime] | Non
         try:
             with store.conn() as c:
                 c.execute("SELECT 1")
-        except Exception as e:  # noqa: BLE001
+        except Exception as e:
             raise HTTPException(503, "database unavailable") from e
         return {"status": "ready"}
 
     # -- WhatsApp ------------------------------------------------------------------------------
 
     @app.get("/webhooks/whatsapp", response_class=PlainTextResponse)
-    def wa_verify(mode: str = Query("", alias="hub.mode"), token: str = Query("", alias="hub.verify_token"),
-                  challenge: str = Query("", alias="hub.challenge")) -> str:
+    def wa_verify(
+        mode: str = Query("", alias="hub.mode"), token: str = Query("", alias="hub.verify_token"), challenge: str = Query("", alias="hub.challenge")
+    ) -> str:
         expected = os.environ.get("FKP_WA_VERIFY_TOKEN", "")
         if mode == "subscribe" and expected and hmac.compare_digest(token, expected):
             return challenge
@@ -159,14 +167,18 @@ def create_app(store: Store, engine: Engine, clock: Callable[[], datetime] | Non
             raise HTTPException(422, {"message": "the job text has wording that discriminates (AGG)", "issues": [i.__dict__ for i in blocking]})
         store.upsert_job(job)
         with store.conn() as c:
-            Store.add_event(c, None, "job_saved", {"job_id": job.id, "override_reason": body.override_reason, "issues": [i.rule for i in issues]}, now())
+            Store.add_event(
+                c, None, "job_saved", {"job_id": job.id, "override_reason": body.override_reason, "issues": [i.rule for i in issues]}, now()
+            )
         return {**job.to_dict(), "agg": [i.__dict__ for i in issues]}
 
     @app.patch("/api/jobs/{job_id}", dependencies=[Depends(require("recruiter"))])
     def set_open(job_id: str, body: dict[str, bool]) -> dict[str, Any]:
         with store.conn() as c:
-            r = c.execute("UPDATE jobs SET open = %s, data = jsonb_set(data, '{open}', to_jsonb(%s::boolean)), updated_at = now() WHERE id = %s RETURNING id",
-                          (bool(body.get("open")), bool(body.get("open")), job_id)).fetchone()
+            r = c.execute(
+                "UPDATE jobs SET open = %s, data = jsonb_set(data, '{open}', to_jsonb(%s::boolean)), updated_at = now() WHERE id = %s RETURNING id",
+                (bool(body.get("open")), bool(body.get("open")), job_id),
+            ).fetchone()
         if not r:
             raise HTTPException(404, "no such job")
         return {"id": job_id, "open": bool(body.get("open"))}
@@ -183,8 +195,10 @@ def create_app(store: Store, engine: Engine, clock: Callable[[], datetime] | Non
             where.append("(job_id = %s OR state->'flags' ? %s)")
             args += [job_id, f"job:{job_id}:fit"]
         with store.conn() as c:
-            rows = c.execute(f"SELECT * FROM conversations WHERE {' AND '.join(where)} ORDER BY updated_at DESC LIMIT %s",  # noqa: S608
-                             [*args, min(limit, 500)]).fetchall()
+            rows = c.execute(
+                f"SELECT * FROM conversations WHERE {' AND '.join(where)} ORDER BY updated_at DESC LIMIT %s",  # noqa: S608
+                [*args, min(limit, 500)],
+            ).fetchall()
         out = [_public_conv(r) for r in rows]
         if q:
             ql = q.lower()
@@ -197,13 +211,20 @@ def create_app(store: Store, engine: Engine, clock: Callable[[], datetime] | Non
             row = Store.conversation_by_id(c, cid)
             if not row or row["stage"] == "deleted":
                 raise HTTPException(404, "no such candidate")
-            msgs = c.execute("SELECT direction, kind, channel_id, body, purpose, status, category, cost_usd, at, redacted FROM messages WHERE conversation_id = %s ORDER BY at, id",
-                             (cid,)).fetchall()
+            msgs = c.execute(
+                "SELECT direction, kind, channel_id, body, purpose, status, category, cost_usd, at, redacted FROM messages WHERE conversation_id = %s ORDER BY at, id",
+                (cid,),
+            ).fetchall()
             evs = c.execute("SELECT type, data, at FROM events WHERE conversation_id = %s ORDER BY at, id", (cid,)).fetchall()
         st = row["state"]
         return {
-            **_public_conv(row), "phone": row["phone"], "consent_at": st.get("consent_at"), "profile": st.get("profile") or {},
-            "matches": st.get("matches") or [], "skipped": st.get("skipped") or [], "asked": st.get("asked"),
+            **_public_conv(row),
+            "phone": row["phone"],
+            "consent_at": st.get("consent_at"),
+            "profile": st.get("profile") or {},
+            "matches": st.get("matches") or [],
+            "skipped": st.get("skipped") or [],
+            "asked": st.get("asked"),
             "messages": [{**m, "at": m["at"].isoformat(), "cost_usd": float(m["cost_usd"])} for m in msgs],
             "events": [{**e, "at": e["at"].isoformat()} for e in evs],
         }
@@ -248,21 +269,36 @@ def create_app(store: Store, engine: Engine, clock: Callable[[], datetime] | Non
             stages = {r["stage"]: r["n"] for r in c.execute("SELECT stage, count(*) AS n FROM conversations GROUP BY stage")}
             langs = {r["lang"]: r["n"] for r in c.execute("SELECT lang, count(*) AS n FROM conversations WHERE stage <> 'deleted' GROUP BY lang")}
             ev = {r["type"]: r["n"] for r in c.execute("SELECT type, count(*) AS n FROM events GROUP BY type")}
-            cost = c.execute("SELECT category, count(*) AS n, coalesce(sum(cost_usd), 0) AS usd FROM messages WHERE direction = 'out' GROUP BY category").fetchall()
-            durations = [r["m"] for r in c.execute(
-                """SELECT extract(epoch FROM (min(e.at) - c.created_at)) / 60 AS m FROM conversations c
-                   JOIN events e ON e.conversation_id = c.id AND e.type = 'profile_confirmed' GROUP BY c.id, c.created_at""")]
-            erasures = c.execute("SELECT count(*) AS n FROM erasures").fetchone()["n"]
+            cost = c.execute(
+                "SELECT category, count(*) AS n, coalesce(sum(cost_usd), 0) AS usd FROM messages WHERE direction = 'out' GROUP BY category"
+            ).fetchall()
+            durations = [
+                r["m"]
+                for r in c.execute(
+                    """SELECT extract(epoch FROM (min(e.at) - c.created_at)) / 60 AS m FROM conversations c
+                   JOIN events e ON e.conversation_id = c.id AND e.type = 'profile_confirmed' GROUP BY c.id, c.created_at"""
+                )
+            ]
+            erasures = (c.execute("SELECT count(*) AS n FROM erasures").fetchone() or {"n": 0})["n"]
         started = sum(stages.values())
         consented = ev.get("consent_given", 0)
         return {
-            "funnel": {"started": started, "consented": consented, "confirmed": ev.get("profile_confirmed", 0),
-                       "handed_over": ev.get("handover", 0), "pooled": ev.get("pooled", 0), "human": ev.get("human_requested", 0),
-                       "declined": ev.get("consent_declined", 0), "deleted": erasures},
-            "stages": stages, "languages": langs,
+            "funnel": {
+                "started": started,
+                "consented": consented,
+                "confirmed": ev.get("profile_confirmed", 0),
+                "handed_over": ev.get("handover", 0),
+                "pooled": ev.get("pooled", 0),
+                "human": ev.get("human_requested", 0),
+                "declined": ev.get("consent_declined", 0),
+                "deleted": erasures,
+            },
+            "stages": stages,
+            "languages": langs,
             "minutes_to_confirmed_median": round(statistics.median(durations), 1) if durations else None,
             "messages": [{"category": r["category"] or "service", "count": r["n"], "usd": float(r["usd"])} for r in cost],
-            "reminders": ev.get("reminder_queued", 0), "window_closed": ev.get("window_closed", 0),
+            "reminders": ev.get("reminder_queued", 0),
+            "window_closed": ev.get("window_closed", 0),
         }
 
     # -- sandbox -------------------------------------------------------------------------------
@@ -274,8 +310,14 @@ def create_app(store: Store, engine: Engine, clock: Callable[[], datetime] | Non
         if not phone.isdigit() or not 6 <= len(phone) <= 15:
             raise HTTPException(422, "phone must be 6-15 digits")
         t = now()
-        msg = Inbound(id=f"sbx.{uuid.uuid4().hex}", at=t, kind="button" if body.button_id else "text", text=body.text,
-                      button_id=body.button_id, profile_name=body.name)
+        msg = Inbound(
+            id=f"sbx.{uuid.uuid4().hex}",
+            at=t,
+            kind="button" if body.button_id else "text",
+            text=body.text,
+            button_id=body.button_id,
+            profile_name=body.name,
+        )
         result = engine.inbound("sandbox", phone, msg)
         engine.deliver(t)
         return {**result, "transcript": sandbox_transcript(phone)}
@@ -291,9 +333,20 @@ def create_app(store: Store, engine: Engine, clock: Callable[[], datetime] | Non
             rows = c.execute(
                 """SELECT m.direction, m.kind, m.body, m.purpose, m.at, o.payload->'out'->'buttons' AS buttons
                    FROM messages m LEFT JOIN outbox o ON o.external_id = m.channel_id AND m.direction = 'out'
-                   WHERE m.conversation_id = %s ORDER BY m.at, m.id""", (row["id"],)).fetchall()
-        return [{"direction": r["direction"], "kind": r["kind"], "body": r["body"], "purpose": r["purpose"], "at": r["at"].isoformat(),
-                 "buttons": [{"id": b[0], "title": b[1]} for b in (r["buttons"] or [])]} for r in rows]
+                   WHERE m.conversation_id = %s ORDER BY m.at, m.id""",
+                (row["id"],),
+            ).fetchall()
+        return [
+            {
+                "direction": r["direction"],
+                "kind": r["kind"],
+                "body": r["body"],
+                "purpose": r["purpose"],
+                "at": r["at"].isoformat(),
+                "buttons": [{"id": b[0], "title": b[1]} for b in (r["buttons"] or [])],
+            }
+            for r in rows
+        ]
 
     return app
 
@@ -308,12 +361,16 @@ def app_from_env() -> FastAPI:  # pragma: no cover - wiring
         channels["whatsapp"] = CloudApiClient(os.environ["FKP_WA_PHONE_NUMBER_ID"], os.environ["FKP_WA_TOKEN"])
     ats: Any = None
     if os.environ.get("FKP_PERSONIO_TOKEN"):
-        ats = PersonioAdapter(os.environ["FKP_PERSONIO_TOKEN"], os.environ["FKP_PERSONIO_COMPANY_ID"],
-                              json.loads(os.environ.get("FKP_PERSONIO_POSITIONS", "{}")))
+        ats = PersonioAdapter(
+            os.environ["FKP_PERSONIO_TOKEN"], os.environ["FKP_PERSONIO_COMPANY_ID"], json.loads(os.environ.get("FKP_PERSONIO_POSITIONS", "{}"))
+        )
     elif os.environ.get("FKP_ATS_WEBHOOK_URL"):
         ats = WebhookAdapter(os.environ["FKP_ATS_WEBHOOK_URL"], os.environ.get("FKP_ATS_WEBHOOK_SECRET", ""))
-    notifier = WebhookAdapter(os.environ["FKP_EVENTS_WEBHOOK_URL"], os.environ.get("FKP_EVENTS_WEBHOOK_SECRET", "")) \
-        if os.environ.get("FKP_EVENTS_WEBHOOK_URL") else None
+    notifier = (
+        WebhookAdapter(os.environ["FKP_EVENTS_WEBHOOK_URL"], os.environ.get("FKP_EVENTS_WEBHOOK_SECRET", ""))
+        if os.environ.get("FKP_EVENTS_WEBHOOK_URL")
+        else None
+    )
     return create_app(store, Engine(store, channels, ats, notifier))
 
 

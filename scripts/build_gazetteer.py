@@ -19,7 +19,9 @@ OUT = Path(__file__).resolve().parents[1] / "data" / "geo" / "de_postcodes.csv"
 
 def main(src: str) -> None:
     by_zip: dict[str, tuple[str, str, float, float]] = {}
-    for r in csv.DictReader(open(src, encoding="utf-8")):
+    with open(src, encoding="utf-8") as fh:
+        rows = list(csv.DictReader(fh))
+    for r in rows:
         place = r["place"].strip()
         if COMPANY.search(place) or not r["latitude"]:
             continue

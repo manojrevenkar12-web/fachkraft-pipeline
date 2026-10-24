@@ -43,8 +43,9 @@ def handover_payload(conv: Conversation, job_id: str, verdict: str, summary: str
         "phone": conv.phone,
         "language": conv.lang,
         "consent_at": conv.consent_at,
-        "profile": {k: {"value": v.value, "evidence": v.evidence, "source": v.source} for k, v in conv.profile.items()
-                    if k not in ("email", "full_name")},
+        "profile": {
+            k: {"value": v.value, "evidence": v.evidence, "source": v.source} for k, v in conv.profile.items() if k not in ("email", "full_name")
+        },
         "checks": match["checks"] if match else [],
         "summary": summary,
         "application_date": date.fromisoformat(conv.handed_over_at[:10]).isoformat() if conv.handed_over_at else None,
@@ -72,7 +73,9 @@ class PersonioAdapter:
         if p["job_id"] not in self.positions:
             raise AtsError(f"no Personio position for job {p['job_id']}", retryable=False)
         body = {
-            "first_name": p["first_name"], "last_name": p["last_name"], "email": p["email"],
+            "first_name": p["first_name"],
+            "last_name": p["last_name"],
+            "email": p["email"],
             "job_position_id": self.positions[p["job_id"]],
             "message": p["summary"][:5000],
             "tags": ["whatsapp", f"lang:{p['language']}", f"match:{p['verdict']}"],
@@ -81,8 +84,8 @@ class PersonioAdapter:
             body["application_date"] = p["application_date"]
         headers = {"Authorization": f"Bearer {self.token}", "X-Company-ID": self.company_id, "Accept": "application/json"}
         try:
-            r = httpx.post(f"{self.base_url}/v1/recruiting/applications", json=body, headers=headers, timeout=15,
-                           **({"transport": self.transport} if self.transport else {}))  # type: ignore[arg-type]
+            with httpx.Client(transport=self.transport, timeout=15) as client:
+                r = client.post(f"{self.base_url}/v1/recruiting/applications", json=body, headers=headers)
         except httpx.HTTPError as e:
             raise AtsError(f"network: {e}", retryable=True) from e
         if r.status_code in (200, 201):
@@ -103,8 +106,7 @@ class WebhookAdapter:
         sig = "sha256=" + hmac.new(self.secret.encode(), raw, hashlib.sha256).hexdigest()
         key = f"{p.get('conversation_id')}:{p.get('job_id') or p.get('event')}:{p.get('at', '')}"
         try:
-            client = httpx.Client(transport=self.transport, timeout=15) if self.transport else httpx.Client(timeout=15)
-            with client:
+            with httpx.Client(transport=self.transport, timeout=15) as client:
                 r = client.post(self.url, content=raw, headers={"Content-Type": "application/json", "X-FKP-Signature": sig, "Idempotency-Key": key})
         except httpx.HTTPError as e:
             raise AtsError(f"network: {e}", retryable=True) from e

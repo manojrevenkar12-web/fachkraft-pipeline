@@ -19,13 +19,19 @@ from dataclasses import asdict
 from datetime import UTC, datetime
 from typing import Any
 
-from .. import config, jobs as jobs_mod
+from .. import config
+from .. import jobs as jobs_mod
 from . import personas
 from .run import Assumptions, assistant, form_bot, keyword_forward, same, truth_matches
 
 START = datetime(2026, 10, 26, 8, 0, tzinfo=UTC)  # a Monday, 09:00 in Berlin
-OUTCOME = {"handed_over": "handed to a recruiter", "pooled": "no job now, joined the talent pool", "deleted": "no job now, data deleted",
-           "declined": "declined consent", "human": "asked for or passed to a person"}
+OUTCOME = {
+    "handed_over": "handed to a recruiter",
+    "pooled": "no job now, joined the talent pool",
+    "deleted": "no job now, data deleted",
+    "declined": "declined consent",
+    "human": "asked for or passed to a person",
+}
 CHECK_FIELDS = ["occupation", "location", "qualification", "recognition", "licences", "start_date", "shifts", "german_level", "experience_years"]
 
 
@@ -60,8 +66,13 @@ def run(n: int = 600, seed: int = 7) -> dict[str, Any]:
     report: dict[str, Any] = {
         "kind": "simulation",
         "seed": seed,
-        "assumptions": {**asdict(a), "patience": "uniform 0.90–0.99 per prompt", "reply_delay": "80% minutes, 15% 1–6 h, 5% 10–18 h",
-                        "languages": personas.LANG_MIX, "template_price_usd": prices["utility"]},
+        "assumptions": {
+            **asdict(a),
+            "patience": "uniform 0.90–0.99 per prompt",
+            "reply_delay": "80% minutes, 15% 1–6 h, 5% 10–18 h",
+            "languages": personas.LANG_MIX,
+            "template_price_usd": prices["utility"],
+        },
         "assistant": flow_stats(ast),
         "form_bot": flow_stats(form),
     }
@@ -86,7 +97,9 @@ def run(n: int = 600, seed: int = 7) -> dict[str, Any]:
                 acc[f][0] += 1
             else:
                 acc[f][1] += 1
-    report["fields"] = {f: {"right": r, "wrong": w, "not_asked_or_missing": m, "accuracy_when_present": _rate(r, r + w)} for f, (r, w, m) in acc.items()}
+    report["fields"] = {
+        f: {"right": r, "wrong": w, "not_asked_or_missing": m, "accuracy_when_present": _rate(r, r + w)} for f, (r, w, m) in acc.items()
+    }
     total_r = sum(v[0] for v in acc.values())
     total_w = sum(v[1] for v in acc.values())
     report["field_accuracy_when_present"] = _rate(total_r, total_r + total_w)
@@ -106,8 +119,12 @@ def run(n: int = 600, seed: int = 7) -> dict[str, Any]:
     verdict_agree = sum(1 for p, o, _, t, _ in rows for j, v in o.handed if t.get(j) == v)
     report["matching"] = {
         "candidates_with_a_deserved_job": len(deserving),
-        "assistant": {**forward_quality(ast_pairs), "candidates_reached": found, "recall": _rate(found, len(deserving)),
-                      "verdict_agrees_with_truth": _rate(verdict_agree, len(ast_pairs))},
+        "assistant": {
+            **forward_quality(ast_pairs),
+            "candidates_reached": found,
+            "recall": _rate(found, len(deserving)),
+            "verdict_agrees_with_truth": _rate(verdict_agree, len(ast_pairs)),
+        },
         "keyword": {**forward_quality(kw_pairs), "candidates_reached": kw_found, "recall": _rate(kw_found, len(deserving))},
     }
 
@@ -116,11 +133,24 @@ def run(n: int = 600, seed: int = 7) -> dict[str, Any]:
     for lg in personas.LANG_MIX:
         os_ = [o for _, o, *_ in rows if o.lang == lg]
         rr = [(p, o) for p, o, *_ in rows if o.lang == lg and o.completed]
-        r = sum(1 for p, o in rr for f in CHECK_FIELDS if f in p.truth and f in o.profile and same(f, o.profile[f], p.truth[f], p.truth.get("_start_now", False)))
-        w = sum(1 for p, o in rr for f in CHECK_FIELDS if f in p.truth and f in o.profile and not same(f, o.profile[f], p.truth[f], p.truth.get("_start_now", False)))
-        by[lg] = {"candidates": len(os_), "completion_rate": _rate(sum(o.completed for o in os_), len(os_)),
-                  "median_replies": statistics.median([o.replies for o in os_ if o.completed]) if rr else None,
-                  "field_accuracy_when_present": _rate(r, r + w)}
+        r = sum(
+            1
+            for p, o in rr
+            for f in CHECK_FIELDS
+            if f in p.truth and f in o.profile and same(f, o.profile[f], p.truth[f], p.truth.get("_start_now", False))
+        )
+        w = sum(
+            1
+            for p, o in rr
+            for f in CHECK_FIELDS
+            if f in p.truth and f in o.profile and not same(f, o.profile[f], p.truth[f], p.truth.get("_start_now", False))
+        )
+        by[lg] = {
+            "candidates": len(os_),
+            "completion_rate": _rate(sum(o.completed for o in os_), len(os_)),
+            "median_replies": statistics.median([o.replies for o in os_ if o.completed]) if rr else None,
+            "field_accuracy_when_present": _rate(r, r + w),
+        }
     report["by_language"] = by
     handed = sum(1 for o in ast if o.stage == "handed_over")
     report["assistant"]["handed_over"] = handed

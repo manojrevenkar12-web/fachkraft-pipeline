@@ -37,10 +37,13 @@ inclusive:
 # not a requirement
 describes_team: '\b(?:\w*team|belegschaft|kollegium|wir)\b[^.!?]{0,40}\b(?:ist|sind|besteht|bestehen|kommt|kommen|is|are)\b'
 
+gender_title_advice: "Ergänze (m/w/d) oder eine andere Form für alle Geschlechter im Titel."
+german_reason_advice: "Schreib, warum die Arbeit dieses Niveau braucht (Sicherheitsunterweisung, Dokumentation, Kundenkontakt). Ohne Begründung wird das Niveau angezeigt, aber nicht zum Filtern genutzt."
+
 rules:
   - id: origin-native-language
     severity: block
-    advice: "Ask for the German level the work needs (e.g. B2), not for a native speaker: requiring a mother tongue is discrimination by origin (LAG Hessen 16 Sa 1619/14)."
+    advice: "Frag nach dem Deutschniveau, das die Arbeit braucht (z. B. B2), nicht nach Muttersprache: das ist Benachteiligung wegen der Herkunft (LAG Hessen, 16 Sa 1619/14)."
     patterns:
       - 'mutterspr\w*'
       - 'erstsprache'
@@ -54,7 +57,7 @@ rules:
 
   - id: origin-nationality
     severity: block
-    advice: "Do not ask for nationality or origin. If a work permit matters, ask whether the person may work in Germany."
+    advice: "Frag nicht nach Staatsangehörigkeit oder Herkunft. Wenn es um die Arbeitserlaubnis geht, frag, ob die Person in Deutschland arbeiten darf."
     patterns:
       - 'staatsangehörigkeit'
       - 'staatsbürger\w*'
@@ -72,7 +75,7 @@ rules:
 
   - id: age
     severity: block
-    advice: "Describe the work, not the age of the team or the applicant: age wording is the most frequent AGG claim in job ads."
+    advice: "Beschreib die Arbeit, nicht das Alter von Team oder Bewerbenden: Altersangaben sind der häufigste AGG-Streitpunkt in Stellenanzeigen."
     patterns:
       - '\bjung\w*,?\s+(?:und\s+)?(?:[\w-]+\s+){0,2}?(?:\w*team\w*|frau|mann|leute|kolleg\w*|mitarbeiter\w*|menschen|verstärkung|talente?|kräfte|dame|herr)\b'
       - '\bjung und dynamisch'
@@ -92,7 +95,7 @@ rules:
 
   - id: gender-only
     severity: warn
-    advice: "Address every gender unless the role genuinely requires one (§ 8 AGG)."
+    advice: "Sprich alle Geschlechter an, außer die Tätigkeit verlangt wirklich eines (§ 8 AGG)."
     patterns:
       - '\b(?:suchen|sucht|gesucht|brauchen|wünschen)\b[^.!?]{0,60}\b(?:einen?|eine|zwei|drei)?\s*(?:[\w-]+\s+){0,3}?(?:mann|männer|frau|frauen|dame|damen|herrn?|kerl|kerle|jungs|mädels)\b'
       - '\b(?:männliche|weibliche) (?:bewerber\w*|kandidat\w*|verstärkung|mitarbeiter\w*)'
@@ -104,7 +107,7 @@ rules:
 
   - id: family
     severity: block
-    advice: "Family status and children are not job requirements."
+    advice: "Familienstand und Kinder sind keine Anforderungen an eine Stelle."
     patterns:
       - '\bfamilienstand'
       - '\bledig\b'
@@ -121,7 +124,7 @@ rules:
 
   - id: pregnancy-health
     severity: block
-    advice: "Health, disability and pregnancy questions are not allowed in applications; a health certificate can be required only where law demands it (e.g. § 43 IfSG for food)."
+    advice: "Fragen nach Gesundheit, Behinderung oder Schwangerschaft gehören nicht in die Bewerbung. Ein Gesundheitszeugnis nur, wo das Gesetz es verlangt (z. B. § 43 IfSG bei Lebensmitteln)."
     patterns:
       - '\bschwanger\w*'
       - '\bpregnan\w*'
@@ -139,7 +142,7 @@ rules:
 
   - id: religion
     severity: block
-    advice: "Religion may be required only by religious employers for roles where it is essential (§ 9 AGG)."
+    advice: "Eine Religion dürfen nur Religionsgemeinschaften verlangen, und nur wo sie für die Tätigkeit wesentlich ist (§ 9 AGG)."
     patterns:
       - '\bkonfession\w*'
       - '\breligion\w*'
@@ -152,7 +155,7 @@ rules:
 
   - id: photo
     severity: warn
-    advice: "Do not ask for a photo: it shows age, gender and origin and invites a claim."
+    advice: "Verlang kein Foto: es zeigt Alter, Geschlecht und Herkunft und lädt zu Klagen ein."
     patterns:
       - '\blichtbild\w*'
       - '\b(?:mit|inkl\.?|inklusive|samt|plus)\s+(?:[\w-]+\s+){0,2}?(?:foto|bild|bewerbungsfoto)\b'
@@ -163,7 +166,7 @@ rules:
 
   - id: physical
     severity: warn
-    advice: "Say what the work involves (e.g. lifting up to 25 kg) instead of describing the person."
+    advice: "Beschreib, was die Arbeit verlangt (z. B. Heben bis 25 kg), statt den Körper der Person."
     patterns:
       - '\bkörperlich\w* (?:fit|belastbar\w*|konstitution|robust)'
       - '\bkräftig\w*'

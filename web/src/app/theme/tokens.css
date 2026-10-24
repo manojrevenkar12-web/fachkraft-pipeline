@@ -51,6 +51,7 @@
   --space-6: 2rem;
   --space-7: 3rem;
 
+  --radius-xs: 2px;
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-bubble: 14px;
@@ -63,6 +64,34 @@
   --w-measure: 68ch;
   --h-bar: 3.5rem;
   --tap: 2.75rem;
+  --w-fact-label: 11rem;
+  --w-fact-label-narrow: 8rem;
+  --w-check-label: 7rem;
+  --w-icon: 1.25rem;
+  --w-bubble: 85%;
+  --h-chat: 70dvh;
+  --mark-inset: 0.08em -2px 0.02em;
+  --hatch: 3px;
+  --hairline: 1.5px;
+  --swatch-w: 1.6em;
+  --swatch-h: 0.7em;
+  --w-lang: 2.2em;
+  --t-shimmer: 1.4s;
+  --w-field: 12rem;
+  --h-textarea: 11rem;
+  --underline-offset: 3px;
+  --w-page: 72rem;
+  --w-num: 4rem;
+  --w-figure: 13rem;
+  --w-col: 18rem;
+  --h-bar-chart: 1.75rem;
+  --h-phone: min(46rem, calc(100dvh - var(--h-bar) - 3rem));
+  --h-phone-small: 36rem;
+  --radius-phone: 22px;
+  --tap-sm: 2rem;
+  --w-signin: 26rem;
+  --t-quick: 160ms;
+  --t-base: 240ms;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -76,7 +105,7 @@
     --c-blue: #8fb4e6;
     --c-blue-ink: #0f1a21;
     --c-blue-soft: #1d3046;
-    --c-highlight: rgb(242 194 48 / 0.38);
+    --c-highlight: rgb(242 194 48 / 0.3);
     --c-fit: #5cc39b;
     --c-near: #e3a44e;
     --c-no: #93a1aa;
@@ -98,7 +127,7 @@
   --c-blue: #8fb4e6;
   --c-blue-ink: #0f1a21;
   --c-blue-soft: #1d3046;
-  --c-highlight: rgb(242 194 48 / 0.38);
+  --c-highlight: rgb(242 194 48 / 0.3);
   --c-fit: #5cc39b;
   --c-near: #e3a44e;
   --c-no: #93a1aa;

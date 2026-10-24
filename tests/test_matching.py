@@ -14,8 +14,14 @@ def loc(plz):
 
 @pytest.fixture
 def driver():
-    return {"occupation": ["berufskraftfahrer"], "licences": ["B", "C", "CE", "code95"], "location": loc("04315"),
-            "start_date": "2026-12-01", "shifts": {"early": True, "late": True, "night": False}, "experience_years": 8}
+    return {
+        "occupation": ["berufskraftfahrer"],
+        "licences": ["B", "C", "CE", "code95"],
+        "location": loc("04315"),
+        "start_date": "2026-12-01",
+        "shifts": {"early": True, "late": True, "night": False},
+        "experience_years": 8,
+    }
 
 
 def job(demo_jobs, jid):
@@ -44,8 +50,7 @@ def test_refused_shift_and_distance_fail(demo_jobs, driver):
 
 
 def test_recognition_for_regulated_occupations(demo_jobs):
-    nurse = {"occupation": ["pflegefachkraft"], "location": loc("10247"), "start_date": "2026-11-15", "shifts": {"early": True},
-             "german_level": "B2"}
+    nurse = {"occupation": ["pflegefachkraft"], "location": loc("10247"), "start_date": "2026-11-15", "shifts": {"early": True}, "german_level": "B2"}
     j = job(demo_jobs, "J-PFK-BER")
     assert matching.match(j, {**nurse, "qualification": "domestic"}, TODAY).verdict == "fit"
     assert matching.match(j, {**nurse, "qualification": "foreign", "recognition": "in_progress"}, TODAY).verdict == "near"
@@ -74,7 +79,10 @@ def test_start_a_little_late_is_near(demo_jobs, driver):
 def test_result_cannot_depend_on_name_language_or_contact(demo_jobs, driver):
     """Counterfactual check: change everything matching must not see; the result is identical."""
     base = [m.to_dict() for m in matching.rank(demo_jobs, driver, TODAY)]
-    for extra in ({"full_name": "Mehmet Yılmaz", "email": "m@x.example"}, {"full_name": "Hans Müller", "lang": "ar", "phone": "+491700000"},
-                  {"nationality": "SY", "age": 52, "religion": "x"}):
+    for extra in (
+        {"full_name": "Mehmet Yılmaz", "email": "m@x.example"},
+        {"full_name": "Hans Müller", "lang": "ar", "phone": "+491700000"},
+        {"nationality": "SY", "age": 52, "religion": "x"},
+    ):
         assert [m.to_dict() for m in matching.rank(demo_jobs, {**driver, **extra}, TODAY)] == base
     assert set(matching.features({**driver, "full_name": "x", "age": 3})) == set(driver)

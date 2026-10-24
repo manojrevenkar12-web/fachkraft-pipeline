@@ -19,18 +19,45 @@ def test_signature():
 
 
 def test_parse_webhook_messages_buttons_media_and_statuses():
-    doc = {"entry": [{"changes": [{"value": {
-        "contacts": [{"wa_id": "4917000", "profile": {"name": "Ana Popescu"}}],
-        "messages": [
-            {"from": "4917000", "id": "wamid.1", "timestamp": "1793000000", "type": "text", "text": {"body": "Bună"}},
-            {"from": "4917000", "id": "wamid.2", "timestamp": "1793000001", "type": "interactive",
-             "interactive": {"type": "button_reply", "button_reply": {"id": "consent_yes", "title": "Da"}}},
-            {"from": "4917000", "id": "wamid.3", "timestamp": "1793000002", "type": "audio", "audio": {"id": "m"}},
-            {"from": "4917000", "id": "wamid.4", "timestamp": "1793000003", "type": "image", "image": {"id": "i", "caption": "atestat"}},
-        ],
-        "statuses": [{"id": "wamid.out", "status": "delivered", "timestamp": "1793000004",
-                      "pricing": {"billable": True, "category": "utility", "pricing_model": "PMP"}}],
-    }}]}]}
+    doc = {
+        "entry": [
+            {
+                "changes": [
+                    {
+                        "value": {
+                            "contacts": [{"wa_id": "4917000", "profile": {"name": "Ana Popescu"}}],
+                            "messages": [
+                                {"from": "4917000", "id": "wamid.1", "timestamp": "1793000000", "type": "text", "text": {"body": "Bună"}},
+                                {
+                                    "from": "4917000",
+                                    "id": "wamid.2",
+                                    "timestamp": "1793000001",
+                                    "type": "interactive",
+                                    "interactive": {"type": "button_reply", "button_reply": {"id": "consent_yes", "title": "Da"}},
+                                },
+                                {"from": "4917000", "id": "wamid.3", "timestamp": "1793000002", "type": "audio", "audio": {"id": "m"}},
+                                {
+                                    "from": "4917000",
+                                    "id": "wamid.4",
+                                    "timestamp": "1793000003",
+                                    "type": "image",
+                                    "image": {"id": "i", "caption": "atestat"},
+                                },
+                            ],
+                            "statuses": [
+                                {
+                                    "id": "wamid.out",
+                                    "status": "delivered",
+                                    "timestamp": "1793000004",
+                                    "pricing": {"billable": True, "category": "utility", "pricing_model": "PMP"},
+                                }
+                            ],
+                        }
+                    }
+                ]
+            }
+        ]
+    }
     b = whatsapp.parse_webhook(doc)
     kinds = [(p, m.kind, m.text, m.button_id, m.profile_name) for p, m in b.messages]
     assert kinds[0] == ("4917000", "text", "Bună", "", "Ana Popescu")
@@ -46,7 +73,9 @@ def test_payloads_follow_the_platform_limits():
         whatsapp.payload("49170", Outgoing("buttons", "Ok?", "x", [("a", "x" * 21)]))
     with pytest.raises(ValueError):
         whatsapp.payload("49170", Outgoing("buttons", "Ok?", "x", [("a", "1"), ("b", "2"), ("c", "3"), ("d", "4")]))
-    t = whatsapp.payload("49170", Outgoing("template", "...", "r", template={"name": "application_missing_info", "language": "pl", "params": ["A", "B"]}))
+    t = whatsapp.payload(
+        "49170", Outgoing("template", "...", "r", template={"name": "application_missing_info", "language": "pl", "params": ["A", "B"]})
+    )
     assert t["template"]["language"] == {"code": "pl"} and [x["text"] for x in t["template"]["components"][0]["parameters"]] == ["A", "B"]
 
 

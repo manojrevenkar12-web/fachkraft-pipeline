@@ -16,16 +16,19 @@ def read(text, asked=None, lang=None):
     return {f.field: f.value for f in r.facts}, r
 
 
-@pytest.mark.parametrize("text,lang", [
-    ("Hallo, ich bin Elektriker, wohne in München", "de"),
-    ("I'm a truck driver living in Hamburg", "en"),
-    ("Merhaba, kaynakçıyım, Köln'de oturuyorum", "tr"),
-    ("Jestem magazynierem, mieszkam w Dortmundzie", "pl"),
-    ("Sunt instalator și locuiesc în Hamburg", "ro"),
-    ("Я зварник, живу в Лейпцигу", "uk"),
-    ("Я повар, живу в Мюнхене", "ru"),
-    ("أنا نجار وأسكن في برلين", "ar"),
-])
+@pytest.mark.parametrize(
+    "text,lang",
+    [
+        ("Hallo, ich bin Elektriker, wohne in München", "de"),
+        ("I'm a truck driver living in Hamburg", "en"),
+        ("Merhaba, kaynakçıyım, Köln'de oturuyorum", "tr"),
+        ("Jestem magazynierem, mieszkam w Dortmundzie", "pl"),
+        ("Sunt instalator și locuiesc în Hamburg", "ro"),
+        ("Я зварник, живу в Лейпцигу", "uk"),
+        ("Я повар, живу в Мюнхене", "ru"),
+        ("أنا نجار وأسكن في برلين", "ar"),
+    ],
+)
 def test_language_detection_and_occupation_in_every_language(text, lang):
     assert detect(text) == lang
     v, _ = read(text)
@@ -69,15 +72,18 @@ def test_shifts_with_negation_and_short_words_only_in_context():
     assert all(v["shifts"].values())
 
 
-@pytest.mark.parametrize("text,expected", [
-    ("ab sofort", "2026-10-24"),
-    ("ab 1.12.", "2026-12-01"),
-    ("ab dem 15.03.2027", "2027-03-15"),
-    ("in 2 Wochen", "2026-11-07"),
-    ("od stycznia", "2027-01-01"),
-    ("next month", "2026-11-01"),
-    ("1. März", "2027-03-01"),
-])
+@pytest.mark.parametrize(
+    "text,expected",
+    [
+        ("ab sofort", "2026-10-24"),
+        ("ab 1.12.", "2026-12-01"),
+        ("ab dem 15.03.2027", "2027-03-15"),
+        ("in 2 Wochen", "2026-11-07"),
+        ("od stycznia", "2027-01-01"),
+        ("next month", "2026-11-01"),
+        ("1. März", "2027-03-01"),
+    ],
+)
 def test_start_dates(text, expected):
     v, _ = read(text, asked="start_date")
     assert v["start_date"] == expected
@@ -118,14 +124,17 @@ def test_money_is_not_a_postcode_and_food_is_not_a_town():
     assert "location" not in v
 
 
-@pytest.mark.parametrize("text,lang,want", [
-    ("nur Frühschicht", "de", {"early": True, "late": False, "night": False}),
-    ("early shift only", "en", {"early": True, "late": False, "night": False}),
-    ("sadece sabah vardiyası", "tr", {"early": True, "late": False, "night": False}),
-    ("وردية صباحية فقط", "ar", {"early": True, "late": False, "night": False}),
-    ("pierwsza i druga zmiana tak, bez nocek", "pl", {"early": True, "late": True, "night": False}),
-    ("وردية صباحية ومسائية نعم، لا ليلي", "ar", {"early": True, "late": True, "night": False}),
-])
+@pytest.mark.parametrize(
+    "text,lang,want",
+    [
+        ("nur Frühschicht", "de", {"early": True, "late": False, "night": False}),
+        ("early shift only", "en", {"early": True, "late": False, "night": False}),
+        ("sadece sabah vardiyası", "tr", {"early": True, "late": False, "night": False}),
+        ("وردية صباحية فقط", "ar", {"early": True, "late": False, "night": False}),
+        ("pierwsza i druga zmiana tak, bez nocek", "pl", {"early": True, "late": True, "night": False}),
+        ("وردية صباحية ومسائية نعم، لا ليلي", "ar", {"early": True, "late": True, "night": False}),
+    ],
+)
 def test_only_one_shift_refuses_the_others_and_coordinated_shifts(text, lang, want):
     got, _ = read(text, asked="shifts", lang=lang)
     assert got["shifts"] == want

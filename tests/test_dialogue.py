@@ -20,8 +20,10 @@ class Chat:
 
     def send(self, text="", button=""):
         self.t += timedelta(minutes=3)
-        r = self.agent.handle(self.conv, Inbound(id=str(self.t.timestamp()), at=self.t, kind="button" if button else "text",
-                                                 text=text, button_id=button, profile_name=self.name))
+        r = self.agent.handle(
+            self.conv,
+            Inbound(id=str(self.t.timestamp()), at=self.t, kind="button" if button else "text", text=text, button_id=button, profile_name=self.name),
+        )
         self.events += r.events
         self.out = r.outgoing
         return r
@@ -78,7 +80,7 @@ def test_full_conversation_hands_over_with_a_reply_date(demo_jobs):
     assert c.last.purpose == "question:email"
     c.send("mehmet.kaya@mail.example")
     assert c.conv.stage == "handed_over" and c.last.purpose == "matched" and "27.10." in c.last.body
-    handover = [e for e in c.events if e["type"] == "handover"][0]
+    handover = next(e for e in c.events if e["type"] == "handover")
     assert handover["jobs"] == [{"job_id": "J-LKW-LEJ", "verdict": "fit"}]
 
 
@@ -148,8 +150,9 @@ def test_replies_in_the_candidates_language(demo_jobs, lang, first):
     c = Chat(demo_jobs)
     c.send(first)
     assert c.conv.lang == lang
-    assert c.last.body == c.agent.msgs[lang]["intro"].format(name=" Mehmet", company=c.agent.company, job_part="",
-                                                              retention_months=6, privacy_url=c.agent.st["privacy_url"])
+    assert c.last.body == c.agent.msgs[lang]["intro"].format(
+        name=" Mehmet", company=c.agent.company, job_part="", retention_months=6, privacy_url=c.agent.st["privacy_url"]
+    )
 
 
 def test_reminders_respect_window_quiet_hours_and_cap(demo_jobs):
@@ -171,6 +174,7 @@ def test_reminder_moves_out_of_quiet_hours(demo_jobs):
     from datetime import UTC, datetime
 
     from fkp import calendar
+
     c = Chat(demo_jobs)
     c.t = datetime(2026, 10, 30, 23, 0, tzinfo=UTC)  # Saturday 01:00 in Berlin
     c.send("Hallo, Elektriker")

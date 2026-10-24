@@ -13,7 +13,22 @@ import unicodedata
 from functools import lru_cache
 
 _ARABIC = {"أ": "ا", "إ": "ا", "آ": "ا", "ٱ": "ا", "ة": "ه", "ى": "ي", "ؤ": "و", "ئ": "ي"}
-_SPECIAL = {**_ARABIC, "ß": "s", "ı": "i", "İ": "i", "ł": "l", "Ł": "l", "ø": "o", "æ": "a", "œ": "o", "đ": "d", "ð": "d", "’": "'", "`": "'", "´": "'"}
+_SPECIAL = {
+    **_ARABIC,
+    "ß": "s",
+    "ı": "i",
+    "İ": "i",
+    "ł": "l",
+    "Ł": "l",
+    "ø": "o",
+    "æ": "a",
+    "œ": "o",
+    "đ": "d",
+    "ð": "d",
+    "’": "'",
+    "`": "'",
+    "´": "'",
+}
 # Ukrainian/Russian letters keep their identity: only Latin diacritics are removed.
 
 

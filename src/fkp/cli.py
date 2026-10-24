@@ -72,8 +72,17 @@ def chat(job: str = typer.Option("", help="a job id the candidate asks about"), 
             text = f"{job} {text}"
         first = False
         button = text[1:] if text.startswith("@") else ""
-        res = agent.handle(conv, Inbound(id=str(time.time_ns()), at=datetime.now(UTC), kind="button" if button else "text",
-                                         text="" if button else text, button_id=button, profile_name=name))
+        res = agent.handle(
+            conv,
+            Inbound(
+                id=str(time.time_ns()),
+                at=datetime.now(UTC),
+                kind="button" if button else "text",
+                text="" if button else text,
+                button_id=button,
+                profile_name=name,
+            ),
+        )
         for o in res.outgoing:
             typer.echo(f"bot> {o.body}")
             for bid, title in o.buttons:
@@ -83,8 +92,9 @@ def chat(job: str = typer.Option("", help="a job id the candidate asks about"), 
 
 
 @app.command()
-def worker(interval: float = typer.Option(2.0, help="seconds between outbox passes"),
-           once: bool = typer.Option(False, help="one pass, then exit")) -> None:
+def worker(
+    interval: float = typer.Option(2.0, help="seconds between outbox passes"), once: bool = typer.Option(False, help="one pass, then exit")
+) -> None:
     """Deliver the outbox, queue reminders and apply retention, in a loop."""
     from .api import app_from_env
 

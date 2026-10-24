@@ -65,9 +65,21 @@ class Job:
 
     def to_dict(self) -> dict[str, Any]:
         return {
-            "id": self.id, "title": self.title, "occupation": self.occupation, "plz": self.plz, "place": self.place.name,
-            "radius_km": self.radius_km, "shifts": self.shifts, "employment": self.employment, "start_by": self.start_by.isoformat(),
-            "must": self.must, "german_level": self.german_level, "soft": self.soft, "pay": self.pay, "text": self.text, "open": self.open,
+            "id": self.id,
+            "title": self.title,
+            "occupation": self.occupation,
+            "plz": self.plz,
+            "place": self.place.name,
+            "radius_km": self.radius_km,
+            "shifts": self.shifts,
+            "employment": self.employment,
+            "start_by": self.start_by.isoformat(),
+            "must": self.must,
+            "german_level": self.german_level,
+            "soft": self.soft,
+            "pay": self.pay,
+            "text": self.text,
+            "open": self.open,
         }
 
 
@@ -86,10 +98,19 @@ def parse(d: dict[str, Any]) -> Job:
         raise ValueError(f"{d['id']}: German level must be one of {list(CEFR_RANK)}")
     sb = d.get("start_by")
     job = Job(
-        id=str(d["id"]), title=str(d["title"]), occupation=d["occupation"], plz=str(d["plz"]), radius_km=int(d.get("radius_km", 30)),
-        shifts=list(d.get("shifts", [])), employment=list(d.get("employment", ["full_time"])),
-        start_by=sb if isinstance(sb, date) else date.fromisoformat(str(sb)), must=dict(d.get("must") or {}),
-        german_level=dict(g) if g else None, soft=dict(d.get("soft") or {}), pay=str(d.get("pay", "")), text=str(d.get("text", "")),
+        id=str(d["id"]),
+        title=str(d["title"]),
+        occupation=d["occupation"],
+        plz=str(d["plz"]),
+        radius_km=int(d.get("radius_km", 30)),
+        shifts=list(d.get("shifts", [])),
+        employment=list(d.get("employment", ["full_time"])),
+        start_by=sb if isinstance(sb, date) else date.fromisoformat(str(sb)),
+        must=dict(d.get("must") or {}),
+        german_level=dict(g) if g else None,
+        soft=dict(d.get("soft") or {}),
+        pay=str(d.get("pay", "")),
+        text=str(d.get("text", "")),
         open=bool(d.get("open", True)),
     )
     _ = job.place
@@ -112,7 +133,10 @@ class AggIssue:
     advice: str
 
 
-_GENDER_MARK = re.compile(r"\((?:m|w|d|f|x|div|gn|all genders)[/|,\s]*(?:m|w|d|f|x|div)?[/|,\s]*(?:m|w|d|f|x|div)?\)|\*in\b|:in\b|_in\b|/-?in\b|all genders|alle geschlechter", re.I)
+_GENDER_MARK = re.compile(
+    r"\((?:m|w|d|f|x|div|gn|all genders)[/|,\s]*(?:m|w|d|f|x|div)?[/|,\s]*(?:m|w|d|f|x|div)?\)|\*in\b|:in\b|_in\b|/-?in\b|all genders|alle geschlechter",
+    re.I,
+)
 _MALE = re.compile(r"\b(?:mann|männer|herrn?|herren|kerl|kerle|jungs|man|men|guys?|gentlem[ae]n)\b")
 _FEMALE = re.compile(r"\b(?:frau|frauen|dame|damen|mädels|woman|women|lady|ladies)\b|\w{3,}in\b")
 
@@ -133,7 +157,9 @@ def agg_rules() -> tuple[tuple[_Rule, ...], tuple[str, ...]]:
     for r in spec["rules"]:
         plain = [p for p in r["patterns"] if not p.startswith("!nomark ")]
         nomark = [p.removeprefix("!nomark ") for p in r["patterns"] if p.startswith("!nomark ")]
-        rules.append(_Rule(r["id"], r["severity"], r["advice"], tuple(re.compile(p, re.I) for p in plain), tuple(re.compile(p, re.I) for p in nomark)))
+        rules.append(
+            _Rule(r["id"], r["severity"], r["advice"], tuple(re.compile(p, re.I) for p in plain), tuple(re.compile(p, re.I) for p in nomark))
+        )
     return tuple(rules), tuple(fold(x) for x in spec["inclusive"])
 
 
@@ -181,9 +207,7 @@ def check_agg(job: Job | dict[str, Any]) -> list[AggIssue]:
                 out.append(AggIssue(rule.id, rule.severity, quote, rule.advice))
                 break
     if not _GENDER_MARK.search(title):
-        out.append(AggIssue("gender-title", "warn", title, "Add (m/w/d) or another all-gender form to the title."))
+        out.append(AggIssue("gender-title", "warn", title, config.load("agg")["gender_title_advice"]))
     if german and german.get("min") and not str(german.get("justification", "")).strip():
-        out.append(AggIssue("german-without-reason", "warn", f"German {german.get('min')}",
-                            "State why the work needs this level (safety instructions, documentation, customer contact). "
-                            "Without a reason the level is shown to candidates but not used to filter."))
+        out.append(AggIssue("german-without-reason", "warn", f"Deutsch {german.get('min')}", config.load("agg")["german_reason_advice"]))
     return out

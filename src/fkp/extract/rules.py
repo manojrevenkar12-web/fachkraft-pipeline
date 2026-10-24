@@ -10,6 +10,7 @@ statements ("ich bin 35 Jahre alt") are recognised only so they are *not* read a
 
 from __future__ import annotations
 
+import contextlib
 import re
 from dataclasses import dataclass, field
 from datetime import date, timedelta
@@ -19,8 +20,19 @@ from .. import config, geo
 from ..text import contains_any, find_terms, fold
 
 FIELDS = (
-    "occupation", "qualification", "recognition", "licences", "location", "commute_km", "shifts",
-    "start_date", "german_level", "experience_years", "employment", "email", "full_name",
+    "occupation",
+    "qualification",
+    "recognition",
+    "licences",
+    "location",
+    "commute_km",
+    "shifts",
+    "start_date",
+    "german_level",
+    "experience_years",
+    "employment",
+    "email",
+    "full_name",
 )
 CEFR = ("A1", "A2", "B1", "B2", "C1", "C2")
 LEVEL_WORDS = {"none": "none", "basic": "A2", "good": "B2", "fluent": "C1"}
@@ -34,8 +46,69 @@ _NUMBER = re.compile(r"(?<![\d.,])(\d{1,3})(?:[.,]\d+)?(?![\d])")
 _YEAR = re.compile(r"(?<!\d)(19[6-9]\d|20[0-3]\d)(?!\d)")
 _AGE_WORDS = ["alt", "jahre alt", "years old", "year old", "yaşında", "yasinda", "lat mam", "ani am", "років мені", "мені", "мне", "лет мне", "عمري"]
 _SINCE = ["seit", "since", "od", "din", "з", "с", "منذ", "beri", "dir"]
-_QUAL_NONE = ["ungelernt", "quereinsteiger", "quereinsteigerin", "ohne ausbildung", "keine ausbildung", "no qualification", "no formal training", "unskilled", "without training", "eğitimim yok", "egitimim yok", "kalifiye değilim", "bez wykształcenia", "bez wyksztalcenia", "bez kwalifikacji", "fără calificare", "fara calificare", "без освіти", "без образования", "без кваліфікації", "بدون شهادة", "بدون تأهيل"]
-_QUAL_YES = ["ausbildung", "gelernt", "gelernter", "gelernte", "examen", "examiniert", "examinierte", "abschluss", "geselle", "gesellenbrief", "meister", "studium", "diplom", "apprenticeship", "qualified", "trained", "diploma", "degree", "certificate", "eğitim", "diploma", "meslek lisesi", "wykształcenie", "dyplom", "szkoła zawodowa", "calificare", "diplomă", "școală profesională", "освіта", "диплом", "образование", "училище", "технікум", "техникум", "شهادة", "دبلوم", "تأهيل"]
+_QUAL_NONE = [
+    "ungelernt",
+    "quereinsteiger",
+    "quereinsteigerin",
+    "ohne ausbildung",
+    "keine ausbildung",
+    "no qualification",
+    "no formal training",
+    "unskilled",
+    "without training",
+    "eğitimim yok",
+    "egitimim yok",
+    "kalifiye değilim",
+    "bez wykształcenia",
+    "bez wyksztalcenia",
+    "bez kwalifikacji",
+    "fără calificare",
+    "fara calificare",
+    "без освіти",
+    "без образования",
+    "без кваліфікації",
+    "بدون شهادة",
+    "بدون تأهيل",
+]
+_QUAL_YES = [
+    "ausbildung",
+    "gelernt",
+    "gelernter",
+    "gelernte",
+    "examen",
+    "examiniert",
+    "examinierte",
+    "abschluss",
+    "geselle",
+    "gesellenbrief",
+    "meister",
+    "studium",
+    "diplom",
+    "apprenticeship",
+    "qualified",
+    "trained",
+    "diploma",
+    "degree",
+    "certificate",
+    "eğitim",
+    "diploma",
+    "meslek lisesi",
+    "wykształcenie",
+    "dyplom",
+    "szkoła zawodowa",
+    "calificare",
+    "diplomă",
+    "școală profesională",
+    "освіта",
+    "диплом",
+    "образование",
+    "училище",
+    "технікум",
+    "техникум",
+    "شهادة",
+    "دبلوم",
+    "تأهيل",
+]
 
 
 class _Asked:
@@ -117,9 +190,20 @@ class RuleExtractor:
         r.health_mentioned = contains_any(folded, self.lex["health_terms"]["any"], lang)
         r.age_mentioned = self._age(folded, lang)
         asked_ctx = _Asked(asked, expect)
-        for fn in (self._occupation, self._qualification, self._recognition, self._licences, self._location,
-                   self._commute, self._shifts, self._start, self._german, self._experience, self._employment,
-                   self._email):
+        for fn in (
+            self._occupation,
+            self._qualification,
+            self._recognition,
+            self._licences,
+            self._location,
+            self._commute,
+            self._shifts,
+            self._start,
+            self._german,
+            self._experience,
+            self._employment,
+            self._email,
+        ):
             fn(text, folded, lang, today, asked_ctx, r)
         if asked == "full_name":
             self._full_name(text, r)
@@ -146,10 +230,7 @@ class RuleExtractor:
         return out
 
     def _age(self, folded: str, lang: str) -> bool:
-        for m in _NUMBER.finditer(folded):
-            if 15 <= int(m.group(1)) <= 70 and _near(folded, m.start(), m.end(), _AGE_WORDS, lang, 12, 18):
-                return True
-        return False
+        return any(15 <= int(m.group(1)) <= 70 and _near(folded, m.start(), m.end(), _AGE_WORDS, lang, 12, 18) for m in _NUMBER.finditer(folded))
 
     # -- fields --------------------------------------------------------------------------------
 
@@ -294,8 +375,11 @@ class RuleExtractor:
                     continue
                 before = folded[max(0, s - 22) : s]
                 after = folded[e : e + 14]
-                neg = contains_any(before, negation, lang) or (lang == "tr" and contains_any(after, negation, lang)) \
+                neg = (
+                    contains_any(before, negation, lang)
+                    or (lang == "tr" and contains_any(after, negation, lang))
                     or bool(re.match(r"\s*(?:nein|no|nie|nu|ні|нет|لا)\b", after))
+                )
                 values[name] = not neg
                 span += [s, e]
                 break
@@ -361,10 +445,8 @@ class RuleExtractor:
             day_m = re.search(r"(\d{1,2})\.?\s*$", folded[max(0, s - 6) : s])
             day = int(day_m.group(1)) if day_m and 1 <= int(day_m.group(1)) <= 31 else 1
             y = today.year + (1 if (mo, day) < (today.month, today.day) else 0)
-            try:
+            with contextlib.suppress(ValueError):
                 r.facts.append(Fact("start_date", date(y, mo, day).isoformat(), s, e, 0.8))
-            except ValueError:
-                pass
             return
         # Polish/Ukrainian/Russian month stems inflect ("od marca", "з березня"): prefix search
         if lang in ("pl", "uk", "ru"):
@@ -413,10 +495,10 @@ class RuleExtractor:
                 return
         for m in _YEAR.finditer(folded):
             y = int(m.group(1))
-            if contains_any(folded[max(0, m.start() - 8) : m.start()], _SINCE, lang) and y <= today.year:
-                if _near(folded, m.start(), m.end(), context, lang, 40, 40) or asked == "experience_years" or r.get("occupation") is not None:
-                    r.facts.append(Fact("experience_years", today.year - y, m.start(), m.end(), 0.8))
-                    return
+            since = contains_any(folded[max(0, m.start() - 8) : m.start()], _SINCE, lang) and y <= today.year
+            if since and (_near(folded, m.start(), m.end(), context, lang, 40, 40) or asked == "experience_years" or r.get("occupation") is not None):
+                r.facts.append(Fact("experience_years", today.year - y, m.start(), m.end(), 0.8))
+                return
         if asked == "experience_years":
             m3 = _NUMBER.search(folded)
             if m3 and int(m3.group(1)) <= 50:

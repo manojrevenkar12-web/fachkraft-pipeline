@@ -30,14 +30,17 @@ def seed(store: Store, engine: Engine, n: int, now: datetime, seed: int = 21, da
         for i in range(30):
             if t > now:
                 break
-            msg = Inbound(id=f"demo.{seed}.{p.id}.{i}", at=t, kind="button" if button else "text", text=text, button_id=button,
-                          profile_name=p.full_name)
+            msg = Inbound(
+                id=f"demo.{seed}.{p.id}.{i}", at=t, kind="button" if button else "text", text=text, button_id=button, profile_name=p.full_name
+            )
             res = engine.inbound("sandbox", phone, msg)
             engine.deliver(t)
             with store.conn() as c:
                 conv = Store.get_conversation(c, "sandbox", phone)
-                last = c.execute("SELECT body, purpose FROM messages WHERE conversation_id = %s AND direction = 'out' ORDER BY at DESC, id DESC LIMIT 1",
-                                 (res.get("conversation_id"),)).fetchone()
+                last = c.execute(
+                    "SELECT body, purpose FROM messages WHERE conversation_id = %s AND direction = 'out' ORDER BY at DESC, id DESC LIMIT 1",
+                    (res.get("conversation_id"),),
+                ).fetchone()
             if conv is None or last is None or res.get("replies", 0) == 0 or last["purpose"] in TERMINAL:
                 break
             if p.rng.random() > p.patience:

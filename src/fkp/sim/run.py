@@ -15,11 +15,23 @@ from typing import Any
 from .. import config, matching
 from ..dialogue import Agent, Conversation, Inbound, Outgoing
 from ..jobs import Job
-from .personas import T, Persona, first_message, open_answer, phrase
+from .personas import Persona, T, first_message, open_answer, phrase
 
 TERMINAL = {"matched", "near_miss", "deleted", "human", "pool_saved", "consent_declined"}
-FORM_FIELDS = ["occupation", "location", "qualification", "recognition", "licences", "start_date", "shifts", "german_level",
-               "experience_years", "employment", "full_name", "email"]
+FORM_FIELDS = [
+    "occupation",
+    "location",
+    "qualification",
+    "recognition",
+    "licences",
+    "start_date",
+    "shifts",
+    "german_level",
+    "experience_years",
+    "employment",
+    "full_name",
+    "email",
+]
 
 
 @dataclass
@@ -66,8 +78,10 @@ def same(fieldname: str, got: Any, truth: Any, start_now: bool = False) -> bool:
     if fieldname == "occupation":
         return set(truth) <= set(got or [])
     if fieldname == "location":
-        return isinstance(got, dict) and (got.get("plz") == truth["plz"] or matching.geo.km(
-            matching.geo.Place("", "", got["lat"], got["lon"]), matching.geo.Place("", "", truth["lat"], truth["lon"])) < 15)
+        return isinstance(got, dict) and (
+            got.get("plz") == truth["plz"]
+            or matching.geo.km(matching.geo.Place("", "", got["lat"], got["lon"]), matching.geo.Place("", "", truth["lat"], truth["lon"])) < 15
+        )
     if fieldname == "licences":
         return set(got or []) == set(truth)
     if fieldname == "shifts":
@@ -90,7 +104,11 @@ def _answer(p: Persona, out: Outgoing, conv: Conversation, today: date, a: Assum
             return T[p.lang]["dunno"], ""
         return phrase(p, f, today), ""
     if purpose in ("confirm", "fix_prompt"):
-        wrong = [f for f in p.truth if f in conv.profile and f not in ("email",) and not same(f, conv.profile[f].value, p.truth[f], p.truth.get("_start_now", False))]
+        wrong = [
+            f
+            for f in p.truth
+            if f in conv.profile and f not in ("email",) and not same(f, conv.profile[f].value, p.truth[f], p.truth.get("_start_now", False))
+        ]
         if wrong and p.rng.random() < a.notices_error:
             return phrase(p, wrong[0], today), ""
         if purpose == "fix_prompt":
@@ -114,8 +132,14 @@ def assistant(p: Persona, jobs: list[Job], start: datetime, a: Assumptions, extr
     decided = False  # reached a match decision (hand-over, or the talent-pool question)
     while True:
         n += 1
-        msg = Inbound(id=f"{p.id}-{n}", at=now, kind="button" if pending_button else "text", text=pending_text,
-                      button_id=pending_button, profile_name=p.full_name)
+        msg = Inbound(
+            id=f"{p.id}-{n}",
+            at=now,
+            kind="button" if pending_button else "text",
+            text=pending_text,
+            button_id=pending_button,
+            profile_name=p.full_name,
+        )
         if last and last.purpose in ("confirm", "fix_prompt") and pending_text:
             corrections += 1
         res = agent.handle(conv, msg)

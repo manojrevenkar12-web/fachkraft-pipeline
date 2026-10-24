@@ -47,8 +47,13 @@ class Match:
         return [c.name for c in self.checks if c.status == UNKNOWN]
 
     def to_dict(self) -> dict[str, Any]:
-        return {"job_id": self.job_id, "verdict": self.verdict, "score": round(self.score, 3), "distance_km": None if self.distance_km is None else round(self.distance_km, 1),
-                "checks": [c.__dict__ for c in self.checks]}
+        return {
+            "job_id": self.job_id,
+            "verdict": self.verdict,
+            "score": round(self.score, 3),
+            "distance_km": None if self.distance_km is None else round(self.distance_km, 1),
+            "checks": [c.__dict__ for c in self.checks],
+        }
 
 
 def features(profile: dict[str, Any]) -> dict[str, Any]:

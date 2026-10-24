@@ -34,8 +34,21 @@ TOOL = {
                 "items": {
                     "type": "object",
                     "properties": {
-                        "field": {"type": "string", "enum": ["occupation", "qualification", "recognition", "licences", "commute_km", "shifts",
-                                                             "start_date", "german_level", "experience_years", "employment"]},
+                        "field": {
+                            "type": "string",
+                            "enum": [
+                                "occupation",
+                                "qualification",
+                                "recognition",
+                                "licences",
+                                "commute_km",
+                                "shifts",
+                                "start_date",
+                                "german_level",
+                                "experience_years",
+                                "employment",
+                            ],
+                        },
                         "value": {},
                         "quote": {"type": "string", "description": "the exact words of the message this rests on"},
                     },
@@ -68,11 +81,17 @@ class ClaudeExtractor:
         self.model = model or os.environ.get("FKP_LLM_MODEL", "claude-sonnet-4-5")
 
     def facts(self, text: str, today: date, asked: str | None, skip: set[str]) -> list[Fact]:
-        system = SYSTEM.format(occupations=", ".join(config.occupations()), licences=", ".join(LICENCES), today=today.isoformat(),
-                               asked=asked or "none (first message)")
-        msg = self.client.messages.create(model=self.model, max_tokens=800, system=system, tools=[TOOL],
-                                          tool_choice={"type": "tool", "name": "record_facts"},
-                                          messages=[{"role": "user", "content": text}])
+        system = SYSTEM.format(
+            occupations=", ".join(config.occupations()), licences=", ".join(LICENCES), today=today.isoformat(), asked=asked or "none (first message)"
+        )
+        msg = self.client.messages.create(
+            model=self.model,
+            max_tokens=800,
+            system=system,
+            tools=[TOOL],
+            tool_choice={"type": "tool", "name": "record_facts"},
+            messages=[{"role": "user", "content": text}],
+        )
         block = next((b for b in msg.content if getattr(b, "type", "") == "tool_use"), None)
         raw = (getattr(block, "input", None) or {}).get("facts", []) if block else []
         out = []
@@ -104,7 +123,11 @@ def validate(f: dict[str, Any], text: str, today: date) -> Fact | None:
     elif field == "licences":
         ok = isinstance(value, list) and all(v in LICENCES for v in value)
     elif field == "shifts":
-        ok = isinstance(value, dict) and bool(value) and all(k in ("early", "late", "night", "weekend") and isinstance(v, bool) for k, v in value.items())
+        ok = (
+            isinstance(value, dict)
+            and bool(value)
+            and all(k in ("early", "late", "night", "weekend") and isinstance(v, bool) for k, v in value.items())
+        )
     elif field == "start_date":
         try:
             ok = date.fromisoformat(str(value)) >= today
@@ -138,6 +161,6 @@ class HybridExtractor:
         have = {f.field for f in r.facts} | {"location", "email", "full_name"}
         try:
             r.facts += self.llm.facts(text, today, asked, have)
-        except Exception as e:  # noqa: BLE001 - the model is an extra, never a dependency
+        except Exception as e:
             log.warning("llm extractor failed, rules only: %s", str(e)[:200])
         return r

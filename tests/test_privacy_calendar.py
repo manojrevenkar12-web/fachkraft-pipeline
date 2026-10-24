@@ -4,10 +4,12 @@ from fkp import calendar, privacy
 
 
 def test_health_sentences_are_removed_in_several_languages():
-    for text, lang in (("Ich bin Pflegehelfer. Ich bin schwanger, deshalb keine Nachtdienste.", "de"),
-                       ("I am a welder. I had surgery last year.", "en"),
-                       ("Jestem opiekunką. Jestem w ciąży.", "pl"),
-                       ("Я медсестра. У мене інвалідність.", "uk")):
+    for text, lang in (
+        ("Ich bin Pflegehelfer. Ich bin schwanger, deshalb keine Nachtdienste.", "de"),
+        ("I am a welder. I had surgery last year.", "en"),
+        ("Jestem opiekunką. Jestem w ciąży.", "pl"),
+        ("Я медсестра. У мене інвалідність.", "uk"),
+    ):
         red, hit = privacy.redact(text, lang)
         assert hit and privacy.REMOVED in red and red.split(".")[0] == text.split(".")[0], text
 

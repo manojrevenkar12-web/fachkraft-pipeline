@@ -49,8 +49,15 @@ _STATE: dict[str, list[str]] = {
 def holidays(year: int, state: str = "") -> frozenset[date]:
     e = easter(year)
     days = {
-        date(year, 1, 1), e - timedelta(days=2), e + timedelta(days=1), date(year, 5, 1), e + timedelta(days=39),
-        e + timedelta(days=50), date(year, 10, 3), date(year, 12, 25), date(year, 12, 26),
+        date(year, 1, 1),
+        e - timedelta(days=2),
+        e + timedelta(days=1),
+        date(year, 5, 1),
+        e + timedelta(days=39),
+        e + timedelta(days=50),
+        date(year, 10, 3),
+        date(year, 12, 25),
+        date(year, 12, 26),
     }
     for d in _STATE.get(state, []):
         days.add(e + timedelta(days=60) if d == "corpus_christi" else date(year, int(d[:2]), int(d[3:])))

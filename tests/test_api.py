@@ -36,8 +36,11 @@ def signed(doc):
 
 def wa_doc(i, text="", button=""):
     m = {"from": "4917055501234", "id": f"wamid.api.{i}", "timestamp": str(int((T0 + timedelta(minutes=i)).timestamp()))}
-    m.update({"type": "interactive", "interactive": {"type": "button_reply", "button_reply": {"id": button, "title": "x"}}} if button
-             else {"type": "text", "text": {"body": text}})
+    m.update(
+        {"type": "interactive", "interactive": {"type": "button_reply", "button_reply": {"id": button, "title": "x"}}}
+        if button
+        else {"type": "text", "text": {"body": text}}
+    )
     return {"entry": [{"changes": [{"value": {"contacts": [{"wa_id": "4917055501234", "profile": {"name": "Ion Popa"}}], "messages": [m]}}]}]}
 
 
@@ -71,8 +74,14 @@ def test_webhook_signature_and_flow(env):
 
 def test_jobs_with_agg_block_and_override(env):
     c, *_ = env
-    job = {"id": "J-NEW", "title": "Lagerhelfer", "occupation": "lagerlogistik", "plz": "44135", "start_by": "2026-12-31",
-           "text": "Wir suchen junge, dynamische Leute. Deutsch als Muttersprache."}
+    job = {
+        "id": "J-NEW",
+        "title": "Lagerhelfer",
+        "occupation": "lagerlogistik",
+        "plz": "44135",
+        "start_by": "2026-12-31",
+        "text": "Wir suchen junge, dynamische Leute. Deutsch als Muttersprache.",
+    }
     r = c.post("/api/jobs", json={"job": job}, headers=H["rec"])
     assert r.status_code == 422 and {i["rule"] for i in r.json()["detail"]["issues"]} == {"age", "origin-native-language"}
     lint = c.post("/api/jobs/lint", json=job, headers=H["read"]).json()
@@ -85,7 +94,7 @@ def test_jobs_with_agg_block_and_override(env):
 
 
 def test_recruiter_reply_respects_the_window_and_erasure_works(env):
-    c, engine, wa, clock = env
+    c, _engine, _wa, clock = env
     r = c.post("/api/sandbox/4915550001111/messages", json={"text": "Hallo, ich bin Maler in Hamburg", "name": "Lea Weiß"}, headers=H["read"])
     cid = r.json()["conversation_id"]
     assert r.json()["transcript"][-1]["buttons"][0]["id"] == "consent_yes"
@@ -103,8 +112,16 @@ def test_recruiter_reply_respects_the_window_and_erasure_works(env):
 def test_sandbox_conversation_and_metrics(env):
     c, *_ = env
     phone = "4915550002222"
-    for step in ({"text": "Hello, J-ELE-MUC"}, {"button_id": "consent_yes"}, {"text": "I'm an electrician in 80331 Munich, available immediately"},
-                 {"text": "early shift"}, {"text": "German B2"}, {"text": "6 years"}, {"button_id": "confirm_yes"}, {"text": "sam@mail.example"}):
+    for step in (
+        {"text": "Hello, J-ELE-MUC"},
+        {"button_id": "consent_yes"},
+        {"text": "I'm an electrician in 80331 Munich, available immediately"},
+        {"text": "early shift"},
+        {"text": "German B2"},
+        {"text": "6 years"},
+        {"button_id": "confirm_yes"},
+        {"text": "sam@mail.example"},
+    ):
         r = c.post(f"/api/sandbox/{phone}/messages", json={**step, "name": "Sam Lee"}, headers=H["read"]).json()
     assert r["stage"] == "handed_over"
     assert "You fit" in r["transcript"][-1]["body"]

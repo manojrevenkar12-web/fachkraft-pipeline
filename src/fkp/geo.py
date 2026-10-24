@@ -18,7 +18,38 @@ from .text import find_terms, fold
 
 PLZ = re.compile(r"(?<!\d)(\d{5})(?!\d)")
 _MONEY_AFTER = re.compile(r"^\s*(?:€|eur|euro|brutto|netto|\$)", re.I)
-_LOCATION_WORDS = ["in", "aus", "bei", "nähe", "nahe", "near", "from", "w", "z", "pod", "în", "din", "lângă", "в", "у", "з", "из", "під", "под", "في", "من", "قرب", "wohne in", "lebe in", "live in", "mieszkam w", "locuiesc în", "живу в", "живу у", "أسكن في"]
+_LOCATION_WORDS = [
+    "in",
+    "aus",
+    "bei",
+    "nähe",
+    "nahe",
+    "near",
+    "from",
+    "w",
+    "z",
+    "pod",
+    "în",
+    "din",
+    "lângă",
+    "в",
+    "у",
+    "з",
+    "из",
+    "під",
+    "под",
+    "في",
+    "من",
+    "قرب",
+    "wohne in",
+    "lebe in",
+    "live in",
+    "mieszkam w",
+    "locuiesc în",
+    "живу в",
+    "живу у",
+    "أسكن في",
+]
 
 
 @dataclass(frozen=True)

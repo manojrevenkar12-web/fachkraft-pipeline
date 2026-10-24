@@ -1,0 +1,18 @@
+.page { padding: var(--space-5); display: grid; gap: var(--space-6); max-width: var(--w-page); }
+.funnel { display: grid; gap: var(--space-3); }
+.step { display: grid; grid-template-columns: var(--w-fact-label) minmax(0, 1fr) var(--w-num); gap: var(--space-3); align-items: center; }
+.stepLabel { font-size: var(--fs-sm); color: var(--c-muted); }
+.track { height: var(--h-bar-chart); background: var(--c-sunken); border-radius: var(--radius-xs); overflow: hidden; }
+.bar { height: 100%; background: var(--c-blue); transform-origin: left center; }
+.barLast { background: var(--c-signal); }
+.num { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; }
+.figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(var(--w-figure), 1fr)); gap: var(--space-5); }
+.figure { display: grid; gap: var(--space-1); padding-top: var(--space-3); border-top: var(--rule-strong) solid var(--c-ink); }
+.figureValue { font-family: var(--font-display); font-size: var(--fs-3xl); font-weight: 700; line-height: var(--lh-tight); font-variant-numeric: tabular-nums; }
+.figureLabel { color: var(--c-muted); }
+.table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.table th, .table td { text-align: left; padding: var(--space-2) var(--space-3) var(--space-2) 0; border-bottom: var(--border); }
+.table td:last-child, .table th:last-child { text-align: right; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(var(--w-col), 1fr)); gap: var(--space-6); }
+.section { display: grid; gap: var(--space-3); align-content: start; }
+@media (max-width: 47.5rem) { .page { padding: var(--space-4); } .step { grid-template-columns: var(--w-fact-label-narrow) minmax(0, 1fr) var(--w-num); } }

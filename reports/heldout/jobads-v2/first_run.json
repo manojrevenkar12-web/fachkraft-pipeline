@@ -1,0 +1,293 @@
+{
+  "kind": "jobads",
+  "ads": 120,
+  "overall": {
+    "tp": 68,
+    "fn": 25,
+    "fp": 4,
+    "precision": 0.944,
+    "recall": 0.731
+  },
+  "rules": {
+    "age": {
+      "tp": 7,
+      "fn": 5,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 0.583
+    },
+    "family": {
+      "tp": 5,
+      "fn": 2,
+      "fp": 1,
+      "precision": 0.833,
+      "recall": 0.714
+    },
+    "gender-only": {
+      "tp": 6,
+      "fn": 5,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 0.545
+    },
+    "gender-title": {
+      "tp": 15,
+      "fn": 1,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 0.938
+    },
+    "german-without-reason": {
+      "tp": 8,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "origin-nationality": {
+      "tp": 3,
+      "fn": 3,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 0.5
+    },
+    "origin-native-language": {
+      "tp": 7,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "photo": {
+      "tp": 6,
+      "fn": 3,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 0.667
+    },
+    "physical": {
+      "tp": 6,
+      "fn": 1,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 0.857
+    },
+    "pregnancy-health": {
+      "tp": 2,
+      "fn": 4,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 0.333
+    },
+    "religion": {
+      "tp": 3,
+      "fn": 1,
+      "fp": 3,
+      "precision": 0.5,
+      "recall": 0.75
+    }
+  },
+  "block_decision": {
+    "tp": 27,
+    "fn": 15,
+    "fp": 3,
+    "tn": 75,
+    "accuracy": 0.85
+  },
+  "exact_ads": 93,
+  "failures": [
+    {
+      "id": "ad-008",
+      "missed": [
+        "photo"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-019",
+      "missed": [
+        "pregnancy-health"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-034",
+      "missed": [],
+      "false": [
+        "religion"
+      ]
+    },
+    {
+      "id": "ad-036",
+      "missed": [
+        "gender-only"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-043",
+      "missed": [
+        "gender-only"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-046",
+      "missed": [
+        "age",
+        "photo"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-052",
+      "missed": [
+        "physical"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-055",
+      "missed": [],
+      "false": [
+        "religion"
+      ]
+    },
+    {
+      "id": "ad-056",
+      "missed": [
+        "gender-only"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-058",
+      "missed": [
+        "origin-nationality"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-064",
+      "missed": [
+        "age"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-071",
+      "missed": [
+        "photo"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-076",
+      "missed": [
+        "gender-title"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-078",
+      "missed": [
+        "age"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-080",
+      "missed": [
+        "pregnancy-health"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-081",
+      "missed": [
+        "origin-nationality"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-083",
+      "missed": [
+        "gender-only"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-089",
+      "missed": [
+        "age"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-091",
+      "missed": [
+        "age"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-098",
+      "missed": [
+        "pregnancy-health"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-103",
+      "missed": [
+        "origin-nationality"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-104",
+      "missed": [
+        "religion"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-108",
+      "missed": [
+        "family"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-112",
+      "missed": [
+        "pregnancy-health"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-114",
+      "missed": [
+        "gender-only"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-119",
+      "missed": [
+        "family"
+      ],
+      "false": []
+    },
+    {
+      "id": "ad-120",
+      "missed": [],
+      "false": [
+        "family",
+        "religion"
+      ]
+    }
+  ],
+  "set": "jobads-v2",
+  "status": "heldout"
+}

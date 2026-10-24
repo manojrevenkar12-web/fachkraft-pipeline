@@ -23,7 +23,9 @@ from typing import Any
 
 import yaml
 
-from . import config, geo, jobs as jobs_mod, lang as lang_mod, privacy
+from . import config, geo, privacy
+from . import jobs as jobs_mod
+from . import lang as lang_mod
 from .extract import RuleExtractor
 from .extract.rules import _IMPLIED
 
@@ -146,12 +148,19 @@ def _messages(set_dir: Path, data: dict[str, Any]) -> dict[str, Any]:
     total = {k: sum(d[k] for d in per.values()) for k in ("right", "wrong", "missed", "false")}
     exact = sum(d["exact"] for d in by_lang.values())
     res = {
-        "kind": "messages", "cases": len(cases), "today": str(today), "extractor": "rules",
-        "overall": prf(total), "exact_cases": exact, "exact_rate": round(exact / len(cases), 3) if cases else None,
+        "kind": "messages",
+        "cases": len(cases),
+        "today": str(today),
+        "extractor": "rules",
+        "overall": prf(total),
+        "exact_cases": exact,
+        "exact_rate": round(exact / len(cases), 3) if cases else None,
         "language_detected": round(lang_ok / len(cases), 3) if cases else None,
         "fields": {k: prf(v) for k, v in sorted(per.items())},
         "by_language": {k: {**prf(v), "cases": v["cases"], "exact": v["exact"]} for k, v in sorted(by_lang.items())},
-        "intents": intents, "health": health, "failures": failures,
+        "intents": intents,
+        "health": health,
+        "failures": failures,
     }
     return res
 
@@ -183,9 +192,15 @@ def _ads(set_dir: Path, data: dict[str, Any]) -> dict[str, Any]:
 
     total = {k: sum(v[k] for v in per.values()) for k in ("tp", "fn", "fp")}
     n = len(data["ads"])
-    return {"kind": "jobads", "ads": n, "overall": prf(total), "rules": {k: prf(v) for k, v in sorted(per.items())},
-            "block_decision": {**decision, "accuracy": round((decision["tp"] + decision["tn"]) / n, 3) if n else None},
-            "exact_ads": n - len(failures), "failures": failures}
+    return {
+        "kind": "jobads",
+        "ads": n,
+        "overall": prf(total),
+        "rules": {k: prf(v) for k, v in sorted(per.items())},
+        "block_decision": {**decision, "accuracy": round((decision["tp"] + decision["tn"]) / n, 3) if n else None},
+        "exact_ads": n - len(failures),
+        "failures": failures,
+    }
 
 
 def run(set_dir: Path | str) -> dict[str, Any]:
@@ -226,14 +241,21 @@ def markdown(r: dict[str, Any]) -> str:
     label = "held-out (blind, first run)" if r.get("status") == "heldout" else f"{r.get('status')} (studied; not an unbiased number)"
     if r["kind"] == "messages":
         o = r["overall"]
-        lines = [f"# {r['set']}: candidate messages, {label}", "",
-                 f"{r['cases']} messages read with the offline rules (no model). Precision counts wrong and invented values against the reader; "
-                 "recall counts wrong and missed values.", "",
-                 f"Precision {_pct(o['precision'])}, recall {_pct(o['recall'])}; {r['exact_cases']} of {r['cases']} messages read exactly "
-                 f"({_pct(r['exact_rate'])}); language detected right {_pct(r['language_detected'])}.", "",
-                 f"Intents (stop, human, yes, no): {r['intents']['right']} right, {r['intents']['missed']} missed, {r['intents']['false']} false. "
-                 f"Health mentions redacted: {r['health']['right']} of {r['health']['right'] + r['health']['missed']}, {r['health']['false']} false.", "",
-                 "| Field | Right | Wrong | Missed | Invented | Precision | Recall |", "|---|---:|---:|---:|---:|---:|---:|"]
+        lines = [
+            f"# {r['set']}: candidate messages, {label}",
+            "",
+            f"{r['cases']} messages read with the offline rules (no model). Precision counts wrong and invented values against the reader; "
+            "recall counts wrong and missed values.",
+            "",
+            f"Precision {_pct(o['precision'])}, recall {_pct(o['recall'])}; {r['exact_cases']} of {r['cases']} messages read exactly "
+            f"({_pct(r['exact_rate'])}); language detected right {_pct(r['language_detected'])}.",
+            "",
+            f"Intents (stop, human, yes, no): {r['intents']['right']} right, {r['intents']['missed']} missed, {r['intents']['false']} false. "
+            f"Health mentions redacted: {r['health']['right']} of {r['health']['right'] + r['health']['missed']}, {r['health']['false']} false.",
+            "",
+            "| Field | Right | Wrong | Missed | Invented | Precision | Recall |",
+            "|---|---:|---:|---:|---:|---:|---:|",
+        ]
         for k, v in r["fields"].items():
             lines.append(f"| {k} | {v['right']} | {v['wrong']} | {v['missed']} | {v['false']} | {_pct(v['precision'])} | {_pct(v['recall'])} |")
         lines += ["", "| Language | Messages | Exact | Precision | Recall |", "|---|---:|---:|---:|---:|"]
@@ -241,12 +263,18 @@ def markdown(r: dict[str, Any]) -> str:
             lines.append(f"| {k} | {v['cases']} | {v['exact']} | {_pct(v['precision'])} | {_pct(v['recall'])} |")
         return "\n".join(lines) + "\n"
     o, d = r["overall"], r["block_decision"]
-    lines = [f"# {r['set']}: job ads, {label}", "",
-             f"{r['ads']} ads. Problems found: precision {_pct(o['precision'])}, recall {_pct(o['recall'])}. "
-             f"{r['exact_ads']} ads with exactly the labelled problems.", "",
-             f"Publish/block decision: {_pct(d['accuracy'])} right ({d['tp']} blocked rightly, {d['tn']} published rightly, "
-             f"{d['fn']} published that should have been blocked, {d['fp']} blocked that were fine).", "",
-             "| Problem | Found | Missed | False | Precision | Recall |", "|---|---:|---:|---:|---:|---:|"]
+    lines = [
+        f"# {r['set']}: job ads, {label}",
+        "",
+        f"{r['ads']} ads. Problems found: precision {_pct(o['precision'])}, recall {_pct(o['recall'])}. "
+        f"{r['exact_ads']} ads with exactly the labelled problems.",
+        "",
+        f"Publish/block decision: {_pct(d['accuracy'])} right ({d['tp']} blocked rightly, {d['tn']} published rightly, "
+        f"{d['fn']} published that should have been blocked, {d['fp']} blocked that were fine).",
+        "",
+        "| Problem | Found | Missed | False | Precision | Recall |",
+        "|---|---:|---:|---:|---:|---:|",
+    ]
     for k, v in r["rules"].items():
         lines.append(f"| {k} | {v['tp']} | {v['fn']} | {v['fp']} | {_pct(v['precision'])} | {_pct(v['recall'])} |")
     return "\n".join(lines) + "\n"
