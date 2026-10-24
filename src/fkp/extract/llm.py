@@ -19,6 +19,7 @@ from datetime import date
 from typing import Any
 
 from .. import config
+from ..privacy import redact
 from .rules import CEFR, Fact, Reading, RuleExtractor
 
 log = logging.getLogger(__name__)
@@ -159,8 +160,18 @@ class HybridExtractor:
         if r.intents & {"opt_out", "human"} or not text.strip():
             return r
         have = {f.field for f in r.facts} | {"location", "email", "full_name"}
+        # health sentences never leave the system (GDPR Art. 9): the model sees the redacted text,
+        # and every quote it returns is located again in the original message
+        clean, _ = redact(text, lang)
         try:
-            r.facts += self.llm.facts(text, today, asked, have)
+            found = self.llm.facts(clean, today, asked, have)
         except Exception as e:
             log.warning("llm extractor failed, rules only: %s", str(e)[:200])
+            return r
+        low = text.lower()
+        for f in found:
+            quote = clean[f.start : f.end]
+            i = low.find(quote.lower())
+            if i >= 0:
+                r.facts.append(Fact(f.field, f.value, i, i + len(quote), f.confidence))
         return r

@@ -43,7 +43,7 @@ describe("text", () => {
   });
 
   it("shows a tapped button by its label", () => {
-    expect(messageText("[consent_yes]")).toBe("↩ Ja, einverstanden");
+    expect(messageText("[consent_yes]")).toBe("↩ Ja, los geht's");
     expect(messageText("[x] und Text")).toBe("[x] und Text");
   });
 });

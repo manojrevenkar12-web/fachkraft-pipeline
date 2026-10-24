@@ -25,9 +25,12 @@ retention:
 whatsapp:
   graph_version: v21.0
   window_hours: 24
-  # Germany, USD per delivered message; free-form service messages inside the window are free
-  # up to the monthly allowance (rates from Meta's rate card, check before relying on them)
-  prices_usd: {marketing: 0.1365, utility: 0.0550, authentication: 0.0550, service: 0.0}
+  # Germany, EUR per delivered message, from 1 October 2026: service (free-form) messages are free
+  # for the first 1,000 a month per number and then charged at the utility rate; utility
+  # templates are charged inside the window too. Meta's delivery status says what was billed;
+  # these rates price it. Check the EUR rate card before relying on them.
+  currency: EUR
+  prices: {marketing: 0.1131, utility: 0.0456, authentication: 0.0456, service: 0.0456}
   service_free_per_month: 1000
   templates:
     reminder:            # must stay a pure utility message: no offers, no persuasion

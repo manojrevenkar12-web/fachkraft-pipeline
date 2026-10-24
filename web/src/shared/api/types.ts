@@ -40,7 +40,7 @@ export interface Message {
   purpose: string | null;
   status: string | null;
   category: string | null;
-  cost_usd: number;
+  cost: number;
   at: string;
   redacted: boolean;
 }
@@ -82,7 +82,8 @@ export interface Metrics {
   stages: Record<string, number>;
   languages: Record<string, number>;
   minutes_to_confirmed_median: number | null;
-  messages: { category: string; count: number; usd: number }[];
+  messages: { category: string; count: number; amount: number }[];
+  currency: string;
   reminders: number;
   window_closed: number;
 }

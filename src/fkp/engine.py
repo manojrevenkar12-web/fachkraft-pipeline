@@ -105,11 +105,11 @@ class Engine:
 
     def status(self, s: Status) -> None:
         """A delivery receipt: record status and the category Meta billed."""
-        prices = self.st["whatsapp"]["prices_usd"]
+        prices = self.st["whatsapp"]["prices"]
         with self.store.conn() as c:
             cost = prices.get(s.category or "", 0.0) if s.billable else 0.0
             c.execute(
-                """UPDATE messages SET status = %s, category = COALESCE(%s, category), cost_usd = CASE WHEN %s THEN %s ELSE cost_usd END
+                """UPDATE messages SET status = %s, category = COALESCE(%s, category), cost = CASE WHEN %s THEN %s ELSE cost END
                          WHERE direction = 'out' AND channel_id = %s""",
                 (s.status, s.category, s.billable is not None, cost, s.message_id),
             )
@@ -183,11 +183,11 @@ class Engine:
                     return "expired", None
         ext = self.channels[p["channel"]].send(p["to"], out)
         category = (out.template or {}).get("category", "service")
-        cost = self.st["whatsapp"]["prices_usd"].get(category, 0.0) if out.kind == "template" else 0.0
+        cost = self.st["whatsapp"]["prices"].get(category, 0.0) if out.kind == "template" else 0.0
         with self.store.conn() as c:
             mid = Store.add_message(c, row["conversation_id"], "out", out.kind, out.body, now, channel_id=ext, purpose=out.purpose, status="sent")
             if mid:
-                c.execute("UPDATE messages SET category = %s, cost_usd = %s WHERE id = %s", (category, cost, mid))
+                c.execute("UPDATE messages SET category = %s, cost = %s WHERE id = %s", (category, cost, mid))
         return "sent", ext
 
     # -- reminders and retention ---------------------------------------------------------------

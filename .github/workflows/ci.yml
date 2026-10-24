@@ -1,0 +1,73 @@
+name: ci
+on:
+  push: { branches: [main] }
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_PASSWORD: postgres, POSTGRES_DB: fkp_test }
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 3s --health-timeout 3s --health-retries 20
+    env:
+      FKP_TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/fkp_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - run: pip install -e ".[dev,llm]"
+      - name: Lint and types
+        run: |
+          ruff check src tests scripts
+          ruff format --check src tests scripts
+          mypy
+      - name: Tests (unit, dialogue, engine and API against PostgreSQL)
+        run: pytest -q
+      - name: Simulation report is reproducible
+        run: |
+          fkp eval --out /tmp/reports > /dev/null
+          python - <<'PY'
+          import json
+          new = json.load(open("/tmp/reports/simulation.json"))
+          old = json.load(open("reports/simulation.json"))
+          assert new == old, "reports/simulation.json is stale: run `fkp eval` and commit it"
+          PY
+      - name: Held-out sets (first runs are kept; this records the latest)
+        run: |
+          for d in heldout/*/; do
+            test -f "$d/STATUS" || { echo "$d has no STATUS"; exit 1; }
+            test -f "reports/heldout/$(basename $d)/first_run.json" || { echo "$d has no recorded first run"; exit 1; }
+            FKP_HELDOUT_REPORTS=/tmp/heldout fkp heldout "$d" > /dev/null
+          done
+          git diff --exit-code -- reports/heldout/*/first_run.json
+
+  web:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: web } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: web/package-lock.json }
+      - run: npm ci --no-audit --no-fund
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+
+  images:
+    runs-on: ubuntu-latest
+    needs: [python, web]
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t fachkraft-pipeline .
+      - run: docker build -t fachkraft-pipeline-web web
+      - name: Image starts and answers
+        run: |
+          docker run -d --name api -p 8000:8000 -e FKP_DATABASE_URL=postgresql://nobody@127.0.0.1/none fachkraft-pipeline
+          for i in $(seq 1 30); do curl -fs localhost:8000/healthz && break; sleep 1; done
+          curl -fs localhost:8000/healthz
+          docker compose config -q

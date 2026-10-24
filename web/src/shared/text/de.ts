@@ -29,9 +29,10 @@ export const checkLabel: Record<string, string> = {
   start: "Start", german: "Deutsch", employment: "Arbeitszeit",
 };
 
+/** The reply buttons as the candidate saw them (German titles from config/messages.yaml). */
 export const buttonLabel: Record<string, string> = {
-  consent_yes: "Ja, einverstanden", consent_no: "Nein, danke", confirm_yes: "Stimmt so", confirm_fix: "Ändern",
-  pool_yes: "Ja, in den Talentpool", pool_no: "Nein, löschen",
+  consent_yes: "Ja, los geht's", consent_no: "Nein danke", confirm_yes: "Stimmt", confirm_fix: "Korrigieren",
+  pool_yes: "Ja, gern", pool_no: "Nein, löschen",
 };
 
 /** "[consent_yes]" (a tapped reply button, as stored) → its label; anything else unchanged. */

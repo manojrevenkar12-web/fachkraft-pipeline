@@ -52,3 +52,12 @@ def test_opt_out_never_reaches_the_model():
     stub = Stub()
     HybridExtractor(ClaudeExtractor(client=stub)).read("STOP", "de", TODAY)
     assert stub.calls == []
+
+
+def test_health_sentences_never_reach_the_model_and_quotes_map_back():
+    text = "Ich habe Rückenprobleme seit dem Unfall. Ich mache Elektroinstallationen und kann im Dezember anfangen."
+    stub = Stub([{"field": "occupation", "value": ["elektroniker"], "quote": "Elektroinstallationen"}])
+    r = HybridExtractor(ClaudeExtractor(client=stub)).read(text, "de", TODAY)
+    sent = str(stub.calls[0]["messages"])
+    assert "Rückenprobleme" not in sent and "Unfall" not in sent and "Elektroinstallationen" in sent
+    assert r.get("occupation").evidence(text) == "Elektroinstallationen"

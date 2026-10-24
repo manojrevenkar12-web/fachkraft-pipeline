@@ -53,6 +53,7 @@ class Outcome:
     replies: int  # messages the candidate had to send
     prompts: int
     minutes_to_done: float | None
+    sent: int = 0  # free-form messages from the business (service messages)
     reminders_text: int = 0
     reminders_template: int = 0
     detected_lang: str = ""
@@ -150,6 +151,7 @@ def assistant(p: Persona, jobs: list[Job], start: datetime, a: Assumptions, extr
             break
         last = res.outgoing[-1]
         out.prompts += 1
+        out.sent += len(res.outgoing)
         conv.last_outbound_at = now.isoformat()
         if last.purpose in TERMINAL or conv.stage in ("handed_over", "pooled", "deleted", "declined", "human"):
             break
@@ -197,6 +199,7 @@ def form_bot(p: Persona, start: datetime, a: Assumptions) -> Outcome:
         out.prompts += 1
         if step == "consent" and p.rng.random() >= a.consent:
             out.stage = "declined"
+            out.sent = out.prompts
             return out
         if i and p.rng.random() > p.patience:
             revived = False
@@ -212,10 +215,12 @@ def form_bot(p: Persona, start: datetime, a: Assumptions) -> Outcome:
                     break
             if not revived:
                 out.stage = f"abandoned_at:{step}"
+                out.sent = out.prompts
                 return out
         now = now + _reply_delay(p)
         last_inbound = now
         out.replies += 1
+    out.sent = out.prompts + 1  # every prompt, plus the closing message
     out.stage = "submitted"
     out.completed = True
     out.minutes_to_done = (now - start).total_seconds() / 60

@@ -17,6 +17,7 @@ from datetime import date, timedelta
 from typing import Any
 
 from .. import config, geo
+from ..privacy import mentions_health
 from ..text import contains_any, find_terms, fold
 
 FIELDS = (
@@ -187,7 +188,7 @@ class RuleExtractor:
         folded = fold(text)
         r = Reading()
         r.intents = self._intents(folded, lang)
-        r.health_mentioned = contains_any(folded, self.lex["health_terms"]["any"], lang)
+        r.health_mentioned = mentions_health(text, lang)
         r.age_mentioned = self._age(folded, lang)
         asked_ctx = _Asked(asked, expect)
         for fn in (

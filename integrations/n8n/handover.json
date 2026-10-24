@@ -1,0 +1,36 @@
+{
+  "name": "fachkraft-pipeline: hand-over to sheet",
+  "nodes": [
+    {
+      "parameters": { "httpMethod": "POST", "path": "fkp-handover", "responseMode": "responseNode", "options": { "rawBody": true } },
+      "name": "Webhook", "type": "n8n-nodes-base.webhook", "typeVersion": 2, "position": [200, 300]
+    },
+    {
+      "parameters": { "action": "hmac", "type": "SHA256", "value": "={{ $binary.data ? $binary.data.data : JSON.stringify($json.body) }}", "dataPropertyName": "expected", "secret": "CHANGE_ME", "encoding": "hex" },
+      "name": "Sign body", "type": "n8n-nodes-base.crypto", "typeVersion": 1, "position": [420, 300]
+    },
+    {
+      "parameters": { "conditions": { "string": [ { "value1": "={{ $json.headers['x-fkp-signature'] }}", "value2": "=sha256={{ $json.expected }}" } ] } },
+      "name": "Signature valid?", "type": "n8n-nodes-base.if", "typeVersion": 1, "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append", "documentId": "", "sheetName": "Hand-overs",
+        "columns": { "mappingMode": "defineBelow", "value": {
+          "Received": "={{ $now.toISO() }}", "Key": "={{ $json.headers['idempotency-key'] }}",
+          "Job": "={{ $json.body.data.job_id }}", "Verdict": "={{ $json.body.data.verdict }}",
+          "Name": "={{ $json.body.data.first_name }} {{ $json.body.data.last_name }}", "Email": "={{ $json.body.data.email }}",
+          "Language": "={{ $json.body.data.language }}", "Summary": "={{ $json.body.data.summary }}" } }
+      },
+      "name": "Append to sheet", "type": "n8n-nodes-base.googleSheets", "typeVersion": 4, "position": [880, 220]
+    },
+    { "parameters": { "respondWith": "noData", "options": { "responseCode": 204 } }, "name": "204", "type": "n8n-nodes-base.respondToWebhook", "typeVersion": 1, "position": [1100, 220] },
+    { "parameters": { "respondWith": "noData", "options": { "responseCode": 401 } }, "name": "401", "type": "n8n-nodes-base.respondToWebhook", "typeVersion": 1, "position": [880, 400] }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Sign body", "type": "main", "index": 0 }]] },
+    "Sign body": { "main": [[{ "node": "Signature valid?", "type": "main", "index": 0 }]] },
+    "Signature valid?": { "main": [[{ "node": "Append to sheet", "type": "main", "index": 0 }], [{ "node": "401", "type": "main", "index": 0 }]] },
+    "Append to sheet": { "main": [[{ "node": "204", "type": "main", "index": 0 }]] }
+  }
+}

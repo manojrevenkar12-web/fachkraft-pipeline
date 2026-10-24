@@ -1,0 +1,124 @@
+# Production layout: API (2+ replicas), outbox worker (2 replicas; rows are claimed with SKIP LOCKED
+# and a lease, so workers never send the same message twice), a migration job, the web app and an
+# ingress. Postgres is managed outside the cluster (e.g. a managed instance in eu-central-1).
+apiVersion: v1
+kind: Namespace
+metadata: { name: fkp }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata: { name: fkp, namespace: fkp }
+data:
+  FKP_CORS_ORIGINS: ""
+  FKP_SANDBOX: "0"
+---
+# Create the real secret with: kubectl -n fkp create secret generic fkp --from-env-file=.env
+apiVersion: v1
+kind: Secret
+metadata: { name: fkp, namespace: fkp }
+type: Opaque
+stringData:
+  FKP_DATABASE_URL: "postgresql://fkp:CHANGE_ME@postgres.internal.example:5432/fkp?sslmode=require"
+  FKP_API_KEYS: "CHANGE_ME_AT_LEAST_16_CHARS:admin"
+  FKP_HASH_SALT: "CHANGE_ME"
+  FKP_WA_VERIFY_TOKEN: "CHANGE_ME"
+  FKP_WA_APP_SECRET: "CHANGE_ME"
+  FKP_WA_TOKEN: "CHANGE_ME"
+  FKP_WA_PHONE_NUMBER_ID: "CHANGE_ME"
+  FKP_ATS_WEBHOOK_URL: "https://hooks.example/fkp"
+  FKP_ATS_WEBHOOK_SECRET: "CHANGE_ME"
+---
+apiVersion: batch/v1
+kind: Job
+metadata: { name: fkp-migrate, namespace: fkp }
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: OnFailure
+      securityContext: { runAsNonRoot: true, runAsUser: 10001 }
+      containers:
+        - name: migrate
+          image: ghcr.io/manojrevenkar12-web/fachkraft-pipeline:latest
+          command: ["fkp", "migrate"]
+          envFrom: [{ secretRef: { name: fkp } }, { configMapRef: { name: fkp } }]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: fkp-api, namespace: fkp }
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: fkp-api } }
+  template:
+    metadata: { labels: { app: fkp-api } }
+    spec:
+      securityContext: { runAsNonRoot: true, runAsUser: 10001 }
+      containers:
+        - name: api
+          image: ghcr.io/manojrevenkar12-web/fachkraft-pipeline:latest
+          ports: [{ containerPort: 8000 }]
+          envFrom: [{ secretRef: { name: fkp } }, { configMapRef: { name: fkp } }]
+          readinessProbe: { httpGet: { path: /readyz, port: 8000 }, periodSeconds: 5 }
+          livenessProbe: { httpGet: { path: /healthz, port: 8000 }, periodSeconds: 10 }
+          resources: { requests: { cpu: 100m, memory: 192Mi }, limits: { memory: 512Mi } }
+          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: fkp-worker, namespace: fkp }
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: fkp-worker } }
+  template:
+    metadata: { labels: { app: fkp-worker } }
+    spec:
+      securityContext: { runAsNonRoot: true, runAsUser: 10001 }
+      containers:
+        - name: worker
+          image: ghcr.io/manojrevenkar12-web/fachkraft-pipeline:latest
+          command: ["fkp", "worker"]
+          envFrom: [{ secretRef: { name: fkp } }, { configMapRef: { name: fkp } }]
+          resources: { requests: { cpu: 50m, memory: 128Mi }, limits: { memory: 384Mi } }
+          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata: { name: fkp-api, namespace: fkp }
+spec: { minAvailable: 1, selector: { matchLabels: { app: fkp-api } } }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: api, namespace: fkp }
+spec: { selector: { app: fkp-api }, ports: [{ port: 8000, targetPort: 8000 }] }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: fkp-web, namespace: fkp }
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: fkp-web } }
+  template:
+    metadata: { labels: { app: fkp-web } }
+    spec:
+      containers:
+        - name: web
+          image: ghcr.io/manojrevenkar12-web/fachkraft-pipeline-web:latest
+          ports: [{ containerPort: 8080 }]
+          resources: { requests: { cpu: 20m, memory: 32Mi }, limits: { memory: 128Mi } }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: web, namespace: fkp }
+spec: { selector: { app: fkp-web }, ports: [{ port: 80, targetPort: 8080 }] }
+---
+# WhatsApp calls /webhooks/whatsapp on the API host; recruiters use the web host.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata: { name: fkp, namespace: fkp }
+spec:
+  tls: [{ hosts: [app.fkp.example, api.fkp.example], secretName: fkp-tls }]
+  rules:
+    - host: app.fkp.example
+      http: { paths: [{ path: /, pathType: Prefix, backend: { service: { name: web, port: { number: 80 } } } }] }
+    - host: api.fkp.example
+      http: { paths: [{ path: /, pathType: Prefix, backend: { service: { name: api, port: { number: 8000 } } } }] }

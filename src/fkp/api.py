@@ -21,6 +21,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel, Field
 
+from . import config
 from . import jobs as jobs_mod
 from .dialogue import Conversation, Inbound, Outgoing
 from .engine import Engine
@@ -212,7 +213,7 @@ def create_app(store: Store, engine: Engine, clock: Callable[[], datetime] | Non
             if not row or row["stage"] == "deleted":
                 raise HTTPException(404, "no such candidate")
             msgs = c.execute(
-                "SELECT direction, kind, channel_id, body, purpose, status, category, cost_usd, at, redacted FROM messages WHERE conversation_id = %s ORDER BY at, id",
+                "SELECT direction, kind, channel_id, body, purpose, status, category, cost, at, redacted FROM messages WHERE conversation_id = %s ORDER BY at, id",
                 (cid,),
             ).fetchall()
             evs = c.execute("SELECT type, data, at FROM events WHERE conversation_id = %s ORDER BY at, id", (cid,)).fetchall()
@@ -225,7 +226,7 @@ def create_app(store: Store, engine: Engine, clock: Callable[[], datetime] | Non
             "matches": st.get("matches") or [],
             "skipped": st.get("skipped") or [],
             "asked": st.get("asked"),
-            "messages": [{**m, "at": m["at"].isoformat(), "cost_usd": float(m["cost_usd"])} for m in msgs],
+            "messages": [{**m, "at": m["at"].isoformat(), "cost": float(m["cost"])} for m in msgs],
             "events": [{**e, "at": e["at"].isoformat()} for e in evs],
         }
 
@@ -270,7 +271,7 @@ def create_app(store: Store, engine: Engine, clock: Callable[[], datetime] | Non
             langs = {r["lang"]: r["n"] for r in c.execute("SELECT lang, count(*) AS n FROM conversations WHERE stage <> 'deleted' GROUP BY lang")}
             ev = {r["type"]: r["n"] for r in c.execute("SELECT type, count(*) AS n FROM events GROUP BY type")}
             cost = c.execute(
-                "SELECT category, count(*) AS n, coalesce(sum(cost_usd), 0) AS usd FROM messages WHERE direction = 'out' GROUP BY category"
+                "SELECT category, count(*) AS n, coalesce(sum(cost), 0) AS amount FROM messages WHERE direction = 'out' GROUP BY category"
             ).fetchall()
             durations = [
                 r["m"]
@@ -296,7 +297,8 @@ def create_app(store: Store, engine: Engine, clock: Callable[[], datetime] | Non
             "stages": stages,
             "languages": langs,
             "minutes_to_confirmed_median": round(statistics.median(durations), 1) if durations else None,
-            "messages": [{"category": r["category"] or "service", "count": r["n"], "usd": float(r["usd"])} for r in cost],
+            "messages": [{"category": r["category"] or "service", "count": r["n"], "amount": float(r["amount"])} for r in cost],
+            "currency": config.settings()["whatsapp"]["currency"],
             "reminders": ev.get("reminder_queued", 0),
             "window_closed": ev.get("window_closed", 0),
         }

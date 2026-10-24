@@ -13,7 +13,7 @@ const row = (over: Partial<CandidateRow>): CandidateRow => ({
   place: "Köln", updated_at: "2026-10-24T10:00:00Z", created_at: "2026-10-24T09:00:00Z", matches: [], fields: 3, ...over,
 });
 const msg = (body: string, over: Partial<Message> = {}): Message => ({
-  direction: "in", kind: "text", channel_id: "m1", body, purpose: null, status: null, category: null, cost_usd: 0, at: "2026-10-24T10:00:00Z",
+  direction: "in", kind: "text", channel_id: "m1", body, purpose: null, status: null, category: null, cost: 0, at: "2026-10-24T10:00:00Z",
   redacted: false, ...over,
 });
 const fv = (evidence: string, message_id = "m1"): FieldValue => ({ value: "x", evidence, message_id, source: "rules", confidence: 1, at: "" });

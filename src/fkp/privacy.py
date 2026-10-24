@@ -27,8 +27,8 @@ def mentions_health(text: str, lang: str | None = None) -> bool:
     folded = fold(text)
     if find_terms(folded, _health_terms(), lang or "ru"):
         return True
-    # Cyrillic entries are stems ("інвалід" -> "інвалідність", "беремен" -> "беременна")
-    stems = [fold(t) for t in _health_terms() if any("\u0400" <= c <= "\u04ff" for c in t)]
+    # stems match at the start of a word: "Rückenprobleme", "інвалідність", "беременна"
+    stems = [fold(t) for t in config.lexicon()["health_terms"].get("stems", [])]
     return any(re.search(r"(?<!\w)" + re.escape(st), folded) for st in stems)
 
 

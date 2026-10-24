@@ -43,7 +43,8 @@ def run(n: int = 600, seed: int = 7) -> dict[str, Any]:
     jobs = jobs_mod.load()
     a = Assumptions()
     ps = personas.make(n, seed, START.date())
-    prices = config.settings()["whatsapp"]["prices_usd"]
+    wa = config.settings()["whatsapp"]
+    prices, currency = wa["prices"], wa["currency"]
     rows = []
     for p in ps:
         rows.append((p, assistant(p, jobs, START, a), form_bot(p, START, a), truth_matches(p, jobs, START.date()), keyword_forward(p, jobs)))
@@ -58,7 +59,13 @@ def run(n: int = 600, seed: int = 7) -> dict[str, Any]:
             "median_minutes_to_done": round(statistics.median([o.minutes_to_done for o in done]), 1) if done else None,
             "reminders_free_form": sum(o.reminders_text for o in outs),
             "reminders_template": sum(o.reminders_template for o in outs),
-            "template_cost_usd": round(sum(o.reminders_template for o in outs) * prices["utility"], 2),
+            "service_messages": sum(o.sent + o.reminders_text for o in outs),
+            # below 1,000 service messages a month only templates cost; above it every message does
+            "cost_small": round(sum(o.reminders_template for o in outs) * prices["utility"], 2),
+            "cost_at_volume": round(sum(o.reminders_template * prices["utility"] + (o.sent + o.reminders_text) * prices["service"] for o in outs), 2),
+            "cost_at_volume_per_decision": round(
+                sum(o.reminders_template * prices["utility"] + (o.sent + o.reminders_text) * prices["service"] for o in outs) / max(1, len(done)), 3
+            ),
         }
 
     ast = [r[1] for r in rows]
@@ -71,7 +78,8 @@ def run(n: int = 600, seed: int = 7) -> dict[str, Any]:
             "patience": "uniform 0.90–0.99 per prompt",
             "reply_delay": "80% minutes, 15% 1–6 h, 5% 10–18 h",
             "languages": personas.LANG_MIX,
-            "template_price_usd": prices["utility"],
+            "prices": prices,
+            "currency": currency,
         },
         "assistant": flow_stats(ast),
         "form_bot": flow_stats(form),
@@ -154,7 +162,7 @@ def run(n: int = 600, seed: int = 7) -> dict[str, Any]:
     report["by_language"] = by
     handed = sum(1 for o in ast if o.stage == "handed_over")
     report["assistant"]["handed_over"] = handed
-    report["assistant"]["template_cost_per_handover_usd"] = round(report["assistant"]["template_cost_usd"] / handed, 4) if handed else None
+    report["currency"] = currency
     report["assistant"]["read_back_corrections"] = sum(o.corrections for o in ast)
     return report
 
@@ -181,14 +189,17 @@ def markdown(r: dict[str, Any]) -> str:
         "",
         "| | Assistant | Form bot (reads perfectly) |",
         "|---|---:|---:|",
-        f"| Completed | {_pct(a['completion_rate'])} ({a['completed']}) | {_pct(f['completion_rate'])} ({f['completed']}) |",
+        f"| Reached a decision (hand-over, talent pool or no match) | {_pct(a['completion_rate'])} ({a['completed']}) | {_pct(f['completion_rate'])} ({f['completed']}) |",
         f"| Messages the candidate sent (median, completed) | {a['median_replies_when_completed']} | {f['median_replies_when_completed']} |",
-        f"| Minutes to done (median) | {a['median_minutes_to_done']} | {f['median_minutes_to_done']} |",
+        f"| Minutes to a decision (median) | {a['median_minutes_to_done']} | {f['median_minutes_to_done']} |",
         f"| Reminders, free-form / template | {a['reminders_free_form']} / {a['reminders_template']} | {f['reminders_free_form']} / {f['reminders_template']} |",
-        f"| Template cost (utility, USD) | {a['template_cost_usd']} | {f['template_cost_usd']} |",
+        f"| Messages from the business (free-form) | {a['service_messages']} | {f['service_messages']} |",
+        f"| WhatsApp cost below 1,000 service messages a month ({r['currency']}) | {a['cost_small']:.2f} | {f['cost_small']:.2f} |",
+        f"| WhatsApp cost at volume, every message charged ({r['currency']}) | {a['cost_at_volume']:.2f} | {f['cost_at_volume']:.2f} |",
+        f"| … per candidate who reached a decision ({r['currency']}) | {a['cost_at_volume_per_decision']:.3f} | {f['cost_at_volume_per_decision']:.3f} |",
         "",
-        f"The assistant handed {a['handed_over']} candidates to a recruiter; template cost per hand-over "
-        f"${a['template_cost_per_handover_usd']}. Candidates corrected the read-back {a['read_back_corrections']} times.",
+        f"The assistant handed {a['handed_over']} candidates to a recruiter. Candidates corrected the read-back {a['read_back_corrections']} times. "
+        "Prices: Meta's German rates from 1 October 2026 (service messages free up to 1,000 a month per number, then charged at the utility rate).",
         "",
         "How assistant conversations ended: " + "; ".join(f"{k} {v}" for k, v in a["outcomes"].items()) + ".",
         "",

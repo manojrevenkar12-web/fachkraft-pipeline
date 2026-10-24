@@ -8,13 +8,16 @@ Assumptions, the same for both flows: each further prompt is answered with a per
 
 | | Assistant | Form bot (reads perfectly) |
 |---|---:|---:|
-| Completed | 79.7% (478) | 73.7% (442) |
+| Reached a decision (hand-over, talent pool or no match) | 79.7% (478) | 73.7% (442) |
 | Messages the candidate sent (median, completed) | 9.0 | 14.0 |
-| Minutes to done (median) | 481.7 | 1536.2 |
+| Minutes to a decision (median) | 481.7 | 1536.2 |
 | Reminders, free-form / template | 134 / 132 | 370 / 450 |
-| Template cost (utility, USD) | 7.26 | 24.75 |
+| Messages from the business (free-form) | 4611 | 7955 |
+| WhatsApp cost below 1,000 service messages a month (EUR) | 6.02 | 20.52 |
+| WhatsApp cost at volume, every message charged (EUR) | 216.28 | 383.27 |
+| … per candidate who reached a decision (EUR) | 0.452 | 0.867 |
 
-The assistant handed 139 candidates to a recruiter; template cost per hand-over $0.0522. Candidates corrected the read-back 2 times.
+The assistant handed 139 candidates to a recruiter. Candidates corrected the read-back 2 times. Prices: Meta's German rates from 1 October 2026 (service messages free up to 1,000 a month per number, then charged at the utility rate).
 
 How assistant conversations ended: no job now, joined the talent pool 204; handed to a recruiter 139; stopped answering 130; no job now, data deleted 110; declined consent 17.
 

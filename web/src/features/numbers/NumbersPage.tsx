@@ -8,7 +8,6 @@ import { EmptyState, ErrorState } from "../../shared/ui/States";
 import s from "./numbers.module.css";
 
 const STEPS = ["started", "consented", "confirmed", "handed_over"] as const;
-const usd = new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" });
 
 export function NumbersPage() {
   const m = useMetrics();
@@ -27,7 +26,8 @@ export function NumbersPage() {
 function Loaded({ m }: { m: Metrics }) {
   const reduce = useReducedMotion();
   const top = Math.max(1, m.funnel.started);
-  const cost = m.messages.reduce((a, b) => a + b.usd, 0);
+  const cost = m.messages.reduce((a, b) => a + b.amount, 0);
+  const money = new Intl.NumberFormat("de-DE", { style: "currency", currency: m.currency || "EUR" });
   const langs = Object.entries(m.languages).sort((a, b) => b[1] - a[1]);
   return (
     <>
@@ -49,7 +49,7 @@ function Loaded({ m }: { m: Metrics }) {
       </section>
       <div className={s.figures}>
         <Figure value={m.minutes_to_confirmed_median === null ? "–" : `${Math.round(m.minutes_to_confirmed_median)}`} label={`${t.numbers.median} (${t.numbers.minutes})`} />
-        <Figure value={usd.format(cost)} label={t.numbers.cost} />
+        <Figure value={money.format(cost)} label={t.numbers.cost} />
         <Figure value={String(m.reminders)} label={t.numbers.reminders} />
         <Figure value={String(m.window_closed)} label={t.numbers.windowClosed} />
       </div>

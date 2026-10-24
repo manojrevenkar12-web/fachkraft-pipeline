@@ -1,0 +1,36 @@
+# Local stack: Postgres, the API, the outbox worker and the web app at http://localhost:8080.
+# The sandbox channel is on, so the web app's "Chat testen" works without WhatsApp.
+x-env: &env
+  FKP_DATABASE_URL: postgresql://fkp:fkp@db/fkp
+  FKP_API_KEYS: ${FKP_API_KEYS:-local-admin-key-change-me:admin}
+  FKP_SANDBOX: "1"
+  FKP_HASH_SALT: ${FKP_HASH_SALT:-local-salt-change-me}
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment: { POSTGRES_USER: fkp, POSTGRES_PASSWORD: fkp, POSTGRES_DB: fkp }
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U fkp"], interval: 3s, retries: 20 }
+    volumes: [db:/var/lib/postgresql/data]
+  migrate:
+    build: .
+    environment: *env
+    command: ["sh", "-c", "fkp migrate && fkp seed"]
+    depends_on: { db: { condition: service_healthy } }
+  api:
+    build: .
+    environment: *env
+    depends_on: { migrate: { condition: service_completed_successfully } }
+    ports: ["8000:8000"]
+  worker:
+    build: .
+    environment: *env
+    command: ["fkp", "worker"]
+    depends_on: { migrate: { condition: service_completed_successfully } }
+  web:
+    build: ./web
+    depends_on: [api]
+    ports: ["8080:8080"]
+
+volumes:
+  db: {}
