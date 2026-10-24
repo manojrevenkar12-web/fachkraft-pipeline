@@ -1,0 +1,101 @@
+# Larger German cities and the names candidates use for them in other languages. Smaller places
+# are found through postcodes, or by name after a location word ("in", "aus", "bei", ...).
+# Coordinates come from data/geo/de_postcodes.csv (GeoNames, CC BY 4.0) via the first postcode.
+Berlin: {plz: "10115", names: [berlin, берлин, берлін, برلين]}
+Hamburg: {plz: "20095", names: [hamburg, гамбург, هامبورغ]}
+München: {plz: "80331", names: [münchen, muenchen, munich, münih, monachium, мюнхен, ميونخ]}
+Köln: {plz: "50667", names: [köln, koeln, cologne, kolonia, колонія, кельн, кьольн, كولونيا]}
+Frankfurt am Main: {plz: "60311", names: [frankfurt am main, frankfurt, франкфурт, فرانكفورت]}
+Stuttgart: {plz: "70173", names: [stuttgart, штутгарт, شتوتغارت]}
+Düsseldorf: {plz: "40213", names: [düsseldorf, duesseldorf, dusseldorf, дюссельдорф, دوسلدورف]}
+Leipzig: {plz: "04109", names: [leipzig, lipsk, лейпциг, ляйпциг, لايبزيغ]}
+Dortmund: {plz: "44135", names: [dortmund, дортмунд, دورتموند]}
+Essen: {plz: "45127", names: [essen in nrw, essen (ruhr), ruhr essen, эссен, ессен]}
+Bremen: {plz: "28195", names: [bremen, brema, бремен, بريمن]}
+Dresden: {plz: "01067", names: [dresden, drezno, дрезден, درسدن]}
+Hannover: {plz: "30159", names: [hannover, hanover, hanower, ганновер, ганновер, هانوفر]}
+Nürnberg: {plz: "90402", names: [nürnberg, nuernberg, nuremberg, norymberga, нюрнберг, نورنبيرغ]}
+Duisburg: {plz: "47051", names: [duisburg, дуйсбург]}
+Bochum: {plz: "44787", names: [bochum, бохум]}
+Wuppertal: {plz: "42103", names: [wuppertal, вупперталь]}
+Bielefeld: {plz: "33602", names: [bielefeld, билефельд, білефельд]}
+Bonn: {plz: "53111", names: [bonn, бонн]}
+Münster: {plz: "48143", names: [münster, muenster, мюнстер]}
+Mannheim: {plz: "68159", names: [mannheim, мангейм, мангайм]}
+Karlsruhe: {plz: "76133", names: [karlsruhe, карлсруэ, карлсруе]}
+Augsburg: {plz: "86150", names: [augsburg, аугсбург]}
+Wiesbaden: {plz: "65183", names: [wiesbaden, висбаден, вісбаден]}
+Mönchengladbach: {plz: "41061", names: [mönchengladbach, moenchengladbach, мёнхенгладбах]}
+Gelsenkirchen: {plz: "45879", names: [gelsenkirchen, гельзенкирхен]}
+Aachen: {plz: "52062", names: [aachen, akwizgran, ахен, آخن]}
+Braunschweig: {plz: "38100", names: [braunschweig, brunszwik, брауншвейг]}
+Kiel: {plz: "24103", names: [kiel, киль, кіль]}
+Chemnitz: {plz: "09111", names: [chemnitz, хемниц, хемніц]}
+Halle (Saale): {plz: "06108", names: [halle (saale), halle an der saale, halle/saale, галле]}
+Magdeburg: {plz: "39104", names: [magdeburg, магдебург]}
+Freiburg im Breisgau: {plz: "79098", names: [freiburg im breisgau, freiburg, фрайбург]}
+Krefeld: {plz: "47798", names: [krefeld, крефельд]}
+Mainz: {plz: "55116", names: [mainz, moguncja, майнц]}
+Lübeck: {plz: "23552", names: [lübeck, luebeck, lubeka, любек]}
+Erfurt: {plz: "99084", names: [erfurt, эрфурт, ерфурт]}
+Oberhausen: {plz: "46045", names: [oberhausen, оберхаузен]}
+Rostock: {plz: "18055", names: [rostock, росток]}
+Kassel: {plz: "34117", names: [kassel, кассель, кассель]}
+Hagen: {plz: "58095", names: [hagen in westfalen, hagen (westf), хаген]}
+Potsdam: {plz: "14467", names: [potsdam, poczdam, потсдам]}
+Saarbrücken: {plz: "66111", names: [saarbrücken, saarbruecken, саарбрюккен]}
+Hamm: {plz: "59065", names: [hamm in westfalen, хамм]}
+Ludwigshafen am Rhein: {plz: "67059", names: [ludwigshafen, людвигсхафен]}
+Oldenburg: {plz: "26122", names: [oldenburg, ольденбург]}
+Osnabrück: {plz: "49074", names: [osnabrück, osnabrueck, оснабрюк]}
+Leverkusen: {plz: "51373", names: [leverkusen, леверкузен]}
+Heidelberg: {plz: "69117", names: [heidelberg, гейдельберг, гайдельберг]}
+Darmstadt: {plz: "64283", names: [darmstadt, дармштадт]}
+Regensburg: {plz: "93047", names: [regensburg, ratyzbona, регенсбург]}
+Würzburg: {plz: "97070", names: [würzburg, wuerzburg, вюрцбург]}
+Ingolstadt: {plz: "85049", names: [ingolstadt, ингольштадт]}
+Wolfsburg: {plz: "38440", names: [wolfsburg, вольфсбург]}
+Ulm: {plz: "89073", names: [ulm, ульм]}
+Heilbronn: {plz: "74072", names: [heilbronn, хайльбронн]}
+Pforzheim: {plz: "75175", names: [pforzheim, пфорцхайм]}
+Göttingen: {plz: "37073", names: [göttingen, goettingen, геттинген, ґеттінген]}
+Bottrop: {plz: "46236", names: [bottrop, ботроп]}
+Trier: {plz: "54290", names: [trier, trewir, трир]}
+Recklinghausen: {plz: "45657", names: [recklinghausen, реклингхаузен]}
+Reutlingen: {plz: "72764", names: [reutlingen, ройтлинген]}
+Bremerhaven: {plz: "27568", names: [bremerhaven, бремерхафен]}
+Koblenz: {plz: "56068", names: [koblenz, koblencja, кобленц]}
+Jena: {plz: "07743", names: [jena, йена]}
+Cottbus: {plz: "03046", names: [cottbus, chociebuż, котбус]}
+Schwerin: {plz: "19053", names: [schwerin, шверин]}
+Neuss: {plz: "41460", names: [neuss, нойс]}
+Paderborn: {plz: "33098", names: [paderborn, падерборн]}
+Siegen: {plz: "57072", names: [siegen, зиген]}
+Hildesheim: {plz: "31134", names: [hildesheim, хильдесхайм]}
+Salzgitter: {plz: "38226", names: [salzgitter, зальцгиттер]}
+Gütersloh: {plz: "33330", names: [gütersloh, guetersloh, гютерсло]}
+Kaiserslautern: {plz: "67655", names: [kaiserslautern, кайзерслаутерн]}
+Offenbach am Main: {plz: "63065", names: [offenbach, оффенбах]}
+Fürth: {plz: "90762", names: [fürth, fuerth, фюрт]}
+Erlangen: {plz: "91052", names: [erlangen, эрланген]}
+Wolfsburg-Fallersleben: {plz: "38442", names: [fallersleben]}
+Rosenheim: {plz: "83022", names: [rosenheim, розенхайм]}
+Landshut: {plz: "84028", names: [landshut, ландсхут]}
+Passau: {plz: "94032", names: [passau, пассау]}
+Bamberg: {plz: "96047", names: [bamberg, бамберг]}
+Bayreuth: {plz: "95444", names: [bayreuth, байройт]}
+Konstanz: {plz: "78462", names: [konstanz, kostnica, констанц]}
+Flensburg: {plz: "24937", names: [flensburg, фленсбург]}
+Görlitz: {plz: "02826", names: [görlitz, goerlitz, zgorzelec, гёрлиц]}
+Frankfurt (Oder): {plz: "15230", names: [frankfurt (oder), frankfurt an der oder, frankfurt/oder, frankfurt nad odrą]}
+Zwickau: {plz: "08056", names: [zwickau, цвиккау]}
+Plauen: {plz: "08523", names: [plauen, плауэн]}
+Gera: {plz: "07545", names: [gera, гера]}
+Dessau-Roßlau: {plz: "06844", names: [dessau, дессау]}
+Wilhelmshaven: {plz: "26382", names: [wilhelmshaven, вильгельмсхафен]}
+Lüneburg: {plz: "21335", names: [lüneburg, lueneburg, люнебург]}
+Celle: {plz: "29221", names: [celle, целле]}
+Emden: {plz: "26721", names: [emden, эмден]}
+Neubrandenburg: {plz: "17033", names: [neubrandenburg, нойбранденбург]}
+Stralsund: {plz: "18435", names: [stralsund, штральзунд]}
+Greifswald: {plz: "17489", names: [greifswald, грайфсвальд]}

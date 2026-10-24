@@ -1,0 +1,5 @@
+ads:
+  - {id: a, title: "Koch (m/w/d)", text: "Für unser junges Team suchen wir Verstärkung.", expect: [age]}
+  - {id: b, title: "Lagerhelfer", text: "Deutsch als Muttersprache.", expect: [origin-native-language, gender-title]}
+  - {id: c, title: "Pflegefachkraft (w/m/d)", text: "Wir freuen uns über alle Bewerbungen unabhängig von Alter und Herkunft.", expect: []}
+  - {id: d, title: "Fahrer (m/w/d)", text: "Gute Bezahlung.", german_level: {min: B1, justification: ""}, expect: [german-without-reason, photo]}

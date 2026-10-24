@@ -1,0 +1,187 @@
+# Occupations the pipeline recognises, with what candidates actually write in each supported
+# language. `regulated: true` means a foreign qualification must be formally recognised
+# (Anerkennung) before the person may work in the occupation in Germany; for the others
+# recognition is optional but helps with pay grading.
+# Matching on aliases is word-bounded and longest-first; aliases under `any` are tried in every
+# conversation language (German job titles are used by everyone).
+
+pflegefachkraft:
+  label: {de: Pflegefachkraft, en: Registered nurse}
+  regulated: true
+  aliases:
+    any: [pflegefachkraft, pflegefachfrau, pflegefachmann, krankenschwester, krankenpfleger, krankenpflegerin, gesundheits- und krankenpfleger, gesundheits- und krankenpflegerin, altenpfleger, altenpflegerin, examinierte pflegekraft]
+    en: [registered nurse, nurse, rn]
+    tr: [hemşire, hemsire]
+    pl: [pielęgniarka, pielegniarka, pielęgniarz, pielegniarz]
+    ro: [asistentă medicală, asistenta medicala, asistent medical]
+    uk: [медсестра, медична сестра, медбрат]
+    ru: [медсестра, медицинская сестра, медбрат]
+    ar: [ممرضة, ممرض]
+pflegehelfer:
+  label: {de: Pflegehelfer/in, en: Care assistant}
+  regulated: false
+  aliases:
+    any: [pflegehelfer, pflegehelferin, pflegeassistent, pflegeassistentin, pflegehilfskraft, betreuungskraft]
+    en: [care assistant, nursing assistant, caregiver, care worker, carer]
+    tr: [hasta bakıcı, hasta bakici, hasta bakıcısı, bakıcı]
+    pl: [opiekunka, opiekun osób starszych, opiekunka osób starszych, opiekunka osob starszych]
+    ro: [îngrijitoare, ingrijitoare, îngrijitor, ingrijitor, infirmieră, infirmiera]
+    uk: [доглядальниця, доглядач]
+    ru: [сиделка, санитарка, санитар]
+    ar: [مساعد تمريض, مقدم رعاية, مقدمة رعاية]
+erzieher:
+  label: {de: Erzieher/in, en: Early-years educator}
+  regulated: true
+  aliases:
+    any: [erzieher, erzieherin, kinderpfleger, kinderpflegerin]
+    en: [early years educator, kindergarten teacher, preschool teacher, nursery teacher]
+    tr: [anaokulu öğretmeni, anaokulu ogretmeni, okul öncesi öğretmeni]
+    pl: [wychowawczyni, wychowawca przedszkolny, przedszkolanka, nauczycielka przedszkola]
+    ro: [educatoare, educator]
+    uk: [вихователька, вихователь]
+    ru: [воспитательница, воспитатель]
+    ar: [مربية, معلمة روضة]
+elektroniker:
+  label: {de: Elektroniker/in, en: Electrician}
+  regulated: false
+  aliases:
+    any: [elektroniker, elektronikerin, elektriker, elektrikerin, elektroinstallateur, elektrofachkraft, elektroniker für energie- und gebäudetechnik]
+    en: [electrician, electrical installer]
+    tr: [elektrikçi, elektrikci, elektrik teknisyeni]
+    pl: [elektryk, elektromonter]
+    ro: [electrician]
+    uk: [електрик, електромонтер, електромонтажник]
+    ru: [электрик, электромонтер, электромонтёр, электромонтажник]
+    ar: [كهربائي, فني كهرباء]
+anlagenmechaniker_shk:
+  label: {de: Anlagenmechaniker/in SHK, en: Plumber / heating engineer}
+  regulated: false
+  aliases:
+    any: [anlagenmechaniker, anlagenmechanikerin, anlagenmechaniker shk, installateur, heizungsbauer, sanitärinstallateur, klempner, shk-monteur, shk monteur]
+    en: [plumber, heating engineer, hvac technician, pipefitter]
+    tr: [tesisatçı, tesisatci, sıhhi tesisatçı, kalorifer tesisatçısı]
+    pl: [hydraulik, instalator]
+    ro: [instalator]
+    uk: [сантехнік, слюсар-сантехнік]
+    ru: [сантехник, слесарь-сантехник]
+    ar: [سباك, فني تدفئة]
+kfz_mechatroniker:
+  label: {de: Kfz-Mechatroniker/in, en: Car mechanic}
+  regulated: false
+  aliases:
+    any: [kfz-mechatroniker, kfz mechatroniker, kfz-mechatronikerin, kfz-mechaniker, kfz mechaniker, automechaniker, kfz-schlosser]
+    en: [car mechanic, auto mechanic, motor mechanic, vehicle mechanic, automotive technician]
+    tr: [oto tamircisi, oto tamirci, araba tamircisi, oto mekanikeri, oto mekaniker]
+    pl: [mechanik samochodowy]
+    ro: [mecanic auto]
+    uk: [автомеханік, автослюсар]
+    ru: [автомеханик, автослесарь]
+    ar: [ميكانيكي سيارات]
+mechatroniker:
+  label: {de: Mechatroniker/in, en: Mechatronics / industrial mechanic}
+  regulated: false
+  aliases:
+    any: [mechatroniker, mechatronikerin, industriemechaniker, industriemechanikerin, instandhalter, instandhaltungsmechaniker]
+    en: [mechatronics technician, industrial mechanic, maintenance technician, maintenance mechanic]
+    tr: [mekatronik teknisyeni, mekatronikçi, bakım teknisyeni]
+    pl: [mechatronik, mechanik przemysłowy, mechanik utrzymania ruchu]
+    ro: [mecatronist, mecanic industrial, mecanic întreținere]
+    uk: [мехатронік, слюсар-ремонтник]
+    ru: [мехатроник, слесарь-ремонтник]
+    ar: [فني ميكاترونكس, فني صيانة]
+berufskraftfahrer:
+  label: {de: Berufskraftfahrer/in (Lkw), en: Truck driver}
+  regulated: false
+  aliases:
+    any: [berufskraftfahrer, berufskraftfahrerin, lkw-fahrer, lkw fahrer, lkw-fahrerin, kraftfahrer, fernfahrer, nahverkehrsfahrer]
+    en: [truck driver, lorry driver, hgv driver, trucker]
+    tr: [tır şoförü, tir şoförü, tir soforu, kamyon şoförü, kamyon soforu]
+    pl: [kierowca ciężarówki, kierowca ciezarowki, kierowca zawodowy, kierowca tira]
+    ro: [șofer de camion, sofer de camion, șofer tir, sofer tir, șofer profesionist, sofer profesionist]
+    uk: [водій вантажівки, далекобійник, водій-далекобійник]
+    ru: [водитель грузовика, дальнобойщик, водитель-дальнобойщик]
+    ar: [سائق شاحنة]
+busfahrer:
+  label: {de: Busfahrer/in, en: Bus driver}
+  regulated: false
+  aliases:
+    any: [busfahrer, busfahrerin, omnibusfahrer]
+    en: [bus driver, coach driver]
+    tr: [otobüs şoförü, otobus soforu]
+    pl: [kierowca autobusu]
+    ro: [șofer de autobuz, sofer de autobuz]
+    uk: [водій автобуса]
+    ru: [водитель автобуса]
+    ar: [سائق حافلة]
+lagerlogistik:
+  label: {de: Fachkraft Lagerlogistik, en: Warehouse operative}
+  regulated: false
+  aliases:
+    any: [fachkraft für lagerlogistik, fachlagerist, fachlageristin, lagerist, lageristin, lagermitarbeiter, lagermitarbeiterin, lagerhelfer, kommissionierer, kommissioniererin, lagerlogistik]
+    en: [warehouse worker, warehouse operative, warehouse associate, order picker, picker, logistics worker]
+    tr: [depocu, depo elemanı, depo elemani, depo görevlisi]
+    pl: [magazynier, magazynierka, pracownik magazynu]
+    ro: [lucrător depozit, lucrator depozit, lucrător în depozit, gestionar]
+    uk: [комірник, працівник складу, складський працівник]
+    ru: [кладовщик, работник склада]
+    ar: [عامل مستودع, أمين مخزن]
+schweisser:
+  label: {de: Schweißer/in, en: Welder}
+  regulated: false
+  aliases:
+    any: [schweißer, schweisser, schweißerin, schweisserin]
+    en: [welder]
+    tr: [kaynakçı, kaynakci, kaynak ustası]
+    pl: [spawacz]
+    ro: [sudor]
+    uk: [зварник, електрозварник]
+    ru: [сварщик, электросварщик]
+    ar: [لحام]
+koch:
+  label: {de: Koch/Köchin, en: Cook}
+  regulated: false
+  aliases:
+    any: [koch, köchin, koechin, jungkoch, beikoch]
+    en: [chef, cook, line cook, sous chef]
+    tr: [aşçı, asci]
+    pl: [kucharz, kucharka]
+    ro: [bucătar, bucatar, bucătăreasă]
+    uk: [кухар]
+    ru: [повар]
+    ar: [طباخ, شيف]
+maler:
+  label: {de: Maler/in und Lackierer/in, en: Painter and decorator}
+  regulated: false
+  aliases:
+    any: [maler, malerin, maler und lackierer, lackierer, lackiererin]
+    en: [painter, decorator, painter and decorator]
+    tr: [boyacı, boyaci, boya ustası]
+    pl: [malarz, lakiernik]
+    ro: [zugrav, vopsitor]
+    uk: [маляр]
+    ru: [маляр]
+    ar: [دهان, نقاش]
+tischler:
+  label: {de: Tischler/in, en: Joiner / carpenter}
+  regulated: false
+  aliases:
+    any: [tischler, tischlerin, schreiner, schreinerin]
+    en: [joiner, carpenter, cabinet maker, cabinetmaker]
+    tr: [marangoz]
+    pl: [stolarz]
+    ro: [tâmplar, tamplar]
+    uk: [столяр]
+    ru: [столяр]
+    ar: [نجار]
+zerspanungsmechaniker:
+  label: {de: Zerspanungsmechaniker/in, en: CNC machinist}
+  regulated: false
+  aliases:
+    any: [zerspanungsmechaniker, zerspanungsmechanikerin, cnc-fräser, cnc fräser, cnc-dreher, cnc dreher, dreher, fräser, cnc-maschinenbediener]
+    en: [cnc machinist, cnc operator, machinist, lathe operator]
+    tr: [cnc operatörü, cnc operatoru, tornacı, tornaci, frezeci]
+    pl: [operator cnc, tokarz, frezer]
+    ro: [operator cnc, strungar, frezor]
+    uk: [оператор чпк, токар, фрезерувальник]
+    ru: [оператор чпу, токарь, фрезеровщик]
+    ar: [مشغل cnc, خراط]

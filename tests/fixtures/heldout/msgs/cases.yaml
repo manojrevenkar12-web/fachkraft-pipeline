@@ -1,0 +1,8 @@
+# a tiny set written with the code in view, only to test the runner
+today: 2026-11-02
+cases:
+  - {id: a, lang: de, asked: null, text: "Hallo, bin Elektriker aus Augsburg, kann ab 1.12.2026", expect: {occupation: [elektroniker], location: {place: Augsburg}, start_date: 2026-12-01}}
+  - {id: b, lang: de, asked: shifts, text: "nur Frühschicht", expect: {shifts: {early: true, late: false, night: false}}}
+  - {id: c, lang: en, asked: null, text: "stop", expect: {}, intents: [stop]}
+  - {id: d, lang: de, asked: licences, text: "CE und Code 95", expect: {licences: [CE, code95]}}
+  - {id: e, lang: de, asked: null, text: "Ich bin Koch", expect: {occupation: [koch], location: {place: Köln}}}

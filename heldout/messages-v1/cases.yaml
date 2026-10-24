@@ -1,0 +1,1351 @@
+today: 2026-11-02
+cases:
+  # ---------------- German ----------------
+  - id: de-001
+    lang: de
+    asked: null
+    text: "Hallo, habt ihr Arbeit?"
+    expect: {}
+  - id: de-002
+    lang: de
+    asked: null
+    text: "Hallo bin Pflegefachkraft, examen 2015 in Deutschland gemacht. wohne in 44137 Dortmund"
+    expect:
+      occupation: [pflegefachkraft]
+      qualification: domestic
+      location: {place: Dortmund, plz: "44137"}
+  - id: de-003
+    lang: de
+    asked: null
+    text: "ich bin 34, seit 8 jahren koch in einem hotel 👨‍🍳"
+    expect:
+      occupation: [koch]
+      experience_years: 8
+  - id: de-004
+    lang: de
+    asked: null
+    text: "Guten Tag, bin LKW Fahrer mit CE und Modul 95, Fahrerkarte hab ich auch. Wohne in Kassel"
+    expect:
+      occupation: [berufskraftfahrer]
+      licences: [CE, code95, tachograph_card]
+      location: {place: Kassel}
+  - id: de-005
+    lang: de
+    asked: shifts
+    text: "nachts nicht"
+    expect:
+      shifts: {night: false}
+  - id: de-006
+    lang: de
+    asked: shifts
+    text: "egal, alle schichten gehn, auch wochenende"
+    expect:
+      shifts: {early: true, late: true, night: true, weekend: true}
+  - id: de-007
+    lang: de
+    asked: start_date
+    text: "ab sofort"
+    expect:
+      start_date: 2026-11-02
+  - id: de-008
+    lang: de
+    asked: start_date
+    text: "in zwei Wochen"
+    expect:
+      start_date: 2026-11-16
+  - id: de-009
+    lang: de
+    asked: start_date
+    text: "nach meiner kündigungsfrist von einem monat"
+    expect:
+      start_date: 2026-12-02
+  - id: de-010
+    lang: de
+    asked: null
+    text: "bin Malerin, Deutsch C1, Führerschein B"
+    expect:
+      occupation: [maler]
+      german_level: C1
+      licences: [B]
+  - id: de-011
+    lang: de
+    asked: null
+    text: "LKW-Fahrer 7,5t, hab C1 und C1E, deutsch so B1"
+    expect:
+      occupation: [berufskraftfahrer]
+      licences: [C1, C1E]
+      german_level: B1
+  - id: de-012
+    lang: de
+    asked: location
+    text: "sorry nicht Köln sondern Bonn, hab mich vertippt"
+    expect:
+      location: {place: Bonn}
+  - id: de-013
+    lang: de
+    asked: null
+    text: "Guten Abend, ich möchte nicht mehr angeschrieben werden. Bitte löschen Sie meine Daten."
+    expect: {}
+    intents: [stop]
+  - id: de-014
+    lang: de
+    asked: null
+    text: "Kann ich bitte mit einem Mitarbeiter telefonieren? Bin Elektriker"
+    expect:
+      occupation: [elektroniker]
+    intents: [human]
+  - id: de-015
+    lang: de
+    asked: null
+    text: "Hallo, ich bin Pflegehelferin, bin aber grad schwanger im 5. Monat, könnte erst ab 1. Mai anfangen"
+    expect:
+      occupation: [pflegehelfer]
+      start_date: 2027-05-01
+    health: true
+  - id: de-016
+    lang: de
+    asked: null
+    text: "Arbeite als Koch, mag gutes Essen 😄 wohne in Dortmund"
+    expect:
+      occupation: [koch]
+      location: {place: Dortmund}
+  - id: de-017
+    lang: de
+    asked: null
+    text: "Moin, Staplerfahrer im Lager, Staplerschein vorhanden, wohn in Essen, max 25 km fahren"
+    expect:
+      occupation: [lagerlogistik]
+      licences: [forklift]
+      location: {place: Essen}
+      commute_km: 25
+  - id: de-018
+    lang: de
+    asked: null
+    text: "Hallo ich suche Arbeit als Tischler, 12 Jahre Erfahrung, Ausbildung in Polen gemacht, Anerkennung läuft grad"
+    expect:
+      occupation: [tischler]
+      experience_years: 12
+      qualification: foreign
+      recognition: in_progress
+  - id: de-019
+    lang: de
+    asked: german_level
+    text: "bisschen"
+    expect:
+      german_level: A2
+  - id: de-020
+    lang: de
+    asked: german_level
+    text: "B2 zertifikat (telc)"
+    expect:
+      german_level: B2
+  - id: de-021
+    lang: de
+    asked: experience_years
+    text: "seit 2019"
+    expect:
+      experience_years: 7
+  - id: de-022
+    lang: de
+    asked: location
+    text: "PLZ 28195"
+    expect:
+      location: {plz: "28195"}
+  - id: de-023
+    lang: de
+    asked: employment
+    text: "nur teilzeit bitte, wegen den kindern"
+    expect:
+      employment: [part_time]
+  - id: de-024
+    lang: de
+    asked: employment
+    text: "Vollzeit, Teilzeit geht aber auch"
+    expect:
+      employment: [full_time, part_time]
+  - id: de-025
+    lang: de
+    asked: email
+    text: "jonas.wehrle@post.example"
+    expect:
+      email: jonas.wehrle@post.example
+  - id: de-026
+    lang: de
+    asked: full_name
+    text: "Marvin Oberkötter"
+    expect:
+      full_name: "Marvin Oberkötter"
+  - id: de-027
+    lang: de
+    asked: commute_km
+    text: "so 30 km max"
+    expect:
+      commute_km: 30
+  - id: de-028
+    lang: de
+    asked: commute_km
+    text: "ne halbe stunde mit dem auto"
+    expect:
+      commute_km: 30
+  - id: de-029
+    lang: de
+    asked: shifts
+    text: "nur Frühschicht"
+    expect:
+      shifts: {early: true, late: false, night: false}
+  - id: de-030
+    lang: de
+    asked: qualification
+    text: "Ja"
+    expect:
+      qualification: trained
+    intents: ["yes"]
+  - id: de-031
+    lang: de
+    asked: qualification
+    text: "keine ausbildung, angelernt, aber 6 jahre im lager"
+    expect:
+      qualification: none
+      experience_years: 6
+      occupation: [lagerlogistik]
+  - id: de-032
+    lang: de
+    asked: recognition
+    text: "Anerkennung hab ich seit März, Urkunde ist da"
+    expect:
+      recognition: recognised
+  - id: de-033
+    lang: de
+    asked: recognition
+    text: "noch nicht beantragt"
+    expect:
+      recognition: not_started
+  - id: de-034
+    lang: de
+    asked: licences
+    text: "B und CE, ADR auch"
+    expect:
+      licences: [B, CE, adr]
+  - id: de-035
+    lang: de
+    asked: licences
+    text: "hab keinen Führerschein"
+    expect:
+      licences: []
+  - id: de-036
+    lang: de
+    asked: null
+    text: "Bin Anlagenmechaniker SHK, wohne in 70173 Stuttgart, will mind. 3200 netto, Vollzeit"
+    expect:
+      occupation: [anlagenmechaniker_shk]
+      location: {place: Stuttgart, plz: "70173"}
+      employment: [full_time]
+  - id: de-037
+    lang: de
+    asked: null
+    text: "gehalt 45000 brutto im jahr wär gut. bin Mechatroniker, wohne in Halle"
+    expect:
+      occupation: [mechatroniker]
+      location: {place: Halle}
+  - id: de-038
+    lang: de
+    asked: null
+    text: "hab 5 jahre in einer großen halle als lagerist gearbeitet, wohne jetzt in Gera"
+    expect:
+      occupation: [lagerlogistik]
+      experience_years: 5
+      location: {place: Gera}
+  - id: de-039
+    lang: de
+    asked: null
+    text: "Hallo, hab meine Ausbildung zur Erzieherin hier in Sachsen gemacht, 3 Jahre Kita, wohne in 04109 Leipzig und suche Teilzeit"
+    expect:
+      occupation: [erzieher]
+      qualification: domestic
+      experience_years: 3
+      location: {place: Leipzig, plz: "04109"}
+      employment: [part_time]
+  - id: de-040
+    lang: de
+    asked: null
+    text: "Hallo, ich bin Busfahrer, Führerschein D und Modul 95, 15 Jahre Erfahrung. Deutsch ist meine Muttersprache"
+    expect:
+      occupation: [busfahrer]
+      licences: [D, code95]
+      experience_years: 15
+      german_level: C1
+  - id: de-041
+    lang: de
+    asked: null
+    text: "kein Wochenende und keine Nachtschicht, sonst alles ok. bin KFZ Mechatroniker"
+    expect:
+      shifts: {early: true, late: true, night: false, weekend: false}
+      occupation: [kfz_mechatroniker]
+  - id: de-042
+    lang: de
+    asked: null
+    text: "Schweißer MAG/WIG, 7 jahre, ab 1.12 verfügbar"
+    expect:
+      occupation: [schweisser]
+      experience_years: 7
+      start_date: 2026-12-01
+  - id: de-043
+    lang: de
+    asked: start_date
+    text: "nächsten Monat"
+    expect:
+      start_date: 2026-12-01
+  - id: de-044
+    lang: de
+    asked: start_date
+    text: "ab 15.01."
+    expect:
+      start_date: 2027-01-15
+  - id: de-045
+    lang: de
+    asked: location
+    text: "Nürnberg, PLZ 90402"
+    expect:
+      location: {place: Nürnberg, plz: "90402"}
+  - id: de-046
+    lang: de
+    asked: location
+    text: "wohne in Rosenheim, würde aber gern in München arbeiten"
+    expect:
+      location: {place: Rosenheim}
+  - id: de-047
+    lang: de
+    asked: null
+    text: "Ich komme aus Rumänien, wohne seit 2 Jahren in Bremen, bin Maler"
+    expect:
+      location: {place: Bremen}
+      occupation: [maler]
+  - id: de-048
+    lang: de
+    asked: null
+    text: "Zerspanungsmechaniker, Ausbildung in Deutschland, 4 Jahre CNC Fräsen. Spätschicht wäre super"
+    expect:
+      occupation: [zerspanungsmechaniker]
+      qualification: domestic
+      experience_years: 4
+      shifts: {late: true}
+  - id: de-049
+    lang: de
+    asked: shifts
+    text: "Ich will lieber mit nem Menschen reden, nicht mit einem Bot"
+    expect: {}
+    intents: [human]
+  - id: de-050
+    lang: de
+    asked: email
+    text: "Meine Mail ist s.yilmaz@web.example"
+    expect:
+      email: s.yilmaz@web.example
+  - id: de-051
+    lang: de
+    asked: experience_years
+    text: "Ich bin 41 und mach das seit 20 Jahren"
+    expect:
+      experience_years: 20
+  - id: de-052
+    lang: de
+    asked: german_level
+    text: "B1, mache gerade den B2 Kurs"
+    expect:
+      german_level: B1
+  - id: de-053
+    lang: de
+    asked: occupation
+    text: "Elektroniker für Energie- und Gebäudetechnik"
+    expect:
+      occupation: [elektroniker]
+  - id: de-054
+    lang: de
+    asked: occupation
+    text: "früher Koch, jetzt im Lager"
+    expect:
+      occupation: [koch, lagerlogistik]
+  - id: de-055
+    lang: de
+    asked: null
+    text: "Ich kann ab 1. Dezember. Ach nee, Quatsch, erst ab 1. Januar"
+    expect:
+      start_date: 2027-01-01
+  - id: de-056
+    lang: de
+    asked: null
+    text: "hi, keine ausbildung aber 3 jahre als pflegehelfer im altenheim gearbeitet, deutsch gut"
+    expect:
+      occupation: [pflegehelfer]
+      qualification: none
+      experience_years: 3
+      german_level: B2
+  - id: de-057
+    lang: de
+    asked: commute_km
+    text: "Hab kein Auto, mit Bus max ne Stunde"
+    expect:
+      commute_km: 60
+  - id: de-058
+    lang: de
+    asked: location
+    text: "Ja genau"
+    expect: {}
+    intents: ["yes"]
+  - id: de-059
+    lang: de
+    asked: shifts
+    text: "Wegen meinem Diabetes lieber keine Nachtschichten"
+    expect:
+      shifts: {night: false}
+    health: true
+  - id: de-060
+    lang: de
+    asked: null
+    text: "STOP"
+    expect: {}
+    intents: [stop]
+
+  # ---------------- Turkish ----------------
+  - id: tr-001
+    lang: tr
+    asked: null
+    text: "Merhaba iş var mı acaba 🙏"
+    expect: {}
+  - id: tr-002
+    lang: tr
+    asked: null
+    text: "Selam, tır şoförüyüm, CE var Kod 95 de var. Köln'de oturuyorum"
+    expect:
+      occupation: [berufskraftfahrer]
+      licences: [CE, code95]
+      location: {place: Köln}
+  - id: tr-003
+    lang: tr
+    asked: null
+    text: "Merhaba, Münih'te yaşıyorum, elektrikçiyim, 10 yıllık tecrübem var, almancam B1"
+    expect:
+      location: {place: München}
+      occupation: [elektroniker]
+      experience_years: 10
+      german_level: B1
+  - id: tr-004
+    lang: tr
+    asked: null
+    text: "34 yaşındayım, 12 yıldır aşçılık yapıyorum, Berlin'de oturuyorum"
+    expect:
+      occupation: [koch]
+      experience_years: 12
+      location: {place: Berlin}
+  - id: tr-005
+    lang: tr
+    asked: shifts
+    text: "sabah ve öğleden sonra olur, gece olmaz"
+    expect:
+      shifts: {early: true, late: true, night: false}
+  - id: tr-006
+    lang: tr
+    asked: start_date
+    text: "hemen başlayabilirim"
+    expect:
+      start_date: 2026-11-02
+  - id: tr-007
+    lang: tr
+    asked: start_date
+    text: "iki hafta sonra"
+    expect:
+      start_date: 2026-11-16
+  - id: tr-008
+    lang: tr
+    asked: german_level
+    text: "biraz biliyorum"
+    expect:
+      german_level: A2
+  - id: tr-009
+    lang: tr
+    asked: qualification
+    text: "Türkiye'de meslek lisesini bitirdim, elektrik bölümü"
+    expect:
+      qualification: foreign
+      occupation: [elektroniker]
+  - id: tr-010
+    lang: tr
+    asked: licences
+    text: "B ehliyetim var, forklift belgem de var"
+    expect:
+      licences: [B, forklift]
+  - id: tr-011
+    lang: tr
+    asked: null
+    text: "Gece vardiyası istemiyorum, hafta sonu da çalışmam. 5 yıldır depoda çalışıyorum"
+    expect:
+      shifts: {night: false, weekend: false}
+      occupation: [lagerlogistik]
+      experience_years: 5
+  - id: tr-012
+    lang: tr
+    asked: null
+    text: "Kaynakçıyım, 8 sene tecrübe, Stuttgart'ta oturuyorum, tam zamanlı iş arıyorum"
+    expect:
+      occupation: [schweisser]
+      experience_years: 8
+      location: {place: Stuttgart}
+      employment: [full_time]
+  - id: tr-013
+    lang: tr
+    asked: location
+    text: "Dortmund'dayım, 44139"
+    expect:
+      location: {place: Dortmund, plz: "44139"}
+  - id: tr-014
+    lang: tr
+    asked: commute_km
+    text: "en fazla 40 km"
+    expect:
+      commute_km: 40
+  - id: tr-015
+    lang: tr
+    asked: null
+    text: "Hemşireyim, diplomam Türkiye'den, denklik için başvurdum, bekliyorum"
+    expect:
+      occupation: [pflegefachkraft]
+      qualification: foreign
+      recognition: in_progress
+  - id: tr-016
+    lang: tr
+    asked: null
+    text: "Almanca C1 sertifikam var, ehliyet sadece B"
+    expect:
+      german_level: C1
+      licences: [B]
+  - id: tr-017
+    lang: tr
+    asked: email
+    text: "mailim ayse.korkmaz@posta.example"
+    expect:
+      email: ayse.korkmaz@posta.example
+  - id: tr-018
+    lang: tr
+    asked: full_name
+    text: "Emre Kalaycıoğlu"
+    expect:
+      full_name: "Emre Kalaycıoğlu"
+  - id: tr-019
+    lang: tr
+    asked: null
+    text: "Bir insanla konuşmak istiyorum, bot değil lütfen"
+    expect: {}
+    intents: [human]
+  - id: tr-020
+    lang: tr
+    asked: null
+    text: "Artık mesaj atmayın, bilgilerimi silin lütfen"
+    expect: {}
+    intents: [stop]
+  - id: tr-021
+    lang: tr
+    asked: experience_years
+    text: "2018'den beri oto tamircisiyim"
+    expect:
+      experience_years: 8
+      occupation: [kfz_mechatroniker]
+  - id: tr-022
+    lang: tr
+    asked: null
+    text: "Essen'de oturuyorum, boyacıyım, 1 Aralık'tan itibaren başlayabilirim"
+    expect:
+      location: {place: Essen}
+      occupation: [maler]
+      start_date: 2026-12-01
+  - id: tr-023
+    lang: tr
+    asked: employment
+    text: "yarım gün olursa iyi olur"
+    expect:
+      employment: [part_time]
+  - id: tr-024
+    lang: tr
+    asked: null
+    text: "Belimde fıtık var, ağır kaldıramam ama forklift ehliyetim var"
+    expect:
+      licences: [forklift]
+    health: true
+
+  # ---------------- Polish ----------------
+  - id: pl-001
+    lang: pl
+    asked: null
+    text: "Dzien dobry, szukam pracy w Niemczech, macie cos?"
+    expect: {}
+  - id: pl-002
+    lang: pl
+    asked: null
+    text: "Jestem kierowcą C+E, mam kod 95 i karte kierowcy, mieszkam w Monachium"
+    expect:
+      occupation: [berufskraftfahrer]
+      licences: [CE, code95, tachograph_card]
+      location: {place: München}
+  - id: pl-003
+    lang: pl
+    asked: null
+    text: "nie mam C, tylko B. pracowalem 3 lata na magazynie"
+    expect:
+      licences: [B]
+      occupation: [lagerlogistik]
+      experience_years: 3
+  - id: pl-004
+    lang: pl
+    asked: null
+    text: "Witam, jestem spawaczem MIG/MAG, 15 lat doswiadczenia, mieszkam w Kolonii"
+    expect:
+      occupation: [schweisser]
+      experience_years: 15
+      location: {place: Köln}
+  - id: pl-005
+    lang: pl
+    asked: null
+    text: "mam 45 lat, od 20 lat pracuje jako malarz"
+    expect:
+      occupation: [maler]
+      experience_years: 20
+  - id: pl-006
+    lang: pl
+    asked: shifts
+    text: "tylko nocki"
+    expect:
+      shifts: {night: true, early: false, late: false}
+  - id: pl-007
+    lang: pl
+    asked: start_date
+    text: "od zaraz"
+    expect:
+      start_date: 2026-11-02
+  - id: pl-008
+    lang: pl
+    asked: start_date
+    text: "po okresie wypowiedzenia, mam miesiac"
+    expect:
+      start_date: 2026-12-02
+  - id: pl-009
+    lang: pl
+    asked: german_level
+    text: "słabo, moze A2"
+    expect:
+      german_level: A2
+  - id: pl-010
+    lang: pl
+    asked: german_level
+    text: "niemiecki B1, a prawo jazdy mam C1"
+    expect:
+      german_level: B1
+      licences: [C1]
+  - id: pl-011
+    lang: pl
+    asked: location
+    text: "w Hamburgu, 20095"
+    expect:
+      location: {place: Hamburg, plz: "20095"}
+  - id: pl-012
+    lang: pl
+    asked: location
+    text: "jestem z Wrocławia ale teraz mieszkam w Dreźnie"
+    expect:
+      location: {place: Dresden}
+  - id: pl-013
+    lang: pl
+    asked: null
+    text: "Elektryk, szkola zawodowa w Polsce, uprawnienia SEP. Wniosku o uznanie (Anerkennung) jeszcze nie skladalem"
+    expect:
+      occupation: [elektroniker]
+      qualification: foreign
+      recognition: not_started
+  - id: pl-014
+    lang: pl
+    asked: qualification
+    text: "Tak"
+    expect:
+      qualification: trained
+    intents: ["yes"]
+  - id: pl-015
+    lang: pl
+    asked: licences
+    text: "nie mam prawa jazdy"
+    expect:
+      licences: []
+  - id: pl-016
+    lang: pl
+    asked: commute_km
+    text: "do 50 km moge dojezdzac"
+    expect:
+      commute_km: 50
+  - id: pl-017
+    lang: pl
+    asked: employment
+    text: "pełny etat"
+    expect:
+      employment: [full_time]
+  - id: pl-018
+    lang: pl
+    asked: null
+    text: "Mieszkam w Berlinie, sorry pomyłka, w Poczdamie"
+    expect:
+      location: {place: Potsdam}
+  - id: pl-019
+    lang: pl
+    asked: null
+    text: "Jestem stolarzem, 6 lat w zawodzie, niemiecki dobry"
+    expect:
+      occupation: [tischler]
+      experience_years: 6
+      german_level: B2
+  - id: pl-020
+    lang: pl
+    asked: email
+    text: "Mój mail: tomasz.wierzbicki@skrzynka.example"
+    expect:
+      email: tomasz.wierzbicki@skrzynka.example
+  - id: pl-021
+    lang: pl
+    asked: full_name
+    text: "Agnieszka Szymborek"
+    expect:
+      full_name: "Agnieszka Szymborek"
+  - id: pl-022
+    lang: pl
+    asked: null
+    text: "Prosze usunac moje dane i nie pisac wiecej"
+    expect: {}
+    intents: [stop]
+  - id: pl-023
+    lang: pl
+    asked: null
+    text: "Jestem opiekunka osob starszych, ale mam problem z kolanem po operacji i nie moge dzwigac"
+    expect:
+      occupation: [pflegehelfer]
+    health: true
+  - id: pl-024
+    lang: pl
+    asked: experience_years
+    text: "od 2012 roku jako mechanik samochodowy"
+    expect:
+      experience_years: 14
+      occupation: [kfz_mechatroniker]
+
+  # ---------------- Romanian ----------------
+  - id: ro-001
+    lang: ro
+    asked: null
+    text: "Buna ziua, caut de lucru, aveti ceva?"
+    expect: {}
+  - id: ro-002
+    lang: ro
+    asked: null
+    text: "Sunt asistentă medicală, diploma din România, recunoașterea e gata, locuiesc în Frankfurt"
+    expect:
+      occupation: [pflegefachkraft]
+      qualification: foreign
+      recognition: recognised
+      location: {place: Frankfurt}
+  - id: ro-003
+    lang: ro
+    asked: null
+    text: "am 29 de ani si lucrez ca bucatar de 9 ani"
+    expect:
+      occupation: [koch]
+      experience_years: 9
+  - id: ro-004
+    lang: ro
+    asked: null
+    text: "Sunt sofer de tir, am CE si ADR, lucrez de 11 ani"
+    expect:
+      occupation: [berufskraftfahrer]
+      licences: [CE, adr]
+      experience_years: 11
+  - id: ro-005
+    lang: ro
+    asked: shifts
+    text: "doar dimineata"
+    expect:
+      shifts: {early: true, late: false, night: false}
+  - id: ro-006
+    lang: ro
+    asked: shifts
+    text: "orice tura, si in weekend"
+    expect:
+      shifts: {early: true, late: true, night: true, weekend: true}
+  - id: ro-007
+    lang: ro
+    asked: start_date
+    text: "de luna viitoare"
+    expect:
+      start_date: 2026-12-01
+  - id: ro-008
+    lang: ro
+    asked: start_date
+    text: "peste 3 saptamani"
+    expect:
+      start_date: 2026-11-23
+  - id: ro-009
+    lang: ro
+    asked: german_level
+    text: "nu vorbesc germana deloc"
+    expect:
+      german_level: none
+  - id: ro-010
+    lang: ro
+    asked: location
+    text: "stau la Nürnberg"
+    expect:
+      location: {place: Nürnberg}
+  - id: ro-011
+    lang: ro
+    asked: location
+    text: "nu Mannheim, Heidelberg, scuze"
+    expect:
+      location: {place: Heidelberg}
+  - id: ro-012
+    lang: ro
+    asked: null
+    text: "Sunt instalator sanitar si incalzire, 7 ani experienta, vreau norma intreaga"
+    expect:
+      occupation: [anlagenmechaniker_shk]
+      experience_years: 7
+      employment: [full_time]
+  - id: ro-013
+    lang: ro
+    asked: licences
+    text: "am categoria B si C"
+    expect:
+      licences: [B, C]
+  - id: ro-014
+    lang: ro
+    asked: commute_km
+    text: "maxim 45 de minute"
+    expect:
+      commute_km: 45
+  - id: ro-015
+    lang: ro
+    asked: qualification
+    text: "n-am facut scoala pentru asta, am invatat la lucru"
+    expect:
+      qualification: none
+  - id: ro-016
+    lang: ro
+    asked: recognition
+    text: "am depus actele, astept raspuns"
+    expect:
+      recognition: in_progress
+  - id: ro-017
+    lang: ro
+    asked: null
+    text: "Germana C1, permis B. Sunt educatoare, am lucrat 5 ani la gradinita in Romania"
+    expect:
+      german_level: C1
+      licences: [B]
+      occupation: [erzieher]
+      experience_years: 5
+  - id: ro-018
+    lang: ro
+    asked: email
+    text: "andreea.munteanu@mail.example"
+    expect:
+      email: andreea.munteanu@mail.example
+  - id: ro-019
+    lang: ro
+    asked: full_name
+    text: "Ionuț Vasilescu-Dragomir"
+    expect:
+      full_name: "Ionuț Vasilescu-Dragomir"
+  - id: ro-020
+    lang: ro
+    asked: null
+    text: "As vrea sa vorbesc cu cineva de la voi, la telefon"
+    expect: {}
+    intents: [human]
+  - id: ro-021
+    lang: ro
+    asked: null
+    text: "Nu mai vreau mesaje, stergeti-mi datele va rog"
+    expect: {}
+    intents: [stop]
+  - id: ro-022
+    lang: ro
+    asked: employment
+    text: "jumatate de norma"
+    expect:
+      employment: [part_time]
+  - id: ro-023
+    lang: ro
+    asked: null
+    text: "Lucrez ca strungar CNC din 2016, locuiesc în Ulm, noaptea nu lucrez"
+    expect:
+      occupation: [zerspanungsmechaniker]
+      experience_years: 10
+      location: {place: Ulm}
+      shifts: {night: false}
+  - id: ro-024
+    lang: ro
+    asked: null
+    text: "Sunt insarcinata, pot incepe dupa nastere, din aprilie 2027. Lucrez ca ingrijitoare"
+    expect:
+      start_date: 2027-04-01
+      occupation: [pflegehelfer]
+    health: true
+
+  # ---------------- Ukrainian ----------------
+  - id: uk-001
+    lang: uk
+    asked: null
+    text: "Добрий день! Шукаю роботу, є щось?"
+    expect: {}
+  - id: uk-002
+    lang: uk
+    asked: null
+    text: "Я медсестра, диплом з України, визнання в процесі, живу в Мюнхені"
+    expect:
+      occupation: [pflegefachkraft]
+      qualification: foreign
+      recognition: in_progress
+      location: {place: München}
+  - id: uk-003
+    lang: uk
+    asked: null
+    text: "Мені 38, працюю зварювальником вже 15 років"
+    expect:
+      occupation: [schweisser]
+      experience_years: 15
+  - id: uk-004
+    lang: uk
+    asked: null
+    text: "Водій автобуса, категорія D, Code 95 є. Живу у Дрездені"
+    expect:
+      occupation: [busfahrer]
+      licences: [D, code95]
+      location: {place: Dresden}
+  - id: uk-005
+    lang: uk
+    asked: shifts
+    text: "нічні ні, вихідні можна"
+    expect:
+      shifts: {night: false, weekend: true}
+  - id: uk-006
+    lang: uk
+    asked: start_date
+    text: "з 1 грудня"
+    expect:
+      start_date: 2026-12-01
+  - id: uk-007
+    lang: uk
+    asked: german_level
+    text: "B1, тест склала в червні"
+    expect:
+      german_level: B1
+  - id: uk-008
+    lang: uk
+    asked: german_level
+    text: "німецька A2, а права в мене C1"
+    expect:
+      german_level: A2
+      licences: [C1]
+  - id: uk-009
+    lang: uk
+    asked: location
+    text: "у Лейпцигу"
+    expect:
+      location: {place: Leipzig}
+  - id: uk-010
+    lang: uk
+    asked: null
+    text: "Вихователька, 10 років досвіду в дитсадку, хочу неповний робочий день"
+    expect:
+      occupation: [erzieher]
+      experience_years: 10
+      employment: [part_time]
+  - id: uk-011
+    lang: uk
+    asked: licences
+    text: "B, і ще посвідчення на навантажувач"
+    expect:
+      licences: [B, forklift]
+  - id: uk-012
+    lang: uk
+    asked: null
+    text: "Живу в Бонні.. ой ні, в Кельні, переїхала місяць тому"
+    expect:
+      location: {place: Köln}
+  - id: uk-013
+    lang: uk
+    asked: commute_km
+    text: "до 20 км"
+    expect:
+      commute_km: 20
+  - id: uk-014
+    lang: uk
+    asked: experience_years
+    text: "з 2020 року працюю електриком"
+    expect:
+      experience_years: 6
+      occupation: [elektroniker]
+  - id: uk-015
+    lang: uk
+    asked: null
+    text: "Будь ласка, видаліть мої дані"
+    expect: {}
+    intents: [stop]
+  - id: uk-016
+    lang: uk
+    asked: full_name
+    text: "Оксана Гриценко-Вовк"
+    expect:
+      full_name: "Оксана Гриценко-Вовк"
+  - id: uk-017
+    lang: uk
+    asked: null
+    text: "Маю інвалідність, але можу працювати, тільки неповний день"
+    expect:
+      employment: [part_time]
+    health: true
+  - id: uk-018
+    lang: uk
+    asked: start_date
+    text: "через два тижні"
+    expect:
+      start_date: 2026-11-16
+
+  # ---------------- Russian ----------------
+  - id: ru-001
+    lang: ru
+    asked: null
+    text: "Здравствуйте, есть работа для электрика? я электрик, живу в Нюрнберге"
+    expect:
+      occupation: [elektroniker]
+      location: {place: Nürnberg}
+  - id: ru-002
+    lang: ru
+    asked: null
+    text: "Мне 52 года, водитель фуры 25 лет, права CE, карта водителя есть"
+    expect:
+      occupation: [berufskraftfahrer]
+      experience_years: 25
+      licences: [CE, tachograph_card]
+  - id: ru-003
+    lang: ru
+    asked: shifts
+    text: "только утренняя смена"
+    expect:
+      shifts: {early: true, late: false, night: false}
+  - id: ru-004
+    lang: ru
+    asked: shifts
+    text: "любая смена подойдет, выходные тоже"
+    expect:
+      shifts: {early: true, late: true, night: true, weekend: true}
+  - id: ru-005
+    lang: ru
+    asked: start_date
+    text: "с 1 января"
+    expect:
+      start_date: 2027-01-01
+  - id: ru-006
+    lang: ru
+    asked: german_level
+    text: "немецкий свободно"
+    expect:
+      german_level: C1
+  - id: ru-007
+    lang: ru
+    asked: german_level
+    text: "немецкого нет вообще, английский хороший"
+    expect:
+      german_level: none
+  - id: ru-008
+    lang: ru
+    asked: null
+    text: "Повар, 7 лет в ресторанах, живу в Дюссельдорфе 40210"
+    expect:
+      occupation: [koch]
+      experience_years: 7
+      location: {place: Düsseldorf, plz: "40210"}
+  - id: ru-009
+    lang: ru
+    asked: location
+    text: "сам из Казахстана, живу в Билефельде"
+    expect:
+      location: {place: Bielefeld}
+  - id: ru-010
+    lang: ru
+    asked: qualification
+    text: "Да"
+    expect:
+      qualification: trained
+    intents: ["yes"]
+  - id: ru-011
+    lang: ru
+    asked: recognition
+    text: "признание получил в прошлом году"
+    expect:
+      recognition: recognised
+  - id: ru-012
+    lang: ru
+    asked: null
+    text: "Ночью и в выходные не работаю. Автомеханик, опыт с 2010"
+    expect:
+      shifts: {night: false, weekend: false}
+      occupation: [kfz_mechatroniker]
+      experience_years: 16
+  - id: ru-013
+    lang: ru
+    asked: email
+    text: "почта ivan.korsakevich@pochta.example"
+    expect:
+      email: ivan.korsakevich@pochta.example
+  - id: ru-014
+    lang: ru
+    asked: commute_km
+    text: "час на машине максимум"
+    expect:
+      commute_km: 60
+  - id: ru-015
+    lang: ru
+    asked: null
+    text: "Можно поговорить с живым человеком?"
+    expect: {}
+    intents: [human]
+  - id: ru-016
+    lang: ru
+    asked: null
+    text: "Столяр, Ausbildung закончил здесь в Германии, хочу на полный день"
+    expect:
+      occupation: [tischler]
+      qualification: domestic
+      employment: [full_time]
+  - id: ru-017
+    lang: ru
+    asked: employment
+    text: "полный день. хотя нет, лучше частичная занятость"
+    expect:
+      employment: [part_time]
+  - id: ru-018
+    lang: ru
+    asked: null
+    text: "У меня астма, поэтому пыльный склад не подходит. Я сварщик"
+    expect:
+      occupation: [schweisser]
+    health: true
+
+  # ---------------- Arabic ----------------
+  - id: ar-001
+    lang: ar
+    asked: null
+    text: "السلام عليكم، في شغل؟"
+    expect: {}
+  - id: ar-002
+    lang: ar
+    asked: null
+    text: "مرحبا، أنا ممرضة من سوريا، ساكنة في هامبورغ، ألماني B2"
+    expect:
+      occupation: [pflegefachkraft]
+      location: {place: Hamburg}
+      german_level: B2
+  - id: ar-003
+    lang: ar
+    asked: null
+    text: "عمري ٣٥ سنة وبشتغل كهربائي من ١٠ سنين"
+    expect:
+      occupation: [elektroniker]
+      experience_years: 10
+  - id: ar-004
+    lang: ar
+    asked: shifts
+    text: "ما بقدر اشتغل بالليل"
+    expect:
+      shifts: {night: false}
+  - id: ar-005
+    lang: ar
+    asked: start_date
+    text: "من أول الشهر الجاي"
+    expect:
+      start_date: 2026-12-01
+  - id: ar-006
+    lang: ar
+    asked: german_level
+    text: "ألماني شوي، A2"
+    expect:
+      german_level: A2
+  - id: ar-007
+    lang: ar
+    asked: location
+    text: "ساكن في برلين"
+    expect:
+      location: {place: Berlin}
+  - id: ar-008
+    lang: ar
+    asked: null
+    text: "أنا سائق شاحنة، عندي CE و Code 95، خبرة ٨ سنين"
+    expect:
+      occupation: [berufskraftfahrer]
+      licences: [CE, code95]
+      experience_years: 8
+  - id: ar-009
+    lang: ar
+    asked: qualification
+    text: "درست تمريض بالأردن، والمعادلة (Anerkennung) لسا ما بلشت فيها"
+    expect:
+      occupation: [pflegefachkraft]
+      qualification: foreign
+      recognition: not_started
+  - id: ar-010
+    lang: ar
+    asked: licences
+    text: "ما عندي رخصة سواقة"
+    expect:
+      licences: []
+  - id: ar-011
+    lang: ar
+    asked: null
+    text: "أنا طباخ، بس ما بدي ويكند، ساكن في 50667 كولن"
+    expect:
+      occupation: [koch]
+      shifts: {weekend: false}
+      location: {place: Köln, plz: "50667"}
+  - id: ar-012
+    lang: ar
+    asked: email
+    text: "الإيميل: khaled.nasser@mail.example"
+    expect:
+      email: khaled.nasser@mail.example
+  - id: ar-013
+    lang: ar
+    asked: null
+    text: "لو سمحت احذفوا بياناتي وما تبعتولي رسائل"
+    expect: {}
+    intents: [stop]
+  - id: ar-014
+    lang: ar
+    asked: experience_years
+    text: "عمري ٢٨، وخبرتي ٦ سنين بالمستودعات"
+    expect:
+      experience_years: 6
+      occupation: [lagerlogistik]
+  - id: ar-015
+    lang: ar
+    asked: null
+    text: "أنا مساعدة تمريض وحامل بالشهر السادس، بدي دوام جزئي"
+    expect:
+      occupation: [pflegehelfer]
+      employment: [part_time]
+    health: true
+  - id: ar-016
+    lang: ar
+    asked: commute_km
+    text: "نص ساعة بالكتير"
+    expect:
+      commute_km: 30
+
+  # ---------------- English ----------------
+  - id: en-001
+    lang: en
+    asked: null
+    text: "Hi, im a qualified electrician from Nigeria, got my Anerkennung last month, living in Hannover now"
+    expect:
+      occupation: [elektroniker]
+      qualification: foreign
+      recognition: recognised
+      location: {place: Hannover}
+  - id: en-002
+    lang: en
+    asked: null
+    text: "im 31 and have been a chef for 9 yrs"
+    expect:
+      occupation: [koch]
+      experience_years: 9
+  - id: en-003
+    lang: en
+    asked: shifts
+    text: "no nights pls, weekends fine"
+    expect:
+      shifts: {night: false, weekend: true}
+  - id: en-004
+    lang: en
+    asked: start_date
+    text: "asap"
+    expect:
+      start_date: 2026-11-02
+  - id: en-005
+    lang: en
+    asked: start_date
+    text: "after my notice period, its 4 weeks"
+    expect:
+      start_date: 2026-11-30
+  - id: en-006
+    lang: en
+    asked: german_level
+    text: "basic german, doing a course rn"
+    expect:
+      german_level: A2
+  - id: en-007
+    lang: en
+    asked: null
+    text: "I have C1 and C1E licence, german is A2"
+    expect:
+      licences: [C1, C1E]
+      german_level: A2
+  - id: en-008
+    lang: en
+    asked: location
+    text: "I live in Munich but can work anywhere in Bavaria"
+    expect:
+      location: {place: München}
+  - id: en-009
+    lang: en
+    asked: null
+    text: "Hello, I'm a CNC machinist, 5 years exp, looking for full time or part time, either ok"
+    expect:
+      occupation: [zerspanungsmechaniker]
+      experience_years: 5
+      employment: [full_time, part_time]
+  - id: en-010
+    lang: en
+    asked: email
+    text: "its priya.raman@mailbox.example"
+    expect:
+      email: priya.raman@mailbox.example
+  - id: en-011
+    lang: en
+    asked: full_name
+    text: "Chidi Okonkwo-Barnes"
+    expect:
+      full_name: "Chidi Okonkwo-Barnes"
+  - id: en-012
+    lang: en
+    asked: null
+    text: "can I speak to a real person please"
+    expect: {}
+    intents: [human]
+  - id: en-013
+    lang: en
+    asked: commute_km
+    text: "up to 35km"
+    expect:
+      commute_km: 35
+  - id: en-014
+    lang: en
+    asked: null
+    text: "please unsubscribe me"
+    expect: {}
+    intents: [stop]
+  - id: en-015
+    lang: en
+    asked: qualification
+    text: "No"
+    expect:
+      qualification: none
+    intents: ["no"]
+  - id: en-016
+    lang: en
+    asked: null
+    text: "I'm a care assistant, I have epilepsy but its well controlled. no night shifts"
+    expect:
+      occupation: [pflegehelfer]
+      shifts: {night: false}
+    health: true

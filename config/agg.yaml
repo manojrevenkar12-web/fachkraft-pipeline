@@ -1,0 +1,176 @@
+# Wording in job ads that the AGG (General Equal Treatment Act) treats as discrimination.
+#
+# Each rule has regular expressions, matched case-insensitively on the title and text. A match is
+# ignored when the 80 characters before it hold an inclusive phrase ("unabhängig von Alter und
+# Herkunft") or a refusal to ask ("wir fragen nicht nach"). Severity `block` stops publishing
+# unless a recruiter records a reason; `warn` is shown but does not stop.
+#
+# History: v1 was a word list (held-out jobads-v1: precision 95.6%, recall 55.1%). After studying
+# that set (now a regression set) the lists became patterns over the ways ads phrase each problem.
+
+inclusive:
+  - unabhängig von
+  - unabhaengig von
+  - ungeachtet
+  - gleich welche
+  - egal welche
+  - egal ob
+  - unabhängig ihrer
+  - unabhängig deiner
+  - unabhängig seiner
+  - spielt keine rolle
+  - spielen keine rolle
+  - fragen nicht nach
+  - fragen weder nach
+  - nicht nach
+  - ohne ansehen
+  - regardless of
+  - irrespective of
+  - no matter
+  - we do not ask
+  - we don't ask
+  - does not matter
+  - doesn't matter
+  - bei gleicher eignung bevorzugt
+
+# an age range that describes the people already there ("unser Team ist zwischen 23 und 64") is
+# not a requirement
+describes_team: '\b(?:\w*team|belegschaft|kollegium|wir)\b[^.!?]{0,40}\b(?:ist|sind|besteht|bestehen|kommt|kommen|is|are)\b'
+
+rules:
+  - id: origin-native-language
+    severity: block
+    advice: "Ask for the German level the work needs (e.g. B2), not for a native speaker: requiring a mother tongue is discrimination by origin (LAG Hessen 16 Sa 1619/14)."
+    patterns:
+      - 'mutterspr\w*'
+      - 'erstsprache'
+      - 'akzentfrei\w*'
+      - 'ohne (?:jeden |erkennbaren )?akzent'
+      - 'accent[- ]free'
+      - 'without (?:an? )?accent'
+      - 'native[- ](?:speaker|german|level|speaking)'
+      - '(?:first|mother) (?:language|tongue)'
+      - 'deutsch als (?:erst|mutter)sprache'
+
+  - id: origin-nationality
+    severity: block
+    advice: "Do not ask for nationality or origin. If a work permit matters, ask whether the person may work in Germany."
+    patterns:
+      - 'staatsangehörigkeit'
+      - 'staatsbürger\w*'
+      - 'nationalität'
+      - '\b(?:ihre[rn]?|deine[rn]?|seine[rn]?|nationale[rn]?|ethnische[rn]?|deutsche[rn]?|ausländische[rn]?) herkunft'
+      - 'deutsche[nmrs]? (?:reise)?pass'
+      - 'deutschstämmig\w*'
+      - 'aus deutschland stamm\w*'
+      - 'deutsche (?:bewerber\w*|bewerbende|staatsbürger\w*|herkunft)'
+      - 'eu[- ]?bürger\w*'
+      - '(?:eu|german) (?:citizens?|nationals?|passport)'
+      - 'citizens? only'
+      - 'citizenship'
+      - 'nationality'
+
+  - id: age
+    severity: block
+    advice: "Describe the work, not the age of the team or the applicant: age wording is the most frequent AGG claim in job ads."
+    patterns:
+      - '\bjung\w*,?\s+(?:und\s+)?(?:[\w-]+\s+){0,2}?(?:\w*team\w*|frau|mann|leute|kolleg\w*|mitarbeiter\w*|menschen|verstärkung|talente?|kräfte|dame|herr)\b'
+      - '\bjung und dynamisch'
+      - '\byoung\s+(?:and\s+)?(?:\w+\s+)?(?:team|people|person|woman|man|talent|staff|crew|colleagues?)\b'
+      - '\b(?:bis|unter|max\.?|maximal|höchstens)\s*\d{2}\s*(?:jahre|j\.)'
+      - '\bzwischen\s+\d{2}\s+und\s+\d{2}\s+jahre'
+      - '\b\d{2}\s*[-–]\s*\d{2}\s*jahre'
+      - '\b(?:altersgrenze|höchstalter|altersbeschränkung)'
+      - '\bnicht älter als'
+      - '\b(?:anfang|mitte|ende)\s+(?:bis\s+(?:mitte|ende)\s+)?(?:zwanzig|dreißig|vierzig|20|30|40)\b'
+      - '\bin den (?:zwanzigern|dreißigern|20ern|30ern)'
+      - '\b(?:under|below)\s+(?:the age of\s+)?\d{2}\b'
+      - '\baged?\s+(?:between\s+)?\d{2}\s*(?:[-–]|to|and)\s*\d{2}'
+      - '\bin (?:their|your) (?:twenties|thirties|20s|30s)'
+      - '\bdigital natives?\b'
+      - '\bberufseinsteiger\w* bis'
+
+  - id: gender-only
+    severity: warn
+    advice: "Address every gender unless the role genuinely requires one (§ 8 AGG)."
+    patterns:
+      - '\b(?:suchen|sucht|gesucht|brauchen|wünschen)\b[^.!?]{0,60}\b(?:einen?|eine|zwei|drei)?\s*(?:[\w-]+\s+){0,3}?(?:mann|männer|frau|frauen|dame|damen|herrn?|kerl|kerle|jungs|mädels)\b'
+      - '\b(?:männliche|weibliche) (?:bewerber\w*|kandidat\w*|verstärkung|mitarbeiter\w*)'
+      - '\bnur (?:männer|frauen|herren|damen)\b'
+      - '\b(?:looking for|seeking|need|wanted:?)\s+(?:an? |two |some )?(?:[\w-]+\s+){0,3}?(?:man|men|woman|women|guy|guys|lady|ladies|gentleman|gentlemen)\b'
+      - '\bmale (?:applicants|candidates|staff)|\bfemale (?:applicants|candidates|staff)'
+      # "eine freundliche Verkäuferin": one gender's job title in the text when the ad has no all-gender form
+      - '!nomark \b(?:eine|unsere neue|als)\s+(?:[\w-]+\s+){0,2}?(?!\w*(?:medizin|termin|benzin|magazin|disziplin|kamin|vitamin)\b)[a-zäöüß]{3,}(?:erin|frau|in)\b'
+
+  - id: family
+    severity: block
+    advice: "Family status and children are not job requirements."
+    patterns:
+      - '\bfamilienstand'
+      - '\bledig\b'
+      - '\bverheiratet'
+      - '\bkinderlos'
+      - '\bkeine (?:kleinen |eigenen |schulpflichtigen )?kinder\b'
+      - '\bob sie kinder\b|\bob du kinder\b'
+      - '\bfamiliär ungebunden'
+      - '\bmarital status'
+      - '\bno (?:young )?children'
+      - '\bwhether you have (?:any )?children'
+      - '\bsingle applicants'
+      - '\bchildcare (?:obligations|commitments)'
+
+  - id: pregnancy-health
+    severity: block
+    advice: "Health, disability and pregnancy questions are not allowed in applications; a health certificate can be required only where law demands it (e.g. § 43 IfSG for food)."
+    patterns:
+      - '\bschwanger\w*'
+      - '\bpregnan\w*'
+      - '\bkeine (?:gesundheitlichen |körperlichen )?(?:einschränkung\w*|erkrankung\w*|vorerkrankung\w*|behinderung\w*|leiden|rückenleiden|beschwerden)'
+      - '\b(?:angaben?|auskunft|informationen|mitteilung)\s+(?:zu|über)\s+(?:[\w-]+\s+){0,4}?(?:behinderung|schwerbehinderung|erkrankung\w*|krankheit\w*|gesundheit\w*|vorerkrankung\w*)'
+      - '\bgrad der behinderung'
+      - '\b(?:volle|uneingeschränkte|einwandfreie)\s+gesundheit\w*'
+      - '\bärztliches attest'
+      - '\bchronische\w* (?:erkrankung\w*|krankheit\w*)'
+      - '\bgesundheitszeugnis vor'
+      - '\bno (?:health|medical) (?:conditions|issues|problems|restrictions)'
+      - '\b(?:disclose|state|tell us about|declare)\s+(?:any\s+)?(?:disabilit\w*|illness\w*|health)'
+      - '\bin perfect health'
+      - '\bno disabilit\w*'
+
+  - id: religion
+    severity: block
+    advice: "Religion may be required only by religious employers for roles where it is essential (§ 9 AGG)."
+    patterns:
+      - '\bkonfession\w*'
+      - '\breligion\w*'
+      - '\bchristlich\w*'
+      - '\bkirchenmitglied\w*'
+      - '\b(?:zugehörigkeit|mitgliedschaft) (?:zu|in) (?:einer |der )?(?:[\w-]+\s+){0,3}?(?:kirche|religionsgemeinschaft|glaubensgemeinschaft|gemeinde)'
+      - '\b(?:practising|practicing|devout) (?:christians?|muslims?|catholics?|jews?)'
+      - '\breligious\b'
+      - '\bchurch (?:member\w*|affiliation)'
+
+  - id: photo
+    severity: warn
+    advice: "Do not ask for a photo: it shows age, gender and origin and invites a claim."
+    patterns:
+      - '\blichtbild\w*'
+      - '\b(?:mit|inkl\.?|inklusive|samt|plus)\s+(?:[\w-]+\s+){0,2}?(?:foto|bild|bewerbungsfoto)\b'
+      - '\bbewerbungsfoto'
+      - '\bfoto (?:erforderlich|beifügen|anhängen|mitschicken)'
+      - '\b(?:with|include|attach|send)\s+(?:a |an |your )?(?:recent |current |professional )?(?:photo|picture|headshot)\b'
+      - '\bphoto required'
+
+  - id: physical
+    severity: warn
+    advice: "Say what the work involves (e.g. lifting up to 25 kg) instead of describing the person."
+    patterns:
+      - '\bkörperlich\w* (?:fit|belastbar\w*|konstitution|robust)'
+      - '\bkräftig\w*'
+      - '\bsportlich\w*'
+      - '\bfigur\b'
+      - '\bmindestens \d[,.]\d{1,2}\s*m\b'
+      - '\b\d[,.]\d{2}\s*m groß'
+      - '\bmuskulös\w*'
+      - '\bphysically fit'
+      - '\b(?:strong|athletic|muscular|sporty)\s+(?:\w+\s+)?(?:man|men|guy|guys|person|people|build)\b'

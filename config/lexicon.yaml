@@ -1,0 +1,332 @@
+# Words candidates use for each fact, per conversation language. The rule extractor reads these;
+# the LLM extractor gets the same field definitions. Keep entries lower-case.
+
+languages: [de, en, tr, pl, ro, uk, ru, ar]
+
+# words that make a following or preceding class letter a driving-licence class
+licence_context:
+  de: [führerschein, fuehrerschein, fahrerlaubnis, klasse, kl.]
+  en: [licence, license, class, driving]
+  tr: [ehliyet, ehliyeti, ehliyetim, sınıf, sinif]
+  pl: [prawo jazdy, prawa jazdy, kat., kat, kategoria, kategorii]
+  ro: [permis, permisul, categoria, categorie]
+  uk: [посвідчення, права, категорія, категорії, категорію]
+  ru: [права, удостоверение, категория, категории, категорию]
+  ar: [رخصة, فئة]
+
+code95:
+  any: [code 95, code95, schlüsselzahl 95, schluesselzahl 95, modul 95, fahrerqualifizierungsnachweis, fqn, eu-qualifikationsnachweis, kod 95, cod 95, код 95]
+forklift:
+  any: [staplerschein, gabelstaplerschein, staplerführerschein, flurförderzeugschein, stapler]
+  en: [forklift licence, forklift license, forklift certificate, forklift]
+  tr: [forklift ehliyeti, forklift belgesi, forklift]
+  pl: [uprawnienia na wózek widłowy, uprawnienia udt, wózek widłowy, wozek widlowy, udt]
+  ro: [permis stivuitor, atestat stivuitor, stivuitorist, stivuitor]
+  uk: [посвідчення водія навантажувача, навантажувач]
+  ru: [удостоверение водителя погрузчика, погрузчик]
+  ar: [رخصة رافعة شوكية, رافعة شوكية]
+adr:
+  any: [adr-schein, adr schein, adr-bescheinigung, gefahrgutschein, gefahrgut, adr]
+tachograph_card:
+  any: [fahrerkarte, tachograph card, karta kierowcy, kartă tahograf, card tahograf]
+
+german_context:
+  de: [deutsch, deutschkenntnisse, sprachkenntnisse, sprache, sprachniveau, niveau, goethe, telc, ösd, b1-prüfung, b2-prüfung]
+  en: [german, language]
+  tr: [almanca, almancam, almancası, dil]
+  pl: [niemiecki, niemieckiego, język, jezyk, niemiecku]
+  ro: [germana, germană, limba germană, limba germana, germane]
+  uk: [німецька, німецької, німецьку, мова, мови]
+  ru: [немецкий, немецкого, немецком, язык]
+  ar: [الألمانية, الالمانية, اللغة]
+german_words:
+  none:
+    de: [kein deutsch, keine deutschkenntnisse, spreche kein deutsch, noch kein deutsch]
+    en: [no german, don't speak german, dont speak german, do not speak german]
+    tr: [almanca bilmiyorum, almancam yok, hiç almanca]
+    pl: [nie mówię po niemiecku, nie znam niemieckiego, nie mowie po niemiecku]
+    ro: [nu vorbesc germana, nu vorbesc germană, nu știu germana]
+    uk: [не знаю німецьку, не розмовляю німецькою]
+    ru: [не знаю немецкий, не говорю по-немецки, не говорю по немецки]
+    ar: [لا أتكلم الألمانية, لا اتكلم الالمانية]
+  basic:   # roughly A2
+    de: [grundkenntnisse, ein bisschen deutsch, bisschen deutsch, wenig deutsch]
+    en: [basic german, a little german, little german, some german]
+    tr: [biraz almanca, az almanca]
+    pl: [trochę niemiecki, troche niemiecki, podstawowy niemiecki, trochę po niemiecku]
+    ro: [puțină germană, putina germana, germană de bază]
+    uk: [трохи німецьку, трохи німецька, базова німецька]
+    ru: [немного немецкий, немного по-немецки, базовый немецкий]
+    ar: [قليل من الألمانية]
+  good:    # roughly B2
+    de: [gute deutschkenntnisse, gutes deutsch, spreche gut deutsch]
+    en: [good german, speak german well]
+    tr: [iyi almanca, almancam iyi]
+    pl: [dobry niemiecki, dobrze po niemiecku]
+    ro: [germană bună, germana buna, vorbesc bine germana]
+    uk: [добре знаю німецьку, добра німецька]
+    ru: [хорошо знаю немецкий, хороший немецкий]
+    ar: [ألمانية جيدة, الالمانية جيدة]
+  fluent:  # roughly C1
+    de: [fließend deutsch, fliessend deutsch, verhandlungssicher, sehr gutes deutsch, muttersprache deutsch, deutsch als muttersprache, deutsche muttersprache]
+    en: [fluent german, fluent in german, native german, german native]
+    tr: [akıcı almanca, akici almanca, ana dilim almanca]
+    pl: [płynny niemiecki, plynny niemiecki, płynnie po niemiecku]
+    ro: [germană fluentă, germana fluenta, vorbesc fluent germana]
+    uk: [вільно німецькою, вільно володію німецькою]
+    ru: [свободно немецкий, свободно говорю по-немецки, свободный немецкий]
+    ar: [ألمانية بطلاقة, بطلاقة]
+
+recognition:
+  recognised:
+    de: [anerkannt, anerkennung erhalten, anerkennung bekommen, berufsurkunde, gleichwertigkeit festgestellt, voll anerkannt]
+    en: [recognised, recognized, recognition approved, recognition granted, have my recognition]
+    tr: [denklik aldım, denkliğim var, denkligim var, denklik var, tanındı]
+    pl: [uznane kwalifikacje, mam uznanie, dyplom uznany, nostryfikowany]
+    ro: [recunoscut, recunoscută, recunoscuta, am echivalare, echivalat]
+    uk: [визнаний, визнано, диплом визнали, маю визнання]
+    ru: [признан, диплом признали, есть признание, нострифицирован]
+    ar: [تمت معادلة, معترف به, معادلة شهادتي]
+  in_progress:
+    de: [anerkennung läuft, anerkennung beantragt, antrag läuft, defizitbescheid, anpassungslehrgang, kenntnisprüfung, anerkennungsverfahren läuft, im anerkennungsverfahren]
+    en: [recognition in progress, recognition pending, applied for recognition, recognition is pending, waiting for recognition, adaptation course]
+    tr: [denklik başvurusu, denklik bekliyorum, denklik sürecinde, denklik için başvurdum]
+    pl: [uznanie w toku, złożyłam wniosek o uznanie, złożyłem wniosek o uznanie, czekam na uznanie]
+    ro: [echivalarea în curs, echivalare in curs, am depus pentru recunoaștere, aștept recunoașterea, astept recunoasterea]
+    uk: [визнання в процесі, подала на визнання, подав на визнання, чекаю на визнання]
+    ru: [признание в процессе, подала на признание, подал на признание, жду признания]
+    ar: [طلب المعادلة, قيد المعادلة, أنتظر المعادلة]
+  not_started:
+    de: [noch keine anerkennung, nicht anerkannt, keine anerkennung, ohne anerkennung]
+    en: [not recognised, not recognized, no recognition, not yet recognised, not yet recognized]
+    tr: [denklik yok, denkliğim yok, denkligim yok, denklik almadım]
+    pl: [nie mam uznania, bez uznania, nieuznany]
+    ro: [nu este recunoscut, fără echivalare, fara echivalare, nu am echivalare]
+    uk: [не визнаний, немає визнання, без визнання]
+    ru: [не признан, нет признания, без признания]
+    ar: [غير معادلة, لم تتم المعادلة]
+
+foreign_training:  # "I trained/studied in <country>" signals a foreign qualification
+  de: [aus der türkei, aus polen, aus rumänien, aus der ukraine, aus syrien, aus indien, aus den philippinen, von den philippinen, aus bosnien, aus serbien, aus marokko, in der türkei, in polen, in rumänien, in der ukraine, in russland, in syrien, in indien, in den philippinen, auf den philippinen, in bosnien, in serbien, in kroatien, in marokko, in tunesien, im ausland, ausländischer abschluss, abschluss aus]
+  en: [in turkey, in poland, in romania, in ukraine, in russia, in syria, in india, in the philippines, abroad, foreign degree, foreign qualification]
+  tr: [türkiye'de, türkiyede, turkiyede, türkiye'den, türkiyeden, türk diploması]
+  pl: [w polsce, z polski, polski dyplom, dyplom z polski]
+  ro: [în românia, in romania, din românia, din romania, diplomă românească]
+  uk: [в україні, в украині, з україни, український диплом]
+  ru: [в украине, в россии, из украины, из россии, в казахстане]
+  ar: [في سوريا, في مصر, في المغرب, في تونس, في العراق]
+domestic_training:
+  de: [in deutschland gelernt, ausbildung in deutschland, in deutschland ausgebildet, deutsche ausbildung, ihk-abschluss, ihk abschluss, gesellenbrief, gesellenprüfung, meisterbrief]
+  en: [trained in germany, german apprenticeship, apprenticeship in germany]
+  tr: [almanya'da okudum, almanyada okudum, almanya'da meslek]
+  pl: [w niemczech się uczyłem, w niemczech sie uczylem, szkoła w niemczech]
+  ro: [în germania am învățat, in germania am invatat]
+  uk: [навчалася в німеччині, навчався в німеччині]
+  ru: [учился в германии, училась в германии]
+  ar: [درست في ألمانيا]
+
+shifts:
+  names:
+    early:
+      de: [frühschicht, fruehschicht, früh]
+      en: [early shift, morning shift, mornings, early]
+      tr: [sabah vardiyası, sabah vardiyasi, sabahçı, sabah]
+      pl: [pierwsza zmiana, poranna zmiana, pierwsza, rano]
+      ro: [tura de dimineață, tura de dimineata, tura 1, dimineața, dimineata]
+      uk: [ранкова зміна, рання зміна, ранкова, зранку, вранці]
+      ru: [утренняя смена, ранняя смена, утренняя, утром, утро]
+      ar: [وردية صباحية, صباحي, صباحية, الصباح]
+    late:
+      de: [spätschicht, spaetschicht, spät]
+      en: [late shift, evening shift, evenings, late]
+      tr: [akşam vardiyası, aksam vardiyasi, öğleden sonra vardiyası, akşam, aksam, öğleden sonra]
+      pl: [druga zmiana, druga, popołudniowa zmiana, popoludniowa zmiana, popołudnie, popoludnie, po południu, po poludniu]
+      ro: [tura de după-amiază, tura de dupa-amiaza, tura 2, tura de seară, după-amiaza, dupa-amiaza, după-amiază, seara]
+      uk: [вечірня зміна, пізня зміна, вечірня, вечір, ввечері]
+      ru: [вечерняя смена, поздняя смена, вечерняя, вечером, вечер]
+      ar: [وردية مسائية, مسائي, مسائية, المساء]
+    night:
+      de: [nachtschicht, nachtschichten, nachtdienst, nachtdienste, nachts, nacht]
+      en: [night shift, night shifts, nights, night]
+      tr: [gece vardiyası, gece vardiyasi, gece]
+      pl: [nocna zmiana, trzecia zmiana, trzecia, nocki, nocek, noce, w nocy]
+      ro: [tura de noapte, ture de noapte, noaptea]
+      uk: [нічна зміна, нічні зміни, нічних, вночі]
+      ru: [ночная смена, ночные смены, ночных, ночью]
+      ar: [وردية ليلية, ليلي, ليلية, الليل]
+    weekend:
+      de: [wochenende, wochenenddienst, wochenenden, samstag, sonntag]
+      en: [weekend, weekends, saturday, sunday]
+      tr: [hafta sonu, haftasonu, cumartesi, pazar]
+      pl: [weekend, weekendy, sobota, niedziela]
+      ro: [weekend, weekendul, sâmbătă, sambata, duminică]
+      uk: [вихідні, субота, неділя]
+      ru: [выходные, суббота, воскресенье]
+      ar: [عطلة نهاية الأسبوع, السبت, الأحد]
+  only:  # "only early shift": every shift not named is refused
+    de: [nur, ausschließlich, ausschliesslich]
+    en: [only, just]
+    tr: [sadece, yalnızca, yalnizca]
+    pl: [tylko, wyłącznie]
+    ro: [doar, numai]
+    uk: [тільки, лише]
+    ru: [только, лишь]
+    ar: [فقط]
+  all:   # accepts every shift
+    de: [schichtarbeit ok, schichtdienst ok, alle schichten, 3-schicht, drei-schicht, wechselschicht ok, jede schicht, egal welche schicht]
+    en: [any shift, all shifts, shift work ok, rotating shifts ok, any shifts]
+    tr: [her vardiya, vardiya fark etmez, tüm vardiyalar]
+    pl: [każda zmiana, kazda zmiana, wszystkie zmiany, praca zmianowa ok]
+    ro: [orice tură, orice tura, toate turele]
+    uk: [будь-яка зміна, всі зміни]
+    ru: [любая смена, все смены]
+    ar: [أي وردية, كل الورديات]
+  negation:   # words that, near a shift name, mean "not that one"
+    de: [kein, keine, keinen, nicht, ohne, außer, ausser, lieber nicht]
+    en: [no, not, don't, dont, without, except, can't, cannot]
+    tr: [yok, olmaz, istemiyorum, hariç, haric, değil, degil, yapamam]
+    pl: [nie, bez, oprócz, oprocz]
+    ro: [fără, fara, nu, în afară de]
+    uk: [не, без, крім]
+    ru: [не, без, кроме]
+    ar: [لا, بدون, ليس, غير]
+
+immediately:
+  de: [ab sofort, sofort, sofort verfügbar, jederzeit, ab heute, ab morgen]
+  en: [immediately, right away, asap, straight away, from now, any time, anytime]
+  tr: [hemen, hemen başlayabilirim, derhal, bugünden]
+  pl: [od zaraz, od razu, natychmiast, od jutra]
+  ro: [imediat, de acum, oricând, de mâine]
+  uk: [одразу, негайно, відразу, з завтра]
+  ru: [сразу, немедленно, с завтрашнего дня, хоть завтра]
+  ar: [فورا, فوراً, حالا, الآن]
+
+relative_units:   # "in N weeks/months" and "notice period N months"
+  week:
+    de: [woche, wochen]
+    en: [week, weeks]
+    tr: [hafta]
+    pl: [tydzień, tydzien, tygodnie, tygodni]
+    ro: [săptămână, saptamana, săptămâni, saptamani]
+    uk: [тиждень, тижні, тижнів]
+    ru: [неделю, недели, недель]
+    ar: [أسبوع, أسابيع]
+  month:
+    de: [monat, monaten, monate]
+    en: [month, months]
+    tr: [ay]
+    pl: [miesiąc, miesiac, miesiące, miesiace, miesięcy, miesiecy]
+    ro: [lună, luna, luni]
+    uk: [місяць, місяці, місяців]
+    ru: [месяц, месяца, месяцев]
+    ar: [شهر, أشهر, شهور]
+next_month:
+  de: [nächsten monat, naechsten monat, kommenden monat]
+  en: [next month]
+  tr: [gelecek ay, önümüzdeki ay]
+  pl: [w przyszłym miesiącu, od przyszłego miesiąca]
+  ro: [luna viitoare]
+  uk: [наступного місяця, з наступного місяця]
+  ru: [в следующем месяце, со следующего месяца]
+  ar: [الشهر القادم]
+
+months:   # month names -> number (word-start match)
+  de: {januar: 1, jan: 1, februar: 2, feb: 2, märz: 3, maerz: 3, april: 4, apr: 4, mai: 5, juni: 6, juli: 7, august: 8, aug: 8, september: 9, sept: 9, oktober: 10, okt: 10, november: 11, nov: 11, dezember: 12, dez: 12}
+  en: {january: 1, february: 2, march: 3, april: 4, may: 5, june: 6, july: 7, august: 8, september: 9, october: 10, november: 11, december: 12}
+  tr: {ocak: 1, şubat: 2, subat: 2, mart: 3, nisan: 4, mayıs: 5, mayis: 5, haziran: 6, temmuz: 7, ağustos: 8, agustos: 8, eylül: 9, eylul: 9, ekim: 10, kasım: 11, kasim: 11, aralık: 12, aralik: 12}
+  pl: {stycz: 1, lut: 2, marc: 3, kwie: 4, maj: 5, czerw: 6, lip: 7, sierp: 8, wrze: 9, październik: 10, pazdziernik: 10, listopad: 11, grud: 12}
+  ro: {ianuarie: 1, februarie: 2, martie: 3, aprilie: 4, mai: 5, iunie: 6, iulie: 7, august: 8, septembrie: 9, octombrie: 10, noiembrie: 11, decembrie: 12}
+  uk: {січ: 1, лют: 2, берез: 3, квіт: 4, трав: 5, черв: 6, лип: 7, серп: 8, верес: 9, жовт: 10, листопад: 11, груд: 12}
+  ru: {январ: 1, феврал: 2, март: 3, апрел: 4, мая: 5, май: 5, июн: 6, июл: 7, август: 8, сентябр: 9, октябр: 10, ноябр: 11, декабр: 12}
+  ar: {يناير: 1, فبراير: 2, مارس: 3, أبريل: 4, ابريل: 4, مايو: 5, يونيو: 6, يوليو: 7, أغسطس: 8, سبتمبر: 9, أكتوبر: 10, نوفمبر: 11, ديسمبر: 12}
+
+experience_units:   # "N years (of experience)"
+  de: [jahre, jahren, jahr]
+  en: [years, year, yrs]
+  tr: [yıl, yil, sene, senedir, yıldır, yildir]
+  pl: [lat, lata, rok]
+  ro: [ani, an]
+  uk: [років, роки, рік]
+  ru: [лет, года, год]
+  ar: [سنوات, سنة, سنين]
+experience_context:
+  de: [erfahrung, berufserfahrung, gearbeitet, arbeite seit, tätig]
+  en: [experience, worked, working as, been a]
+  tr: [deneyim, tecrübe, tecrube, çalıştım, calistim, çalışıyorum]
+  pl: [doświadczenie, doswiadczenie, doświadczenia, pracuję, pracuje, pracowałem, pracowałam]
+  ro: [experiență, experienta, lucrez, am lucrat]
+  uk: [досвід, досвіду, працюю, працювала, працював]
+  ru: [опыт, опыта, работаю, работала, работал]
+  ar: [خبرة, أعمل, عملت]
+
+employment:
+  full_time:
+    de: [vollzeit]
+    en: [full time, full-time, fulltime]
+    tr: [tam zamanlı, tam zamanli]
+    pl: [pełny etat, pelny etat, cały etat]
+    ro: [normă întreagă, norma intreaga, full time]
+    uk: [повний робочий день, повна зайнятість]
+    ru: [полный день, полная занятость]
+    ar: [دوام كامل]
+  part_time:
+    de: [teilzeit]
+    en: [part time, part-time, parttime]
+    tr: [yarı zamanlı, yari zamanli]
+    pl: [pół etatu, pol etatu, część etatu, niepełny etat]
+    ro: [jumătate de normă, jumatate de norma, part time]
+    uk: [неповний робочий день, часткова зайнятість]
+    ru: [неполный день, частичная занятость]
+    ar: [دوام جزئي]
+
+"yes":
+  de: [ja, jo, jep, okay, ok, einverstanden, gerne, klar, passt, stimmt, genau, richtig]
+  en: [yes, yeah, yep, ok, okay, sure, agree, correct, right, that's right]
+  tr: [evet, tamam, olur, kabul, doğru, dogru]
+  pl: [tak, ok, zgoda, dobrze, zgadza się, zgadza sie, jasne]
+  ro: [da, ok, sigur, de acord, corect]
+  uk: [так, добре, згоден, згодна, вірно, правильно]
+  ru: [да, хорошо, согласен, согласна, верно, правильно]
+  ar: [نعم, موافق, صحيح, أوافق, اوافق]
+"no":
+  de: [nein, ne, nö, nicht einverstanden, falsch, stimmt nicht]
+  en: [no, nope, not correct, wrong, disagree]
+  tr: [hayır, hayir, yanlış, yanlis, istemiyorum]
+  pl: [nie, źle, zle, nie zgadza się]
+  ro: [nu, greșit, gresit]
+  uk: [ні, неправильно, не згоден, не згодна]
+  ru: [нет, неправильно, не согласен, не согласна]
+  ar: [لا, خطأ, غير صحيح]
+opt_out:
+  any: [stop, stopp, abmelden, keine nachrichten mehr, nicht mehr schreiben, unsubscribe, don't message me, löschen sie meine daten, daten löschen, delete my data]
+  tr: [dur, durdur, mesaj atmayın, verilerimi silin]
+  pl: [koniec, nie pisz, nie piszcie, usuńcie moje dane, usuncie moje dane]
+  ro: [nu mai scrieți, nu mai scrieti, ștergeți datele, stergeti datele]
+  uk: [стоп, відписатися, не пишіть, видаліть мої дані]
+  ru: [стоп, отписаться, не пишите, удалите мои данные]
+  ar: [توقف, إيقاف, لا ترسلوا, احذفوا بياناتي]
+human:
+  any: [mensch, menschen, einem menschen, mitarbeiter, mitarbeiterin, mit jemandem sprechen, persönlich sprechen, recruiter, human, real person, agent, rückruf, anrufen, call me, bitte anrufen]
+  tr: [insan, temsilci, arayın beni, beni arayın]
+  pl: [człowiek, czlowiek, konsultant, zadzwońcie, zadzwoncie]
+  ro: [om, operator, sunați-mă, sunati-ma]
+  uk: [людина, оператор, зателефонуйте]
+  ru: [человек, оператор, позвоните]
+  ar: [موظف, إنسان, اتصلوا بي]
+
+# words that make a following number a commute limit
+commute_context:
+  de: [km, kilometer, minuten, min, fahrzeit, pendeln, umkreis, entfernung]
+  en: [km, kilometers, kilometres, minutes, mins, commute, radius]
+  tr: [km, kilometre, dakika, dk]
+  pl: [km, kilometrów, kilometrow, minut, dojazd]
+  ro: [km, kilometri, minute, naveta]
+  uk: [км, кілометрів, хвилин, хв]
+  ru: [км, километров, минут, мин]
+  ar: [كم, كيلومتر, دقيقة, دقائق]
+minute_words: [minuten, min, minutes, mins, dakika, dk, minut, minute, хвилин, хв, минут, мин, دقيقة, دقائق]
+
+# health information is special-category data: it is never stored in a profile, summary or ATS
+# hand-over (see privacy.redact)
+health_terms:
+  any: [krank, krankheit, rücken, bandscheibe, schwanger, schwangerschaft, behinderung, schwerbehindert, operation, diagnose, therapie, depression, diabetes, sick, illness, pregnant, disability, surgery, diagnosis, hasta, hamile, engelli, chory, chora, ciąża, ciaza, ciąży, ciazy, niepełnosprawn, bolnav, însărcinată, insarcinata, handicap, хвор, вагітн, беремен, інвалід, инвалид, مريض, حامل, إعاقة]

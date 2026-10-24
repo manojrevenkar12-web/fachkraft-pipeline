@@ -1,0 +1,76 @@
+# Demo jobs. Requirements are hard (must) or soft (score). A German level filters only with a
+# justification. The AGG check runs over title and text on every save.
+- id: J-PFK-BER
+  title: "Pflegefachkraft (m/w/d) ambulante Pflege"
+  occupation: pflegefachkraft
+  plz: "10249"
+  radius_km: 25
+  shifts: [early, late, weekend]
+  employment: [full_time, part_time]
+  start_by: "2026-12-31"
+  must: {recognition: true}
+  german_level: {min: B2, justification: "Pflegedokumentation und Absprachen mit Ärzten und Angehörigen"}
+  soft: {experience_years: 1}
+  pay: "3.700–4.100 € brutto + Zuschläge"
+  text: "Wir suchen eine Pflegefachkraft (m/w/d) für unsere Touren in Friedrichshain und Lichtenberg. Dienstwagen, feste Touren, keine Nachtdienste."
+- id: J-PH-BER
+  title: "Pflegehelfer (m/w/d)"
+  occupation: pflegehelfer
+  plz: "10319"
+  radius_km: 20
+  shifts: [early, late]
+  employment: [full_time, part_time]
+  start_by: "2026-12-31"
+  german_level: {min: A2, justification: "Absprachen mit Bewohnerinnen und Bewohnern"}
+  soft: {experience_years: 0}
+  pay: "15,50 €/Std."
+  text: "Unterstütze unser Team in der stationären Pflege. Einarbeitung durch erfahrene Kolleginnen."
+- id: J-LKW-LEJ
+  title: "Berufskraftfahrer CE (m/w/d) Nahverkehr"
+  occupation: berufskraftfahrer
+  plz: "04109"
+  radius_km: 40
+  shifts: [early, late]
+  employment: [full_time]
+  start_by: "2027-01-31"
+  must: {licences: [CE, code95]}
+  soft: {experience_years: 2}
+  pay: "3.100 € brutto + Spesen"
+  text: "Nahverkehr rund um Leipzig, jeden Abend zu Hause. Moderne Sattelzüge."
+- id: J-ELE-MUC
+  title: "Elektroniker für Energie- und Gebäudetechnik (m/w/d)"
+  occupation: elektroniker
+  plz: "80331"
+  radius_km: 35
+  shifts: [early]
+  employment: [full_time]
+  start_by: "2026-12-31"
+  german_level: {min: B1, justification: "Sicherheitsunterweisungen auf der Baustelle"}
+  soft: {experience_years: 2}
+  pay: "21–25 €/Std."
+  text: "Installation in Neubau und Sanierung im Großraum München. Firmenwagen ab dem ersten Tag."
+- id: J-LAG-DO
+  title: "Fachkraft für Lagerlogistik (m/w/d)"
+  occupation: lagerlogistik
+  plz: "44135"
+  radius_km: 30
+  shifts: [early, late, night]
+  employment: [full_time]
+  start_by: "2026-11-30"
+  must: {licences: [forklift]}
+  soft: {experience_years: 1}
+  pay: "16,80 €/Std. + Nachtzuschlag"
+  text: "Wareneingang und Kommissionierung im 3-Schicht-Betrieb in Dortmund."
+- id: J-SHK-HH
+  title: "Anlagenmechaniker SHK (m/w/d) Kundendienst"
+  occupation: anlagenmechaniker_shk
+  plz: "20095"
+  radius_km: 30
+  shifts: [early]
+  employment: [full_time]
+  start_by: "2026-12-31"
+  must: {licences: [B]}
+  german_level: {min: B1, justification: "Kundenkontakt beim Kundendienst"}
+  soft: {experience_years: 2}
+  pay: "3.400–3.900 € brutto"
+  text: "Wartung und Störungsdienst für Heizungen bei Privatkunden in Hamburg."

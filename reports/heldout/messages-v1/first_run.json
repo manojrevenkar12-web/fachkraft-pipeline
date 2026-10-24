@@ -1,0 +1,774 @@
+{
+  "kind": "messages",
+  "cases": 200,
+  "today": "2026-11-02",
+  "extractor": "rules",
+  "overall": {
+    "right": 216,
+    "wrong": 18,
+    "missed": 72,
+    "false": 8,
+    "precision": 0.893,
+    "recall": 0.706
+  },
+  "exact_cases": 110,
+  "exact_rate": 0.55,
+  "language_detected": 0.99,
+  "fields": {
+    "commute_km": {
+      "right": 6,
+      "wrong": 0,
+      "missed": 5,
+      "false": 0,
+      "precision": 1.0,
+      "recall": 0.545
+    },
+    "email": {
+      "right": 8,
+      "wrong": 0,
+      "missed": 0,
+      "false": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "employment": {
+      "right": 12,
+      "wrong": 1,
+      "missed": 2,
+      "false": 0,
+      "precision": 0.923,
+      "recall": 0.8
+    },
+    "experience_years": {
+      "right": 22,
+      "wrong": 1,
+      "missed": 14,
+      "false": 1,
+      "precision": 0.917,
+      "recall": 0.595
+    },
+    "full_name": {
+      "right": 6,
+      "wrong": 0,
+      "missed": 0,
+      "false": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "german_level": {
+      "right": 13,
+      "wrong": 2,
+      "missed": 8,
+      "false": 0,
+      "precision": 0.867,
+      "recall": 0.565
+    },
+    "licences": {
+      "right": 20,
+      "wrong": 2,
+      "missed": 3,
+      "false": 0,
+      "precision": 0.909,
+      "recall": 0.8
+    },
+    "location": {
+      "right": 34,
+      "wrong": 3,
+      "missed": 3,
+      "false": 0,
+      "precision": 0.919,
+      "recall": 0.85
+    },
+    "occupation": {
+      "right": 55,
+      "wrong": 1,
+      "missed": 13,
+      "false": 1,
+      "precision": 0.965,
+      "recall": 0.797
+    },
+    "qualification": {
+      "right": 10,
+      "wrong": 0,
+      "missed": 9,
+      "false": 3,
+      "precision": 0.769,
+      "recall": 0.526
+    },
+    "recognition": {
+      "right": 4,
+      "wrong": 0,
+      "missed": 7,
+      "false": 0,
+      "precision": 1.0,
+      "recall": 0.364
+    },
+    "shifts": {
+      "right": 13,
+      "wrong": 6,
+      "missed": 1,
+      "false": 0,
+      "precision": 0.684,
+      "recall": 0.65
+    },
+    "start_date": {
+      "right": 13,
+      "wrong": 2,
+      "missed": 7,
+      "false": 3,
+      "precision": 0.722,
+      "recall": 0.591
+    }
+  },
+  "by_language": {
+    "ar": {
+      "right": 13,
+      "wrong": 1,
+      "missed": 11,
+      "false": 0,
+      "cases": 16,
+      "exact": 6,
+      "precision": 0.929,
+      "recall": 0.52
+    },
+    "de": {
+      "right": 68,
+      "wrong": 7,
+      "missed": 21,
+      "false": 3,
+      "cases": 60,
+      "exact": 34,
+      "precision": 0.872,
+      "recall": 0.708
+    },
+    "en": {
+      "right": 16,
+      "wrong": 2,
+      "missed": 4,
+      "false": 1,
+      "cases": 16,
+      "exact": 9,
+      "precision": 0.842,
+      "recall": 0.727
+    },
+    "pl": {
+      "right": 22,
+      "wrong": 3,
+      "missed": 10,
+      "false": 0,
+      "cases": 24,
+      "exact": 12,
+      "precision": 0.88,
+      "recall": 0.629
+    },
+    "ro": {
+      "right": 30,
+      "wrong": 1,
+      "missed": 5,
+      "false": 2,
+      "cases": 24,
+      "exact": 15,
+      "precision": 0.909,
+      "recall": 0.833
+    },
+    "ru": {
+      "right": 15,
+      "wrong": 3,
+      "missed": 8,
+      "false": 1,
+      "cases": 18,
+      "exact": 7,
+      "precision": 0.789,
+      "recall": 0.577
+    },
+    "tr": {
+      "right": 30,
+      "wrong": 0,
+      "missed": 10,
+      "false": 0,
+      "cases": 24,
+      "exact": 14,
+      "precision": 1.0,
+      "recall": 0.75
+    },
+    "uk": {
+      "right": 22,
+      "wrong": 1,
+      "missed": 3,
+      "false": 1,
+      "cases": 18,
+      "exact": 13,
+      "precision": 0.917,
+      "recall": 0.846
+    }
+  },
+  "intents": {
+    "right": 16,
+    "missed": 3,
+    "false": 0
+  },
+  "health": {
+    "right": 5,
+    "missed": 4,
+    "false": 0
+  },
+  "failures": [
+    {
+      "id": "de-002",
+      "problems": [
+        "missed qualification"
+      ]
+    },
+    {
+      "id": "de-005",
+      "problems": [
+        "wrong shifts"
+      ]
+    },
+    {
+      "id": "de-008",
+      "problems": [
+        "missed start_date"
+      ]
+    },
+    {
+      "id": "de-009",
+      "problems": [
+        "missed start_date"
+      ]
+    },
+    {
+      "id": "de-011",
+      "problems": [
+        "wrong german_level"
+      ]
+    },
+    {
+      "id": "de-012",
+      "problems": [
+        "wrong location"
+      ]
+    },
+    {
+      "id": "de-015",
+      "problems": [
+        "wrong start_date"
+      ]
+    },
+    {
+      "id": "de-017",
+      "problems": [
+        "missed occupation"
+      ]
+    },
+    {
+      "id": "de-019",
+      "problems": [
+        "missed german_level"
+      ]
+    },
+    {
+      "id": "de-028",
+      "problems": [
+        "missed commute_km"
+      ]
+    },
+    {
+      "id": "de-030",
+      "problems": [
+        "missed qualification"
+      ]
+    },
+    {
+      "id": "de-031",
+      "problems": [
+        "missed experience_years",
+        "missed occupation"
+      ]
+    },
+    {
+      "id": "de-032",
+      "problems": [
+        "missed recognition",
+        "false start_date"
+      ]
+    },
+    {
+      "id": "de-033",
+      "problems": [
+        "missed recognition"
+      ]
+    },
+    {
+      "id": "de-035",
+      "problems": [
+        "missed licences"
+      ]
+    },
+    {
+      "id": "de-038",
+      "problems": [
+        "missed experience_years"
+      ]
+    },
+    {
+      "id": "de-039",
+      "problems": [
+        "missed qualification",
+        "missed experience_years"
+      ]
+    },
+    {
+      "id": "de-040",
+      "problems": [
+        "missed german_level"
+      ]
+    },
+    {
+      "id": "de-041",
+      "problems": [
+        "wrong shifts"
+      ]
+    },
+    {
+      "id": "de-042",
+      "problems": [
+        "missed experience_years"
+      ]
+    },
+    {
+      "id": "de-047",
+      "problems": [
+        "false qualification",
+        "false experience_years"
+      ]
+    },
+    {
+      "id": "de-048",
+      "problems": [
+        "missed experience_years"
+      ]
+    },
+    {
+      "id": "de-054",
+      "problems": [
+        "wrong occupation"
+      ]
+    },
+    {
+      "id": "de-055",
+      "problems": [
+        "wrong start_date"
+      ]
+    },
+    {
+      "id": "de-056",
+      "problems": [
+        "missed experience_years",
+        "missed german_level"
+      ]
+    },
+    {
+      "id": "de-057",
+      "problems": [
+        "missed commute_km"
+      ]
+    },
+    {
+      "id": "tr-003",
+      "problems": [
+        "missed experience_years"
+      ]
+    },
+    {
+      "id": "tr-004",
+      "problems": [
+        "missed occupation",
+        "missed experience_years"
+      ]
+    },
+    {
+      "id": "tr-007",
+      "problems": [
+        "missed start_date"
+      ]
+    },
+    {
+      "id": "tr-008",
+      "problems": [
+        "missed german_level"
+      ]
+    },
+    {
+      "id": "tr-009",
+      "problems": [
+        "missed occupation"
+      ]
+    },
+    {
+      "id": "tr-011",
+      "problems": [
+        "missed occupation"
+      ]
+    },
+    {
+      "id": "tr-021",
+      "problems": [
+        "missed experience_years"
+      ]
+    },
+    {
+      "id": "tr-022",
+      "problems": [
+        "missed location"
+      ]
+    },
+    {
+      "id": "tr-023",
+      "problems": [
+        "missed employment"
+      ]
+    },
+    {
+      "id": "tr-024",
+      "problems": [
+        "health not redacted"
+      ]
+    },
+    {
+      "id": "pl-002",
+      "problems": [
+        "missed occupation",
+        "wrong licences"
+      ]
+    },
+    {
+      "id": "pl-003",
+      "problems": [
+        "missed licences",
+        "missed occupation"
+      ]
+    },
+    {
+      "id": "pl-004",
+      "problems": [
+        "missed location"
+      ]
+    },
+    {
+      "id": "pl-005",
+      "problems": [
+        "wrong experience_years"
+      ]
+    },
+    {
+      "id": "pl-008",
+      "problems": [
+        "missed start_date"
+      ]
+    },
+    {
+      "id": "pl-012",
+      "problems": [
+        "missed location"
+      ]
+    },
+    {
+      "id": "pl-013",
+      "problems": [
+        "missed recognition"
+      ]
+    },
+    {
+      "id": "pl-014",
+      "problems": [
+        "missed qualification"
+      ]
+    },
+    {
+      "id": "pl-018",
+      "problems": [
+        "wrong location"
+      ]
+    },
+    {
+      "id": "pl-019",
+      "problems": [
+        "missed experience_years",
+        "missed german_level"
+      ]
+    },
+    {
+      "id": "pl-022",
+      "problems": [
+        "missed intent opt_out"
+      ]
+    },
+    {
+      "id": "pl-023",
+      "problems": [
+        "health not redacted"
+      ]
+    },
+    {
+      "id": "ro-002",
+      "problems": [
+        "missed recognition"
+      ]
+    },
+    {
+      "id": "ro-004",
+      "problems": [
+        "missed occupation"
+      ]
+    },
+    {
+      "id": "ro-011",
+      "problems": [
+        "wrong location"
+      ]
+    },
+    {
+      "id": "ro-014",
+      "problems": [
+        "missed commute_km"
+      ]
+    },
+    {
+      "id": "ro-015",
+      "problems": [
+        "missed qualification"
+      ]
+    },
+    {
+      "id": "ro-016",
+      "problems": [
+        "missed recognition"
+      ]
+    },
+    {
+      "id": "ro-017",
+      "problems": [
+        "false qualification"
+      ]
+    },
+    {
+      "id": "ro-020",
+      "problems": [
+        "missed intent human"
+      ]
+    },
+    {
+      "id": "ro-021",
+      "problems": [
+        "false start_date",
+        "missed intent opt_out"
+      ]
+    },
+    {
+      "id": "uk-003",
+      "problems": [
+        "missed occupation"
+      ]
+    },
+    {
+      "id": "uk-005",
+      "problems": [
+        "wrong shifts"
+      ]
+    },
+    {
+      "id": "uk-007",
+      "problems": [
+        "false start_date"
+      ]
+    },
+    {
+      "id": "uk-017",
+      "problems": [
+        "missed employment"
+      ]
+    },
+    {
+      "id": "uk-018",
+      "problems": [
+        "missed start_date"
+      ]
+    },
+    {
+      "id": "ru-002",
+      "problems": [
+        "missed occupation",
+        "missed experience_years",
+        "wrong licences"
+      ]
+    },
+    {
+      "id": "ru-006",
+      "problems": [
+        "missed german_level"
+      ]
+    },
+    {
+      "id": "ru-007",
+      "problems": [
+        "missed german_level"
+      ]
+    },
+    {
+      "id": "ru-008",
+      "problems": [
+        "missed experience_years"
+      ]
+    },
+    {
+      "id": "ru-010",
+      "problems": [
+        "missed qualification"
+      ]
+    },
+    {
+      "id": "ru-011",
+      "problems": [
+        "false qualification"
+      ]
+    },
+    {
+      "id": "ru-012",
+      "problems": [
+        "wrong shifts"
+      ]
+    },
+    {
+      "id": "ru-014",
+      "problems": [
+        "missed commute_km"
+      ]
+    },
+    {
+      "id": "ru-016",
+      "problems": [
+        "missed qualification"
+      ]
+    },
+    {
+      "id": "ru-017",
+      "problems": [
+        "wrong employment"
+      ]
+    },
+    {
+      "id": "ru-018",
+      "problems": [
+        "health not redacted"
+      ]
+    },
+    {
+      "id": "ar-002",
+      "problems": [
+        "missed german_level"
+      ]
+    },
+    {
+      "id": "ar-003",
+      "problems": [
+        "missed experience_years"
+      ]
+    },
+    {
+      "id": "ar-004",
+      "problems": [
+        "wrong shifts"
+      ]
+    },
+    {
+      "id": "ar-005",
+      "problems": [
+        "missed start_date"
+      ]
+    },
+    {
+      "id": "ar-009",
+      "problems": [
+        "missed occupation",
+        "missed qualification",
+        "missed recognition"
+      ]
+    },
+    {
+      "id": "ar-010",
+      "problems": [
+        "missed licences"
+      ]
+    },
+    {
+      "id": "ar-011",
+      "problems": [
+        "missed shifts"
+      ]
+    },
+    {
+      "id": "ar-014",
+      "problems": [
+        "missed occupation"
+      ]
+    },
+    {
+      "id": "ar-015",
+      "problems": [
+        "missed occupation"
+      ]
+    },
+    {
+      "id": "ar-016",
+      "problems": [
+        "missed commute_km"
+      ]
+    },
+    {
+      "id": "en-001",
+      "problems": [
+        "missed qualification",
+        "missed recognition"
+      ]
+    },
+    {
+      "id": "en-003",
+      "problems": [
+        "wrong shifts"
+      ]
+    },
+    {
+      "id": "en-005",
+      "problems": [
+        "missed start_date"
+      ]
+    },
+    {
+      "id": "en-006",
+      "problems": [
+        "false occupation"
+      ]
+    },
+    {
+      "id": "en-007",
+      "problems": [
+        "wrong german_level"
+      ]
+    },
+    {
+      "id": "en-009",
+      "problems": [
+        "missed experience_years"
+      ]
+    },
+    {
+      "id": "en-016",
+      "problems": [
+        "health not redacted"
+      ]
+    }
+  ],
+  "set": "messages-v1",
+  "status": "heldout"
+}

@@ -1,0 +1,110 @@
+/*
+ * Design tokens. Every colour, size and duration in the app comes from here.
+ *
+ * The palette is taken from the trades the product serves: workwear blue for the brand and
+ * actions, high-visibility yellow only where a recruiter has to act (and as the highlighter that
+ * marks evidence in a chat), a cool site-office paper for surfaces. Verdict colours are paired
+ * with a pattern (solid, hatched, outline) so they never depend on colour alone.
+ * Contrast: ink on paper 14.9:1, muted on paper 5.6:1, blue on paper 8.1:1, fit/near on paper > 4.5:1.
+ */
+:root {
+  --c-paper: #f3f5f4;
+  --c-surface: #ffffff;
+  --c-sunken: #e8ecea;
+  --c-ink: #13212b;
+  --c-muted: #4e5d66;
+  --c-line: #d3dad8;
+  --c-blue: #1d4e89;
+  --c-blue-ink: #ffffff;
+  --c-blue-soft: #dfe8f3;
+  --c-signal: #f2c230;
+  --c-signal-ink: #13212b;
+  --c-highlight: rgb(242 194 48 / 0.55);
+  --c-fit: #1f7a5a;
+  --c-near: #9a5a0c;
+  --c-no: #6b7780;
+  --c-danger: #b3261e;
+  --c-danger-soft: #fbe9e7;
+  --c-bubble-in: #ffffff;
+  --c-bubble-out: #dfe8f3;
+  --c-focus: #1d4e89;
+
+  --font-display: "Barlow Semi Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* type scale: 1.2 ratio from 16px */
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.2rem;
+  --fs-xl: 1.44rem;
+  --fs-2xl: 1.728rem;
+  --fs-3xl: 2.488rem;
+  --lh-tight: 1.15;
+  --lh-body: 1.5;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-bubble: 14px;
+  --border: 1px solid var(--c-line);
+  --rule-strong: 3px;
+  --shadow-raised: 0 1px 0 var(--c-line), 0 6px 18px -12px rgb(19 33 43 / 0.35);
+
+  --w-list: 23rem;
+  --w-phone: 25rem;
+  --w-measure: 68ch;
+  --h-bar: 3.5rem;
+  --tap: 2.75rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --c-paper: #0f1a21;
+    --c-surface: #16232c;
+    --c-sunken: #0b141a;
+    --c-ink: #e6ecea;
+    --c-muted: #a5b2b9;
+    --c-line: #2a3a44;
+    --c-blue: #8fb4e6;
+    --c-blue-ink: #0f1a21;
+    --c-blue-soft: #1d3046;
+    --c-highlight: rgb(242 194 48 / 0.38);
+    --c-fit: #5cc39b;
+    --c-near: #e3a44e;
+    --c-no: #93a1aa;
+    --c-danger: #ff8a80;
+    --c-danger-soft: #3a1d1b;
+    --c-bubble-in: #16232c;
+    --c-bubble-out: #1d3046;
+    --c-focus: #f2c230;
+    --shadow-raised: 0 1px 0 var(--c-line), 0 6px 18px -12px rgb(0 0 0 / 0.6);
+  }
+}
+:root[data-theme="dark"] {
+  --c-paper: #0f1a21;
+  --c-surface: #16232c;
+  --c-sunken: #0b141a;
+  --c-ink: #e6ecea;
+  --c-muted: #a5b2b9;
+  --c-line: #2a3a44;
+  --c-blue: #8fb4e6;
+  --c-blue-ink: #0f1a21;
+  --c-blue-soft: #1d3046;
+  --c-highlight: rgb(242 194 48 / 0.38);
+  --c-fit: #5cc39b;
+  --c-near: #e3a44e;
+  --c-no: #93a1aa;
+  --c-danger: #ff8a80;
+  --c-danger-soft: #3a1d1b;
+  --c-bubble-in: #16232c;
+  --c-bubble-out: #1d3046;
+  --c-focus: #f2c230;
+}

@@ -1,0 +1,27 @@
+@import "@fontsource/barlow-semi-condensed/500.css";
+@import "@fontsource/barlow-semi-condensed/600.css";
+@import "@fontsource/barlow-semi-condensed/700.css";
+@import "@fontsource/atkinson-hyperlegible/400.css";
+@import "@fontsource/atkinson-hyperlegible/700.css";
+@import "./tokens.css";
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--c-paper);
+  color: var(--c-ink);
+  font: var(--fs-md) / var(--lh-body) var(--font-body);
+}
+h1, h2, h3 { font-family: var(--font-display); line-height: var(--lh-tight); margin: 0; letter-spacing: 0.005em; }
+h1 { font-size: var(--fs-2xl); font-weight: 700; }
+h2 { font-size: var(--fs-xl); font-weight: 600; }
+h3 { font-size: var(--fs-lg); font-weight: 600; }
+p { margin: 0; }
+button, input, textarea, select { font: inherit; color: inherit; }
+a { color: var(--c-blue); }
+:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 2px; border-radius: var(--radius-sm); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

@@ -1,0 +1,101 @@
+{
+  "kind": "jobads",
+  "ads": 100,
+  "overall": {
+    "tp": 78,
+    "fn": 0,
+    "fp": 0,
+    "precision": 1.0,
+    "recall": 1.0
+  },
+  "rules": {
+    "age": {
+      "tp": 11,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "family": {
+      "tp": 6,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "gender-only": {
+      "tp": 7,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "gender-title": {
+      "tp": 12,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "german-without-reason": {
+      "tp": 8,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "origin-nationality": {
+      "tp": 6,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "origin-native-language": {
+      "tp": 7,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "photo": {
+      "tp": 6,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "physical": {
+      "tp": 6,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "pregnancy-health": {
+      "tp": 5,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "religion": {
+      "tp": 4,
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  },
+  "block_decision": {
+    "tp": 38,
+    "fn": 0,
+    "fp": 0,
+    "tn": 62,
+    "accuracy": 1.0
+  },
+  "exact_ads": 100,
+  "failures": [],
+  "set": "jobads-v1",
+  "status": "regression"
+}

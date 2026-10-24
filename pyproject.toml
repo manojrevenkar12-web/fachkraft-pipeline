@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fachkraft-pipeline"
+version = "0.1.0"
+description = "WhatsApp-first hiring for skilled workers: qualification from free text in eight languages, explainable matching, rule-aware follow-ups and ATS hand-over."
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "psycopg[binary]>=3.2",
+  "psycopg-pool>=3.2",
+  "pydantic>=2.8",
+  "pyyaml>=6.0",
+  "typer>=0.12",
+  "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+llm = ["anthropic>=0.40"]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.11", "types-PyYAML"]
+
+[project.scripts]
+fkp = "fkp.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/fkp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["db: needs PostgreSQL (FKP_TEST_DATABASE_URL)"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 130
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S", "SIM", "RUF"]
+ignore = ["S101", "RUF001", "RUF002", "RUF003"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S105", "S106", "S311"]
+"src/fkp/cli.py" = ["B008"]
+"src/fkp/sim/**" = ["S311"]
+"scripts/**" = ["S", "E501"]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+files = ["src/fkp"]

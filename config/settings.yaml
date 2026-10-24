@@ -1,0 +1,54 @@
+company: "Werkstatt & Pflege GmbH (Demo)"
+privacy_url: "https://jobs.example/datenschutz"
+timezone: Europe/Berlin
+
+conversation:
+  max_questions: 7            # targeted questions after the open question, before the summary
+  summary_after_complete: true
+  recruiter_reply_business_days: 1
+  fields_always: [occupation, location, start_date]
+  fields_for_handover: [full_name, email]   # Personio needs both; asked only once a job fits
+
+followups:
+  schedule_hours: [20, 72, 168]   # after the last unanswered question
+  max_reminders: 3
+  quiet_hours: {start: "20:00", end: "08:00"}
+  no_sundays: true
+  no_public_holidays: true
+  state: BE                       # public holidays of this state on top of the national ones
+
+retention:
+  rejected_months: 6              # delete profile and conversation this long after the last activity
+  talent_pool_months: 6           # only with a separate yes to the talent pool
+  pre_consent_hours: 72           # messages from people who never consented
+
+whatsapp:
+  graph_version: v21.0
+  window_hours: 24
+  # Germany, USD per delivered message; free-form service messages inside the window are free
+  # up to the monthly allowance (rates from Meta's rate card, check before relying on them)
+  prices_usd: {marketing: 0.1365, utility: 0.0550, authentication: 0.0550, service: 0.0}
+  service_free_per_month: 1000
+  templates:
+    reminder:            # must stay a pure utility message: no offers, no persuasion
+      category: utility
+      name: application_missing_info
+      params: [company, missing]
+    pool_match:
+      category: marketing
+      name: talent_pool_new_job
+      params: [job]
+
+matching:
+  weights: {distance: 0.35, experience: 0.25, shifts: 0.2, start: 0.2}
+  max_start_delay_days: 90
+  start_grace_days: 31          # starting up to a month after the wished date is a near match
+  # fields matching may read; everything else in a profile (name, phone, conversation language,
+  # email) is invisible to it, so it cannot depend on them
+  feature_allowlist: [occupation, qualification, recognition, licences, location, commute_km, shifts, start_date, german_level, experience_years, employment]
+  fixable_gaps: [code95, forklift, adr, recognition_in_progress, recognition_not_started]
+
+agg:
+  # a job may require a German level only with a stated reason (customer contact, safety
+  # instructions, documentation); without one the level is not used to filter
+  require_justification_for: [german_level]
